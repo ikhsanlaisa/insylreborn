@@ -1,0 +1,7 @@
+.bg-body{
+  background-image: url(../../login/images/bg-03.jpg) !important;
+  /* background-color: #000 !important; */
+  background-position: bottom !important;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
