@@ -11,4 +11,9 @@ class Diklat extends Model
     protected $fillable = [
         'kode', 'nama'
     ];
+
+    public function subdiklat()
+    {
+        return $this->hasMany(SubDiklat::class,'id_diklat','id');
+    }
 }

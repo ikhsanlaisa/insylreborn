@@ -19,6 +19,10 @@ class CreateTableLayananPengaduan extends Migration
             $table->timestamps();
         });
 
+        \App\Models\LayananPengaduan::insert([
+            'jenis' => 'Pengaduan Akademik'
+        ]);
+
     }
 
     /**

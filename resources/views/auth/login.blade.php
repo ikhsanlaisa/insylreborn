@@ -1,71 +1,81 @@
-@extends('layouts.app')
+@extends('layouts.main-login')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+    <div class="container-login100 bg-body">
+        <div class="wrap-login100 fadeIn animated">
+            <div class="login100-form-title"
+                 style="background-image: url({{ asset('login/images/bg-02.jpg') }});background-position:center !important;">
+					<span class="login100-form-title-1">
+						<style media="screen">
+							/* .crop{
+								height:100px !important;
+								overflow: hidden !important;
+								margin-bottom: 0 !important;
+							}
+							.crop img{
+								display: block !important;
+								height: 100% !important;
+								margin-bottom: -80% !important;
+							} */
+                            figure {
+                                width: 90px; /*container-width*/
+                                overflow: hidden; /*hide bounds of image */
+                                margin-bottom: 0 !important; /*reset margin of figure tag*/
+                                background-position: top;
+                            }
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="username" class="col-sm-4 col-form-label text-md-right">{{ __('Username') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
-
-                                @if ($errors->has('username'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('username') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                            figure img {
+                                display: block; /*remove inline-block spaces*/
+                                width: 100%; /*make image streatch*/
+                                margin-bottom: -20% !important;
+                            }
+						</style>
+						<center>
+							<figure>
+								<img src="{{ asset('css/login/images/logo-01.png') }}" class="crop" alt="logo bppip">
+							</figure>
+						</center>
+						<h4>BP2IP BAROMBONG</h4>
+					</span>
             </div>
+
+            <style media="screen">
+                .lgn-btn {
+                    background-color: #3c8dbc;
+                }
+
+                .lgn-btn:hover {
+                    background-color: #275b7a;
+                    /* color: #3c8dbc; */
+                }
+
+                .input-style:focus {
+                    color: #000;
+                }
+            </style>
+            <form class="login100-form validate-form" method="post" action="{{ route('login') }}">
+                @csrf
+                <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+                    <span class="label-input100">Username</span>
+                    <input class="input100" type="text" name="username" placeholder="Masukkan username">
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-18" data-validate="Password is required">
+                    <span class="label-input100">Password</span>
+                    <input class="input100 input-style" type="password" name="password" placeholder="Masukkan password">
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="flex-sb-m w-full p-b-30">
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <button type="submit" name="masuk" class="login100-form-btn lgn-btn">
+                        Login
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
-</div>
 @endsection

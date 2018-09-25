@@ -6,9 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubDiklat extends Model
 {
-    protected $table = 'sub_diklat';
+    protected $table = 'subdiklat';
 
     protected $fillable = [
-        'diklat_id', 'kode', 'nama'
+        'id_diklat', 'kode', 'nama'
     ];
+
+    public function diklat()
+    {
+        return $this->belongsTo(Diklat::class,'id_diklat','id');
+    }
+
+    public function angkatan()
+    {
+        return $this->hasMany(Angkatan::class,'id_subdiklat','id');
+    }
 }

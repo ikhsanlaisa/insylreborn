@@ -43,6 +43,16 @@ class LoginController extends Controller
         return 'username';
     }
 
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
+
 
     /**
      * Get the needed authorization credentials from the request.

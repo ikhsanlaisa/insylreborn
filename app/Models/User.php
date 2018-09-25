@@ -32,4 +32,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Admin::class, 'id_user', 'id');
     }
+
+    public function siswa()
+    {
+        return $this->hasOne(Siswa::class,'id_user','id');
+    }
 }

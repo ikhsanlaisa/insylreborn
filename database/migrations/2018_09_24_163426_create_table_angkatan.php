@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableBerita extends Migration
+class CreateTableAngkatan extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,19 @@ class CreateTableBerita extends Migration
      */
     public function up()
     {
-        Schema::create('berita', function (Blueprint $table) {
+        Schema::create('angkatan', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('id_admin');
-            $table->string('judul');
-            $table->string('isi');
-            $table->string('foto');
+            $table->unsignedInteger('id_subdiklat');
+            $table->string('kode');
             $table->timestamps();
 
-            $table->foreign('id_admin')->references('id')->on('admin');
+            $table->foreign('id_subdiklat')->references('id')->on('subdiklat');
         });
+
+        \App\Models\Angkatan::insert([
+            'id_subdiklat' => 1,
+            'kode' => 'NAA1'
+        ]);
     }
 
     /**
@@ -32,6 +35,6 @@ class CreateTableBerita extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('berita');
+        Schema::dropIfExists('angkatan');
     }
 }

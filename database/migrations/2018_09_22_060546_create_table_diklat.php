@@ -19,6 +19,11 @@ class CreateTableDiklat extends Migration
             $table->string('nama');
             $table->timestamps();
         });
+
+        \App\Models\Diklat::insert([
+            'kode' => 'NAAXX',
+            'nama' => 'Diklat X'
+        ]);
     }
 
     /**

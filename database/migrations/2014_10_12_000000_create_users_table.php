@@ -25,10 +25,18 @@ class CreateUsersTable extends Migration
         });
 
         User::insert([
-            'username' => 'admin',
-            'password' =>  bcrypt('admin'),
-            'status' => 'aktif',
-            'created_at' => \Carbon\Carbon::now()
+            [
+                'username' => 'admin',
+                'password' => bcrypt('admin'),
+                'status' => 'aktif',
+                'created_at' => \Carbon\Carbon::now()
+            ],
+            [
+                'username' => 'alifjafar',
+                'password' => bcrypt('alifjafar'),
+                'status' => 'aktif',
+                'created_at' => \Carbon\Carbon::now()
+            ]
         ]);
     }
 

@@ -16,4 +16,9 @@ class LayananPengaduan extends Model
     {
       return $this->hasOne(Admin::class,'id_layanan','id');
     }
+
+    public function pengaduan()
+    {
+        return $this->hasMany(Pengaduan::class,'id_jenis','id');
+    }
 }
