@@ -89,6 +89,8 @@
 <script src="{{ asset('bower_components/ckeditor/ckeditor.js') }}"></script>
 <!-- Bootstrap WYSIHTML5 -->
 <script src="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
+
+@stack('js')
 <!-- end javascript footer -->
 </body>
 </html>

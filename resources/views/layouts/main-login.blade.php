@@ -35,7 +35,7 @@
     <!--===============================================================================================-->
     <style media="screen">
         .bg-body{
-            background-image: url({{ asset('/css/login/images/bg-03.jpg') }}) !important;
+            background-image: url('{{ asset('/css/login/images/bg-03.jpg') }}') !important;
             /* background-color: #000 !important; */
             background-position: bottom !important;
             background-repeat: no-repeat;

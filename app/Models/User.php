@@ -37,4 +37,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(Siswa::class,'id_user','id');
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'aktif');
+    }
+
 }

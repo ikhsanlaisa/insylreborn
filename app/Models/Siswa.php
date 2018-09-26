@@ -9,7 +9,7 @@ class Siswa extends Model
     protected $table = 'siswa';
 
     protected $fillable = [
-        'id_kelas', 'id_user', 'nit', 'nama', 'kontak', 'alamat', 'tanggal_lahir'
+        'id_kelas', 'id_user', 'nit', 'nama', 'gender','kontak', 'alamat', 'tanggal_lahir'
     ];
 
 

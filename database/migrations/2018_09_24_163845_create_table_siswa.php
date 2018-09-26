@@ -19,6 +19,7 @@ class CreateTableSiswa extends Migration
             $table->unsignedInteger('id_user');
             $table->string('nit');
             $table->string('nama');
+            $table->enum('gender', ['L','P'])->nullable();
             $table->string('kontak')->nullable();
             $table->string('alamat')->nullable();
             $table->date('tanggal_lahir')->nullable();
@@ -33,6 +34,7 @@ class CreateTableSiswa extends Migration
             'id_user' => 2,
             'nit' => 'B24231',
             'nama' => 'Alif Jafar',
+            'gender' => 'L',
             'kontak' => '081894832812',
             'alamat' => 'radio'
         ]);
