@@ -41,7 +41,7 @@
                     <li><a href="#"><i class="fa fa-circle-o"></i>Hasil Survey</a></li>
                 </ul>
             </li>
-            <li ><a href="#"><i class="fa fa-newspaper-o"></i> <span>Berita</span></a></li>
+            <li ><a href="{{ route('news.index') }}"><i class="fa fa-newspaper-o"></i> <span>Berita</span></a></li>
             <li ><a href="#"><i class="fa fa-exclamation-circle"></i> <span>Pengaduan</span></a></li>
             <!-- <li class="treeview">
               <a href="#">

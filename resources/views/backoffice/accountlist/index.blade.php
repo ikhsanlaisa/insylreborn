@@ -51,7 +51,8 @@
                                         <td>{{ $item->username }}</td>
                                         <td>
                                             <center>
-                                                <a href="#" data-toggle="modal" data-target="#editakun" data-user="{{ $item }}" title="edit"
+                                                <a href="#" data-toggle="modal" data-target="#editakun"
+                                                   data-user="{{ $item }}" title="edit"
                                                    class="btn btn-xs btn-in-o btn-round"><i class="fa fa-edit"></i> </a>
                                                 <a href="#" title="hapus" class="btn btn-xs btn-dg-o btn-round"><i
                                                         class="fa fa-close" style="margin:1px !important;"></i></a>
@@ -92,6 +93,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" class="form-control" value="" disabled>
+                    </div>
+                    <hr>
+                    <div class="form-group">
                         <label for="nit">NIT</label>
                         <input type="text" name="nit" id="nit" class="form-control" value="">
                     </div>
@@ -105,6 +111,14 @@
                             <option value="L">Laki - Laki</option>
                             <option value="P">Perempuan</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="kontak">Kontak</label>
+                        <input type="number" name="kontak" id="kontak" class="form-control" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="tgl_lahir">Kontak</label>
+                        <input type="number" name="tgl_lahir" id="tgl_lahir" class="form-control" value="">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -150,7 +164,14 @@
             $('#nama').val(dataUser['siswa']['nama']);
             $('#username').val(dataUser['username']);
 
-            let gender = dataUser['siswa']['gender'] == 'L' ? true : false;
+            let isMen = dataUser['siswa']['gender'] == 'L' ? true : false;
+            if (isMen) {
+                $('#gender > [value="L"]').attr("selected", "true");
+            } else {
+                $('#gender > [value="P"]').attr("selected", "true");
+            }
+
+            $('#kontak').val(dataUser['siswa']['kontak']);
         });
     </script>
 @endpush

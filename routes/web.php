@@ -13,6 +13,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
     Route::resource('users', 'UserController');
+    Route::resource('news', 'BeritaController');
 
 });
 
