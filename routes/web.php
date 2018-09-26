@@ -14,5 +14,5 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::get('/', function () {
-    return redirect('/dashboard');
+    return redirect('/home');
 });

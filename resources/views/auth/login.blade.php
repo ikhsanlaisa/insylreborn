@@ -4,7 +4,7 @@
     <div class="container-login100 bg-body">
         <div class="wrap-login100 fadeIn animated">
             <div class="login100-form-title"
-                 style="background-image: url({{ asset('login/images/bg-02.jpg') }});background-position:center !important;">
+                 style="background-image: url({{ asset('css/login/images/bg-02.jpg') }});background-position:center !important;">
 					<span class="login100-form-title-1">
 						<style media="screen">
 							/* .crop{
