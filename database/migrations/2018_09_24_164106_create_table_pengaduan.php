@@ -17,7 +17,7 @@ class CreateTablePengaduan extends Migration
             $table->increments('id');
             $table->unsignedInteger('id_siswa');
             $table->unsignedInteger('id_jenis');
-            $table->string('isi');
+            $table->longText('isi');
             $table->string('foto')->nullable();
             $table->string('hasil')->nullable();
             $table->timestamps();
