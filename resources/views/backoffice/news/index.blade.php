@@ -74,9 +74,9 @@
                                     <!-- <td>nurwahidahcyankpapamamaclalu</td> -->
                                     <td>
                                         <center>
-                                            <a href="#" data-toggle="modal" data-target="#editakun" title="edit"
-                                               class="btn btn-xs btn-in-o btn-round"><i class="fa fa-edit"></i> </a>
-                                            <a href="#" onclick="deleteNews('{{ $item->id }}','{{ $item->judul }}')" title="hapus" class="btn btn-xs btn-dg-o btn-round"><i
+                                            <a href="{{ route('news.edit', $item->id) }}" class="btn btn-xs btn-in-o btn-round"><i class="fa fa-edit"></i> </a>
+                                            <a href="#" onclick="deleteNews('{{ $item->id }}','{{ $item->judul }}')"
+                                               title="hapus" class="btn btn-xs btn-dg-o btn-round"><i
                                                     class="fa fa-close" style="margin:1px !important;"></i></a>
                                         </center>
                                     </td>
@@ -91,10 +91,6 @@
                     <span class="close">&times;</span>
                     <img class="modal-content" id="img">
                     <div id="caption"></div>
-                </div>
-                <!-- /.box-body -->
-                <div class="box-footer">
-                    Footer
                 </div>
                 <!-- /.box-footer-->
             </div>
@@ -136,6 +132,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
         function showImg(element, i) {
             // Get the modal
             let modal = document.getElementById('myModal');
@@ -157,7 +154,7 @@
             }
 
         }
-        
+
         function deleteNews(beritaId, beritaName) {
             swal({
                 title: "Apa anda yakin?",
@@ -167,7 +164,7 @@
                 dangerMode: true,
 
             }).then((willDelete => {
-                if(willDelete){
+                if (willDelete) {
                     let theUrl = "{{ route('news.destroy', ':beritaId') }}";
                     theUrl = theUrl.replace(":beritaId", beritaId);
 
@@ -177,9 +174,12 @@
                         type: 'POST',
                         url: theUrl,
                         data: {_method: "delete"},
-                        success: function () {
+                    }).done(function (response) {
+                        swal("Deleted!", "Berita berhasil di delete!", "success").then((value => {
                             window.location.href = redirectUrl;
-                        }
+                        }));
+                    }).error(function (response) {
+                        swal("Oops", "We couldn't connect to the server!", "error");
                     });
                 }
             }));

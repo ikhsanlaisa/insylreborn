@@ -1,6 +1,6 @@
 <header class="main-header">
     <!-- Logo -->
-    <a href="../../index2.html" class="logo">
+    <a href="{{ route('home') }}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>B</b>RB</span>
         <!-- logo for regular state and mobile devices -->
@@ -113,7 +113,7 @@
                             <img src="{{ asset('img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
 
                             <p>
-                                {{ Auth::user()->admin->nama }}
+                                {{Auth::user()->admin ? Auth::user()->admin->nama : Auth::user()->siswa->nama  }}
                                 <small>Member since Nov. 2012</small>
                             </p>
                         </li>

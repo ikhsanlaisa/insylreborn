@@ -8,7 +8,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Postingan Berita Baru
+                Edit Berita
                 <small>BP2IP Barombong</small>
             </h1>
         </section>
@@ -26,8 +26,9 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <form id="form" enctype="multipart/form-data" method="post" action="{{ route('news.store') }}">
+                    <form id="form" enctype="multipart/form-data" method="post" action="{{ route('news.update', $berita->id) }}">
                         @csrf
+                        @method('put')
                         @if($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
@@ -37,19 +38,19 @@
                                 </ul>
                             </div>
                         @endif
-                        <input type="hidden" name="id_admin" value="{{ Auth::user()->admin->id }}">
+                        <input type="hidden" name="id_admin" value="{{ $berita->id_admin }}">
                         <div class="form-group">
                             <input type="text" class="form-control" name="judul" placeholder="MASUKKAN JUDUL DISINI"
-                                   value="{{ old('judul') }}" required>
+                                   value="{{ $berita->judul }}" required>
                         </div>
                         <div class="form-group">
                             <input type="file" accept="image/*" class="form-control" id="foto" name="foto"
-                                   placeholder="Masukkan Foto" required>
+                                   placeholder="Masukkan Foto">
                         </div>
                         <div class="box-body pad">
                             <form>
                     <textarea id="isi" name="isi" rows="10" cols="80">
-                        {{ old('isi') }}
+                        {{ $berita->isi }}
                     </textarea>
                                 <style>
                                     .custom-btn {
@@ -100,6 +101,10 @@
             //bootstrap WYSIHTML5 - text editor
             $(".textarea").wysihtml5();
         });
+
+        @if(Session::has('success'))
+        swal("Berhasil !", '{{ Session::get('success') }}', "success");
+        @endif
     </script>
 @endpush
 

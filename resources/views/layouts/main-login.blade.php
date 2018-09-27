@@ -56,9 +56,13 @@
 <!--===============================================================================================-->
 <script src="{{ asset('css/login/vendor/bootstrap/js/popper.js') }}"></script>
 <script src="{{ asset('css/login/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<!-- Sweet alert -->
+<script src="{{ asset('plugins/sweetalert/sweetalert.min.js') }}"></script>
 <!--===============================================================================================-->
 <script src="{{ asset('css/login/vendor/daterangepicker/moment.min.js') }}"></script>
 <!--===============================================================================================-->
 <script src="{{ asset('css/login/js/main.js') }}"></script>
+
+@stack('js')
 </body>
 </html>

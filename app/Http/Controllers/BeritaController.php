@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Auth;
 
 class BeritaController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('superadmin');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -46,22 +53,26 @@ class BeritaController extends Controller
         $rawNews = $request->all();
 
         $rawNews['tanggal'] = Carbon::now();
-
-        //Foto
-        $image = $request->file('foto');
-        $fileName = uniqid() . $image->getClientOriginalName();
-        $path = 'uploads/news/';
-
-        Storage::disk('public')->putFileAs($path, $image, $fileName);
-
-        $rawNews['foto'] = $path . $fileName;
-
+        $image = $this->uploadFoto($request->file('foto'));
+        $rawNews['foto'] = $image;
 
         Berita::create($rawNews);
 
         Session::flash('success', 'Kamu Berhasil Menambahkan Berita');
 
-        return view('backoffice.news.index');
+        return redirect(route('news.index'));
+    }
+
+    private function uploadFoto($img)
+    {
+        $fileName = uniqid() . $img->getClientOriginalName();
+        $path = 'uploads/news/';
+
+        $fullPath = $path . $fileName;
+
+        Storage::disk('public')->putFileAs($path, $img, $fileName);
+
+        return $fullPath;
     }
 
     /**
@@ -81,9 +92,11 @@ class BeritaController extends Controller
      * @param  \App\Models\Berita $berita
      * @return \Illuminate\Http\Response
      */
-    public function edit(Berita $berita)
+    public function edit(Berita $news)
     {
-        //
+        return view('backoffice.news.edit', [
+            'berita' => $news
+        ]);
     }
 
     /**
@@ -93,9 +106,24 @@ class BeritaController extends Controller
      * @param  \App\Models\Berita $berita
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Berita $berita)
+    public function update(News $request, Berita $news)
     {
-        //
+        $rawNews = $request->all();
+
+        if ($request->hasFile('foto')){
+            $image = $this->uploadFoto($request->file('foto'));
+            $rawNews['foto'] = $image;
+
+            //Delete Foto Lama
+            Storage::disk('public')->delete($news['foto']);
+        }
+
+        $news->update($rawNews);
+
+
+        Session::flash('success', 'Kamu Berhasil Memperbarui Berita');
+
+        return redirect()->back();
     }
 
     /**
@@ -112,6 +140,6 @@ class BeritaController extends Controller
 
         $berita->delete();
 
-        return response('success',204);
+        return response('success', 204);
     }
 }

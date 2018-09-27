@@ -43,4 +43,8 @@ class User extends Authenticatable
         return $query->where('status', 'aktif');
     }
 
+    public function isSuperAdmin(){
+        return $this->admin && $this['admin']['tipe']->tipe == 'Super Admin';
+    }
+
 }

@@ -79,3 +79,11 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    @if($errors->any())
+        <script>
+            swal('Oops !', 'Akun yang anda masukan salah atau Sudah tidak aktif', 'error')
+        </script>
+    @endif
+@endpush

@@ -8,7 +8,9 @@
                 <img src="{{ asset('img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>{{ Auth::user()->admin->nama }}</p>
+                <p>
+                    {{Auth::user()->admin ? Auth::user()->admin->nama : Auth::user()->siswa->nama  }}
+                </p>
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
@@ -26,8 +28,10 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
-            <li ><a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-            <li ><a href="#><i class="fa fa-users"></i> <span>Data Akun</span></a></li>
+            <li class="{{ set_active('home') }}"><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+            </li>
+            <li class="{{ set_active('users.index') }}"><a href="{{ route('users.index') }}"><i class="fa fa-users"></i>
+                    <span>Data Akun</span></a></li>
             <li class="treeview ">
                 <a href="#">
                     <i class="fa fa-search"></i> <span>Survey</span>
@@ -36,13 +40,16 @@
           </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li ><a href="#"><i class="fa fa-circle-o"></i>Data Survey</a></li>
-                    <li ><a href="#"><i class="fa fa-circle-o"></i>Survey Submission</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Data Survey</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i>Survey Submission</a></li>
                     <li><a href="#"><i class="fa fa-circle-o"></i>Hasil Survey</a></li>
                 </ul>
             </li>
-            <li ><a href="{{ route('news.index') }}"><i class="fa fa-newspaper-o"></i> <span>Berita</span></a></li>
-            <li ><a href="#"><i class="fa fa-exclamation-circle"></i> <span>Pengaduan</span></a></li>
+            @if(Auth::user()->isSuperAdmin())
+                <li class="{{ set_active(['news.index', 'news.create', 'news.edit']) }}"><a
+                        href="{{ route('news.index') }}"><i class="fa fa-newspaper-o"></i> <span>Berita</span></a></li>
+            @endif
+            <li><a href="#"><i class="fa fa-exclamation-circle"></i> <span>Pengaduan</span></a></li>
             <!-- <li class="treeview">
               <a href="#">
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>

@@ -1,7 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: alifjafar
- * Date: 26/09/18
- * Time: 10:50
- */
+function set_active($uri,$output = "active")
+{
+    if( is_array($uri) ) {
+        foreach ($uri as $u) {
+            if (Route::is($u)) {
+                return $output;
+            }
+        }
+    }
+    else {
+        if (Route::is($uri)){
+            return $output;
+        }
+    }
+}
+?>

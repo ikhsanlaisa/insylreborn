@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Login;
+use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -53,6 +54,32 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
+    public function login(Login $request)
+    {
+        $validated = $request->validated();
+
+        $check = User::where('username', $validated['username'])->first();
+
+        if ((!$validated) || ($check['status'] !== 'aktif')){
+            return redirect()->route('login.index')->withErrors(['msg','Input tidak sesuai']);
+        }
+        // If the class is using the ThrottlesLogins trait, we can automatically throttle
+        // the login attempts for this application. We'll key this by the username and
+        // the IP address of the client making these requests into this application.
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+            return $this->sendLockoutResponse($request);
+        }
+        if ($this->attemptLogin($request)) {
+            return $this->sendLoginResponse($request);
+        }
+        // If the login attempt was unsuccessful we will increment the number of attempts
+        // to login and redirect the user back to the login form. Of course, when this
+        // user surpasses their maximum number of attempts they will get locked out.
+        $this->incrementLoginAttempts($request);
+        return $this->sendFailedLoginResponse($request);
+    }
+
 
     /**
      * Get the needed authorization credentials from the request.
@@ -60,7 +87,7 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    protected function credentials(Request $request)
+    protected function credentials(Login $request)
     {
         $field = $request->get($this->username())
             ? $this->username()
