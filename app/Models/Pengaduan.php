@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Pengaduan extends Model
@@ -30,5 +31,10 @@ class Pengaduan extends Model
     public function layanan()
     {
         return $this->belongsTo(LayananPengaduan::class,'id_jenis','id');
+    }
+
+    public function getCreatedAtAttribute()
+    {
+        return Carbon::parse($this->attributes['created_at'])->format('d, M Y H:i');
     }
 }

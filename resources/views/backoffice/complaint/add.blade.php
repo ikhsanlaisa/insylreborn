@@ -40,16 +40,28 @@
                                         </ul>
                                     </div>
                                 @endif
-                                <input type="hidden" name="id_siswa" value="{{ Auth::user()->siswa->id }}">
 
-                                <div class="form-group">
-                                    <span>Nama Pelapor : </span>
-                                    <label>{{ Auth::user()->siswa->nama }}</label>
-                                </div>
-                                <div class="form-group">
-                                    <span>Kelas : </span>
-                                    <label>{{ Auth::user()->siswa->kelas->kode }}</label>
-                                </div>
+                                @if(!Auth::user()->admin)
+                                    <input type="hidden" name="id_siswa" value="{{ Auth::user()->siswa->id }}">
+
+                                    <div class="form-group">
+                                        <span>Nama Pelapor : </span>
+                                        <label>{{ Auth::user()->siswa->nama }}</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <span>Kelas : </span>
+                                        <label>{{ Auth::user()->siswa->kelas->kode }}</label>
+                                    </div>
+                                @else
+                                    <div class="form-group">
+                                        <label for="userlist">Siswa Pelapor</label>
+                                        <select name="id_siswa" id="userlist" class="form-control select2">
+
+                                        </select>
+                                    </div>
+                                @endif
+
+
                                 <div class="form-group">
                                     <label for="layanan">Jenis Layanan</label>
                                     <select name="id_jenis" id="layanan" class="form-control">
@@ -107,5 +119,36 @@
 @endsection
 
 @push('js')
+
+    @if(Auth::user()->admin)
+        <script>
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $(function () {
+                $('.select2').select2();
+            });
+
+            $.ajax({
+                type: 'GET',
+                url: '/siswas',
+                success: function (data) {
+                    $.each(data.data, function (index, value) {
+                        console.log(value);
+                        $('#userlist').append(
+                            '<option value="' + value['id'] + '">' + value['nama'] + ' [' + value['nit'] + '] ' + '</option>'
+                        )
+
+                    });
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+        </script>
+    @endif
 @endpush
 

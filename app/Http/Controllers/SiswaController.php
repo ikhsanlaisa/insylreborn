@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SiswaResource;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
-
+use Auth;
 class SiswaController extends Controller
 {
     /**
@@ -14,7 +15,13 @@ class SiswaController extends Controller
      */
     public function index()
     {
+        if(Auth::user()->admin){
+            $siswa = Siswa::all();
 
+            return SiswaResource::collection($siswa);
+        }
+
+        return abort(404);
     }
 
     /**

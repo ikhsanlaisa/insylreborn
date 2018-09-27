@@ -74,7 +74,8 @@
                                     <!-- <td>nurwahidahcyankpapamamaclalu</td> -->
                                     <td>
                                         <center>
-                                            <a href="{{ route('news.edit', $item->id) }}" class="btn btn-xs btn-in-o btn-round"><i class="fa fa-edit"></i> </a>
+                                            <a href="{{ route('news.edit', $item->id) }}"
+                                               class="btn btn-xs btn-in-o btn-round"><i class="fa fa-edit"></i> </a>
                                             <a href="#" onclick="deleteNews('{{ $item->id }}','{{ $item->judul }}')"
                                                title="hapus" class="btn btn-xs btn-dg-o btn-round"><i
                                                     class="fa fa-close" style="margin:1px !important;"></i></a>
@@ -174,12 +175,15 @@
                         type: 'POST',
                         url: theUrl,
                         data: {_method: "delete"},
-                    }).done(function (response) {
-                        swal("Deleted!", "Berita berhasil di delete!", "success").then((value => {
-                            window.location.href = redirectUrl;
-                        }));
-                    }).error(function (response) {
-                        swal("Oops", "We couldn't connect to the server!", "error");
+
+                        success: function (data) {
+                            swal("Deleted!", "Berita berhasil di delete!", "success").then((data => {
+                                window.location.href = redirectUrl;
+                            }));
+                        },
+                        error: function (data) {
+                            swal("Oops", "We couldn't connect to the server!", "error");
+                        }
                     });
                 }
             }));

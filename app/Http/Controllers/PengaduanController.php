@@ -21,7 +21,7 @@ class PengaduanController extends Controller
     public function index()
     {
 
-        $pengaduan = Pengaduan::all();
+        $pengaduan = Pengaduan::with(['layanan'])->get();
         return view('backoffice.complaint.index', compact('pengaduan'));
     }
 
@@ -81,6 +81,21 @@ class PengaduanController extends Controller
         return $fullPath;
     }
 
+    public function onProcess(Request $request)
+    {
+        $pengaduan = Pengaduan::findOrFail($request['pengaduan_id']);
+
+        $timeline = new Timeline;
+        $timeline->fill([
+            'id_pengaduan' => $pengaduan['id'],
+            'id_status' => 2,
+            'waktu' => Carbon::now()->setTimezone('+07:00')
+        ])->save();
+
+        Session::flash('success', 'Sukses');
+        return response(200);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -98,7 +113,7 @@ class PengaduanController extends Controller
      * @param  \App\Models\Pengaduan $pengaduan
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pengaduan $complaints)
+    public function edit(Pengaduan $complaint)
     {
         //
     }
@@ -121,8 +136,10 @@ class PengaduanController extends Controller
      * @param  \App\Models\Pengaduan $pengaduan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pengaduan $complaints)
+    public function destroy(Pengaduan $complaint)
     {
-        //
+        $complaint->delete();
+
+        return response('success', 204);
     }
 }
