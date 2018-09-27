@@ -152,8 +152,6 @@
             let button = $(e.relatedTarget);
             let dataPengaduan = button.data('pengaduan');
 
-            console.log(dataPengaduan);
-
             $('#namaSiswa').text(dataPengaduan['siswa']['nama']);
             $('#tanggal').val(dataPengaduan['created_at']);
             $('#jenis').val(dataPengaduan['layanan']['jenis']);
@@ -167,16 +165,16 @@
                 $('#foto').text('Tidak ada');
             }
 
-            let status = dataPengaduan['timeline'][dataPengaduan['timeline'].length - 1]['status']['status'];
+            let status = dataPengaduan['timeline'][dataPengaduan['timeline'].length - 1]['status']['id'];
 
 
-            if (status == 'tersubmit') {
+            if (status == 1) {
 
                 $('#save').remove();
                 $('#mFooter').append(
                     '<button type="button" id="save" onclick="onProcess(\'' + dataPengaduan['id'] + '\')" class="btn btn-primary">Proses Sekarang</button>'
                 )
-            } else if (status == 'onprogress') {
+            } else if (status == 2) {
                 $('#save').remove();
                 $('#mFooter').append(
                     '<button type="button" id="save" onclick="result()" class="btn btn-primary">Selesai</button>'
@@ -188,7 +186,6 @@
 
         function onProcess(id) {
 
-            console.log(id);
             $.ajax({
                 type: 'POST',
                 url: '{{ route('complaints.proses') }}',

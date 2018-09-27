@@ -17,7 +17,7 @@ class CreateTableBerita extends Migration
             $table->increments('id');
             $table->unsignedInteger('id_admin');
             $table->string('judul');
-            $table->string('isi');
+            $table->longText('isi');
             $table->string('foto');
             $table->timestamps();
 
