@@ -49,7 +49,9 @@
                 <li class="{{ set_active(['news.index', 'news.create', 'news.edit']) }}"><a
                         href="{{ route('news.index') }}"><i class="fa fa-newspaper-o"></i> <span>Berita</span></a></li>
             @endif
-            <li><a href="#"><i class="fa fa-exclamation-circle"></i> <span>Pengaduan</span></a></li>
+            <li class="{{ set_active(['complaints.index', 'complaints.create', 'complaints.edit']) }}"><a
+                    href="{{ route('complaints.index') }}"><i
+                        class="fa fa-exclamation-circle"></i> <span>Pengaduan</span></a></li>
             <!-- <li class="treeview">
               <a href="#">
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>

@@ -14,6 +14,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('users', 'UserController');
     Route::resource('news', 'BeritaController');
+    Route::resource('complaints', 'PengaduanController');
+
 
 });
 

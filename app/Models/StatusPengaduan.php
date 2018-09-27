@@ -10,10 +10,10 @@ class StatusPengaduan extends Model
 
     protected $fillable = ['status'];
 
-//    public function timeline()
-//    {
-//        return $this->hasMany(Timeline::class,'id_status','id');
-//    }
+    public function timeline()
+    {
+        return $this->hasMany(Timeline::class,'id_status','id');
+    }
     public function pengaduan()
     {
         return $this->belongsToMany(Pengaduan::class,'timeline','id_status','id_pengaduan');

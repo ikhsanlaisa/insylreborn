@@ -47,33 +47,31 @@
                                    placeholder="Masukkan Foto" required>
                         </div>
                         <div class="box-body pad">
-                            <form>
                     <textarea id="isi" name="isi" rows="10" cols="80">
                         {{ old('isi') }}
                     </textarea>
-                                <style>
-                                    .custom-btn {
-                                        width: 100px;
-                                        display: inline-block;
-                                        margin-right: 15px;
+                            <style>
+                                .custom-btn {
+                                    width: 100px;
+                                    display: inline-block;
+                                    margin-right: 15px;
 
-                                        margin-top: 25px !important;
-                                    }
-                                </style>
+                                    margin-top: 25px !important;
+                                }
+                            </style>
 
-                                <center>
-                                    <div>
-                                        <button style="margin-top:5px;" id="submit" type="submit" name="publish"
-                                                class="btn btn-block btn-success custom-btn"><i class="fa fa-send"></i>
-                                            Publish
-                                        </button>
-                                        <button type="button" onclick="window.history.back()" name="draft"
-                                                class="btn btn-block btn-danger custom-btn"><i class="fa fa-reply"></i>
-                                            Kembali
-                                        </button>
-                                    </div>
-                                </center>
-                            </form>
+                            <center>
+                                <div>
+                                    <button style="margin-top:5px;" id="submit" type="submit" name="publish"
+                                            class="btn btn-block btn-success custom-btn"><i class="fa fa-send"></i>
+                                        Publish
+                                    </button>
+                                    <button type="button" onclick="window.history.back()" name="draft"
+                                            class="btn btn-block btn-danger custom-btn"><i class="fa fa-reply"></i>
+                                        Kembali
+                                    </button>
+                                </div>
+                            </center>
                         </div>
                     </form>
                 </div>

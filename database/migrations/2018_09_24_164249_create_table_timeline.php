@@ -20,7 +20,7 @@ class CreateTableTimeline extends Migration
             $table->timestamps();
 
             $table->primary(['id_pengaduan', 'id_status']);
-            $table->foreign('id_pengaduan')->references('id')->on('layanan_pengaduan');
+            $table->foreign('id_pengaduan')->references('id')->on('pengaduan');
             $table->foreign('id_status')->references('id')->on('status_pengaduan');
         });
 

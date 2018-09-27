@@ -17,10 +17,10 @@ class Pengaduan extends Model
         return $this->belongsTo(Siswa::class,'id_siswa','id');
     }
 
-//    public function timeline()
-//    {
-//        return $this->hasMany(Timeline::class,'id_pengaduan','id');
-//    }
+    public function timeline()
+    {
+        return $this->hasMany(Timeline::class,'id_pengaduan','id');
+    }
 
     public function status()
     {

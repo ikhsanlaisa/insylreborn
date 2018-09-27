@@ -50,9 +50,9 @@ class BeritaController extends Controller
      */
     public function store(News $request)
     {
-        $rawNews = $request->all();
+        $rawNews = $request->validated();
 
-        $rawNews['tanggal'] = Carbon::now();
+        $rawNews['tanggal'] =  Carbon::now()->setTimezone('+07:00');
         $image = $this->uploadFoto($request->file('foto'));
         $rawNews['foto'] = $image;
 
