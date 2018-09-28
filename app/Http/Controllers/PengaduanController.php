@@ -17,7 +17,7 @@ class PengaduanController extends Controller
 
     public function __construct()
     {
-        $this->middleware('superadmin')->except(['store','create','destroy','index']);
+        $this->middleware('superadmin')->except(['store', 'create', 'destroy', 'index']);
     }
 
     /**
@@ -27,8 +27,12 @@ class PengaduanController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->isSuperAdmin()){
+        if (Auth::user()->isSuperAdmin()) {
             $pengaduan = Pengaduan::with(['layanan'])->desc();
+        } else if (!Auth::user()->isSuperAdmin() && Auth::user()->admin) {
+
+            $pengaduan = Pengaduan::with(['layanan'])->privilege(Auth::user()->admin->id_layanan)->desc();
+
         } else {
             $pengaduan = Pengaduan::with(['layanan'])->self(Auth::user()->siswa->id)->desc();
         }
@@ -104,7 +108,7 @@ class PengaduanController extends Controller
         ])->save();
 
         Session::flash('success', 'Sukses');
-        return response('success',200);
+        return response('success', 200);
     }
 
     public function onDone(Request $request)
@@ -113,7 +117,7 @@ class PengaduanController extends Controller
         $pengaduan = Pengaduan::findOrFail($request['pengaduan_id']);
 
         $pengaduan->update([
-           'hasil' => $request['hasil']
+            'hasil' => $request['hasil']
         ]);
 
         $timeline = new Timeline;
@@ -124,7 +128,7 @@ class PengaduanController extends Controller
         ])->save();
 
         Session::flash('success', 'Sukses');
-        return response('success',200);
+        return response('success', 200);
 
     }
 

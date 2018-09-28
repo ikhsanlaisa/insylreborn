@@ -20,7 +20,7 @@ class CreateTableKelas extends Migration
             $table->string('nama');
             $table->timestamps();
 
-            $table->foreign('id_angkatan')->references('id')->on('angkatan');
+            $table->foreign('id_angkatan')->references('id')->on('angkatan')->onDelete('cascade')->onUpdate('cascade');
         });
 
         \App\Models\Kelas::insert([

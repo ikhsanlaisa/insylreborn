@@ -12,6 +12,8 @@ class LayananPengaduan extends Model
         'jenis'
     ];
 
+    protected $dates = ['deleted_at'];
+
     public function admin()
     {
       return $this->hasOne(Admin::class,'id_layanan','id');

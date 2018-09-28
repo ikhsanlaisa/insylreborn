@@ -22,7 +22,7 @@ class CreateTableAdmin extends Migration
             $table->string('nama');
             $table->timestamps();
 
-            $table->foreign('id_user')->references('id')->on('users');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_tipe')->references('id')->on('tipe_admin')->onDelete(null);
             $table->foreign('id_layanan')->references('id')->on('layanan_pengaduan');
         });

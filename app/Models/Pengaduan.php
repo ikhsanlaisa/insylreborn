@@ -47,4 +47,9 @@ class Pengaduan extends Model
     {
         return $q->where('id_siswa',$id);
     }
+
+    public function scopePrivilege($q, $id)
+    {
+        return $q->where('id_jenis', $id);
+    }
 }

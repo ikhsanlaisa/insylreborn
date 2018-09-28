@@ -6,7 +6,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Kategori Layanan
+                Tipe Admin
                 <small>BP2IP Barombong</small>
             </h1>
         </section>
@@ -16,10 +16,10 @@
             <!-- Default box -->
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Daftar Kategori Layanan BP2IP</h3>
+                    <h3 class="box-title">Daftar Tipe Admin BP2IP</h3>
                     <!-- <a href="#" type="button" class="btn btn-sm btn-primary pull-right" name="button"><i class="fa fa-plus"></i> AKUN BARU</a> -->
                     <div class="btn-group pull-right">
-                        <a href="#" type="button" title="Tambah akun" onclick="tambahKategori()"
+                        <a href="#" type="button" title="Tambah Tipe Admin" onclick="tambahTipeAdmin()"
                            class="btn btn-sm btn-primary" name="button"><i
                                 class="fa fa-plus"></i> Tambah</a>
                         <!-- <a href="#" type="button" title="Import data" class="btn btn-sm btn-info" name="button"><i class="fa fa-download"></i> Import</a> -->
@@ -31,25 +31,25 @@
                             <thead>
                             <tr>
                                 <th width="6%">No</th>
-                                <th>Kategori Layanan</th>
+                                <th>Tipe Admin</th>
                                 <th width="15%" title="Action button">
                                     <center><span class="fa fa-bars"></span></center>
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($layanan as $index => $item)
+                            @foreach($tipeadmin as $index => $item)
                                 <tr>
                                     <td>{{ ++$index }}</td>
-                                    <td>  {{ $item->jenis }}
+                                    <td>  {{ $item->tipe }}
                                     </td>
                                     <td>
                                         <center>
-                                            <a href="#" data-kategori="{{ $item }}" data-toggle="modal"
-                                               data-target="#editKategori" title="edit"
+                                            <a href="#" data-tipe="{{ $item }}" data-toggle="modal"
+                                               data-target="#editTipeAdmin" title="edit"
                                                class="btn btn-xs btn-in-o btn-round"><i class="fa fa-edit"></i>
                                             </a>
-                                            <a href="#" onclick="deleteKategori('{{ $item->id }}','{{ $item->jenis }}')"
+                                            <a href="#" onclick="deleteTipeAdmin('{{ $item->id }}','{{ $item->tipe }}')"
                                                title="hapus" class="btn btn-xs btn-dg-o btn-round"><i
                                                     class="fa fa-close" style="margin:1px !important;"></i></a>
                                         </center>
@@ -69,29 +69,19 @@
     </div>
     <!-- /.content-wrapper -->
 
-    <!-- Modal Tambah Kategori-->
-    <div class="modal fade" id="tambahKategori">
+    <!-- Modal Tambah TipeAdmin-->
+    <div class="modal fade" id="tambahTipeAdmin">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Tambah Kategori Layanan</h4>
+                    <h4 class="modal-title">Tambah Tipe Admin</h4>
                 </div>
                 <div class="modal-body" id="body-insert">
-                    @if($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
                     <div class="form-group">
-                        <label>Kategori Layanan</label>
-                        <input type="text" name="jenis" id="jenis" class="form-control" required>
+                        <label>Tipe Admin</label>
+                        <input type="text" name="tipe" id="tipe" class="form-control" required>
                     </div>
 
                 </div>
@@ -106,19 +96,19 @@
     </div>
     <!-- /.modal -->
 
-    <!-- Modal Edit Kategori-->
-    <div class="modal fade" id="editKategori">
+    <!-- Modal Edit TipeAdmin-->
+    <div class="modal fade" id="editTipeAdmin">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Edit Kategori Layanan</h4>
+                    <h4 class="modal-title">Edit Tipe Admin</h4>
                 </div>
                 <div class="modal-body" id="body-update">
                     <div class="form-group">
-                        <label>Kategori Layanan</label>
-                        <input type="text" id="editJenis" class="form-control" required value="">
+                        <label>Tipe Admin</label>
+                        <input type="text" id="editTipe" class="form-control" required value="">
                     </div>
 
                 </div>
@@ -151,35 +141,27 @@
             }
         });
 
-        @if($errors->any())
-
-        $(document).ready(function () {
-            $('#tambahKategori').modal('show');
-        });
-
-        @endif
-
-        function tambahKategori() {
+        function tambahTipeAdmin() {
             $('#save').remove();
             $('#mFooter').append(
-                '<button type="button" id="save" onclick="insertKategori()" class="btn btn-primary">Submit</button>'
+                '<button type="button" id="save" onclick="insertTipeAdmin()" class="btn btn-primary">Submit</button>'
             );
 
-            $('#tambahKategori').modal('show');
+            $('#tambahTipeAdmin').modal('show');
 
         };
 
-        function insertKategori() {
-            let jenis = $('#jenis');
-            let redirectUrl = "{{ route('kategori.index') }}"
+        function insertTipeAdmin() {
+            let tipe = $('#tipe');
+            let redirectUrl = "{{ route('tipeadmin.index') }}"
             $.ajax({
                 type: 'POST',
-                url: '{{ route('kategori.store') }}',
+                url: '{{ route('tipeadmin.store') }}',
                 data: {
-                    jenis: jenis.val()
+                    tipe: tipe.val()
                 },
                 success: function () {
-                    swal("Berhasil !", 'Kategori berhasil ditambahkan', "success").then((data => {
+                    swal("Berhasil !", 'TipeAdmin berhasil ditambahkan', "success").then((data => {
                         window.location.href = redirectUrl;
                     }));
                 },
@@ -190,7 +172,6 @@
                         '</ul>' +
                         '</div>'
                     );
-
 
                     $.each(data['responseJSON']['errors'], function (index, value) {
                         $.each(value, function (i, v) {
@@ -203,33 +184,33 @@
             })
         };
 
-        $('#editKategori').on('show.bs.modal', function (e) {
+        $('#editTipeAdmin').on('show.bs.modal', function (e) {
             let button = $(e.relatedTarget);
-            let dataKategori = button.data('kategori');
+            let dataTipeAdmin = button.data('tipe');
 
-            $('#editJenis').val(dataKategori['jenis']);
+            $('#editTipe').val(dataTipeAdmin['tipe']);
 
             $('#update').remove();
             $('#mFooter2').append(
-                '<button type="button" id="update" onclick="updateKategori(\'' + dataKategori['id'] + '\')" class="btn btn-primary">Submit</button>'
+                '<button type="button" id="update" onclick="updateTipeAdmin(\'' + dataTipeAdmin['id'] + '\')" class="btn btn-primary">Submit</button>'
             );
         });
 
-        function updateKategori(idKategori) {
-            let theUrl = "{{ route('kategori.update', ':kategoriId') }}";
-            theUrl = theUrl.replace(":kategoriId", idKategori);
-            let redirectUrl = "{{ route('kategori.index') }}";
-            let jenis = $('#editJenis').val();
+        function updateTipeAdmin(idTipe) {
+            let theUrl = "{{ route('tipeadmin.update', ':idTipe') }}";
+            theUrl = theUrl.replace(":idTipe", idTipe);
+            let redirectUrl = "{{ route('tipeadmin.index') }}";
+            let tipe = $('#editTipe').val();
 
             $.ajax({
                 type: 'POST',
                 url: theUrl,
                 data: {
                     _method: 'PUT',
-                    jenis: jenis,
+                    tipe: tipe,
                 },
                 success: function () {
-                    swal("Berhasil !", 'Kategori berhasil diupdate', "success").then((data => {
+                    swal("Berhasil !", 'Tipe Admin berhasil diupdate', "success").then((data => {
                         window.location.href = redirectUrl;
                     }));
                 },
@@ -255,20 +236,20 @@
 
         }
 
-        function deleteKategori(kategoriId, jenisKategori) {
+        function deleteTipeAdmin(tipeId, tipe) {
             swal({
                 title: "Apa anda yakin?",
-                text: "Anda Menghapus Kategori " + jenisKategori,
+                text: "Anda Menghapus Tipe Admin " + tipe,
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
 
             }).then((willDelete => {
                 if (willDelete) {
-                    let theUrl = "{{ route('kategori.destroy', ':kategoriId') }}";
-                    theUrl = theUrl.replace(":kategoriId", kategoriId);
+                    let theUrl = "{{ route('tipeadmin.destroy', ':tipeId') }}";
+                    theUrl = theUrl.replace(":tipeId", tipeId);
 
-                    let redirectUrl = "{{ route('kategori.index') }}";
+                    let redirectUrl = "{{ route('tipeadmin.index') }}";
 
                     $.ajax({
                         type: 'POST',
@@ -276,12 +257,11 @@
                         data: {_method: "delete"},
 
                         success: function (data) {
-                            swal("Deleted!", "Kategori Layanan berhasil di delete!", "success").then((data => {
+                            swal("Deleted!", "Tipe Admin berhasil di delete!", "success").then((data => {
                                 window.location.href = redirectUrl;
                             }));
                         },
                         error: function (data) {
-                            console.log(data);
                             swal("Oops", "We couldn't connect to the server!", "error");
                         }
                     });

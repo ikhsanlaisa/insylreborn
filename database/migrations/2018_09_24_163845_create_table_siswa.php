@@ -25,8 +25,8 @@ class CreateTableSiswa extends Migration
             $table->date('tanggal_lahir')->nullable();
             $table->timestamps();
 
-            $table->foreign('id_kelas')->references('id')->on('kelas');
-            $table->foreign('id_user')->references('id')->on('users');
+            $table->foreign('id_kelas')->references('id')->on('kelas')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
 
         \App\Models\Siswa::insert([

@@ -22,8 +22,8 @@ class CreateTablePengaduan extends Migration
             $table->string('hasil')->nullable();
             $table->timestamps();
 
-            $table->foreign('id_siswa')->references('id')->on('siswa');
-            $table->foreign('id_jenis')->references('id')->on('layanan_pengaduan');
+            $table->foreign('id_siswa')->references('id')->on('siswa')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_jenis')->references('id')->on('layanan_pengaduan')->onDelete('cascade')->onUpdate('cascade');
         });
 
         \App\Models\Pengaduan::insert([

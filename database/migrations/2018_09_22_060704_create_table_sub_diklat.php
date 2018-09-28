@@ -20,7 +20,7 @@ class CreateTableSubDiklat extends Migration
             $table->string('nama');
             $table->timestamps();
 
-            $table->foreign('id_diklat')->references('id')->on('diklat')->onDelete('cascade');
+            $table->foreign('id_diklat')->references('id')->on('diklat')->onDelete('cascade')->onUpdate('cascade');
         });
 
         \App\Models\SubDiklat::insert([

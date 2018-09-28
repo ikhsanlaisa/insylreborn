@@ -65,14 +65,14 @@
                     <!-- small box -->
                     <div class="small-box bg-red">
                         <div class="inner">
-                            <h3>65</h3>
+                            <h3>{{ $dashboard['pengaduan'] }}</h3>
 
                             <p>Pengaduan</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-alert"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('complaints.index') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->

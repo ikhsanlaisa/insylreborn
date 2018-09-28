@@ -19,7 +19,7 @@ class CreateTableAngkatan extends Migration
             $table->string('kode');
             $table->timestamps();
 
-            $table->foreign('id_subdiklat')->references('id')->on('subdiklat');
+            $table->foreign('id_subdiklat')->references('id')->on('subdiklat')->onDelete('cascade')->onUpdate('cascade');
         });
 
         \App\Models\Angkatan::insert([

@@ -66,6 +66,6 @@ class LayananController extends Controller
     {
         $kategori->delete();
 
-
+        return response('success', 204);
     }
 }
