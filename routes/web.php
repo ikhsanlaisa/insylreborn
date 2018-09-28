@@ -19,6 +19,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('siswas', 'SiswaController')->only(['index']);
     Route::resource('layanan/kategori', 'LayananController')->only(['index','store','update','destroy']);
     Route::resource('tipeadmin', 'TipeAdminController')->only(['index','store','update','destroy']);
+    Route::resource('diklat', 'DiklatController')->only(['index','store','update','destroy']);
+    Route::resource('subdiklat', 'SubDiklatController');
+    Route::resource('angkatan', 'AngkatanController');
+    Route::resource('kelas', 'KelasController');
 
     Route::post('complaint-proses', 'PengaduanController@onProcess')->name('complaints.proses');
     Route::post('complaint-done', 'PengaduanController@onDone')->name('complaints.done');
