@@ -10,9 +10,16 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Pengaduan as RPengaduan;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
+use Auth;
 
 class PengaduanController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('superadmin')->except(['store','create','destroy','index']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,8 +27,12 @@ class PengaduanController extends Controller
      */
     public function index()
     {
+        if(Auth::user()->isSuperAdmin()){
+            $pengaduan = Pengaduan::with(['layanan'])->desc();
+        } else {
+            $pengaduan = Pengaduan::with(['layanan'])->self(Auth::user()->siswa->id)->desc();
+        }
 
-        $pengaduan = Pengaduan::with(['layanan'])->get();
         return view('backoffice.complaint.index', compact('pengaduan'));
     }
 
@@ -93,7 +104,28 @@ class PengaduanController extends Controller
         ])->save();
 
         Session::flash('success', 'Sukses');
-        return response(200);
+        return response('success',200);
+    }
+
+    public function onDone(Request $request)
+    {
+
+        $pengaduan = Pengaduan::findOrFail($request['pengaduan_id']);
+
+        $pengaduan->update([
+           'hasil' => $request['hasil']
+        ]);
+
+        $timeline = new Timeline;
+        $timeline->fill([
+            'id_pengaduan' => $pengaduan['id'],
+            'id_status' => 3,
+            'waktu' => Carbon::now()->setTimezone('+07:00')
+        ])->save();
+
+        Session::flash('success', 'Sukses');
+        return response('success',200);
+
     }
 
     /**
@@ -103,29 +135,6 @@ class PengaduanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Pengaduan $pengaduan)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pengaduan $pengaduan
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Pengaduan $complaint)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Models\Pengaduan $pengaduan
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Pengaduan $pengaduan)
     {
         //
     }

@@ -37,4 +37,14 @@ class Pengaduan extends Model
     {
         return Carbon::parse($this->attributes['created_at'])->format('d, M Y H:i');
     }
+
+    public function scopeDesc($q)
+    {
+        return $q->orderBy('id','desc')->get();
+    }
+
+    public function scopeSelf($q, $id)
+    {
+        return $q->where('id_siswa',$id);
+    }
 }

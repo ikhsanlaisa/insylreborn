@@ -30,8 +30,6 @@
             <li class="header">MAIN NAVIGATION</li>
             <li class="{{ set_active('home') }}"><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
             </li>
-            <li class="{{ set_active('users.index') }}"><a href="{{ route('users.index') }}"><i class="fa fa-users"></i>
-                    <span>Data Akun</span></a></li>
             <li class="treeview ">
                 <a href="#">
                     <i class="fa fa-search"></i> <span>Survey</span>
@@ -49,9 +47,13 @@
                 <li class="{{ set_active(['news.index', 'news.create', 'news.edit']) }}"><a
                         href="{{ route('news.index') }}"><i class="fa fa-newspaper-o"></i> <span>Berita</span></a></li>
             @endif
-            <li class="{{ set_active(['complaints.index', 'complaints.create', 'complaints.edit']) }}"><a
-                    href="{{ route('complaints.index') }}"><i
-                        class="fa fa-exclamation-circle"></i> <span>Pengaduan</span></a></li>
+            <li class="{{ set_active(['complaints.index', 'complaints.create', 'complaints.edit']) }}">
+                <a href="{{ route('complaints.index') }}"><i class="fa fa-exclamation-circle"></i>
+                    <span>Pengaduan</span></a></li>
+            <li class="header">SUPER ADMIN</li>
+            <li class="{{ set_active('users.index') }}"><a href="{{ route('users.index') }}"><i class="fa fa-users"></i>
+                    <span>Data Akun</span></a></li>
+            <li><a href="{{ route('kategori.index') }}"><i class="fa fa-building-o"></i> Kategori Layanan</a></li>
             <!-- <li class="treeview">
               <a href="#">
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>

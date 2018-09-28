@@ -28,10 +28,11 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th width="6%">No</th>
-                                <th width="8%">NIT</th>
+                                <th>No</th>
+                                <th>NIT</th>
                                 <th>Nama Pasis</th>
-                                <th width="15%">Waktu</th>
+                                <th>Waktu</th>
+                                <th>Jenis Pengaduan</th>
                                 <th>Isi Pengaduan</th>
                                 <th>Status</th>
                                 <th width="8%" title="Action button">
@@ -47,19 +48,41 @@
                                     <td>{{ $item->siswa->nama }}</td>
                                     {{--<td>{{ \Carbon\Carbon::parse($item->created_at)->format('d, M Y H:i') }}</td>--}}
                                     <td>{{ $item->created_at }}</td>
+                                    <td>{{ $item->layanan->jenis }}</td>
                                     <td>{{ $item->isi }}</td>
-                                    <td>{{ ucwords($item->timeline->last()->status['status']) }}</td>
+                                    <td>
+                                        @switch($item->timeline->last()->status['status'])
+                                            @case('tersubmit')
+                                            <span
+                                                class="label label-warning">{{ ucwords($item->timeline->last()->status['status']) }}</span>
+                                            @break
+                                            @case('on progress')
+                                            <span
+                                                class="label label-info">{{ ucwords($item->timeline->last()->status['status']) }}</span>
+                                            @break
+                                            @default
+                                            <span
+                                                class="label label-success">{{ ucwords($item->timeline->last()->status['status']) }}</span>
+                                            @break
+
+
+                                        @endswitch
+
+                                    </td>
                                     <td>
                                         <center>
                                             <a href="#" class="btn btn-xs btn-in-o btn-round"><i class="fa fa-eye"></i>
-                                            </a>
-                                            <a href="#" data-toggle="modal" data-target="#editPengaduan"
-                                               data-pengaduan="{{ $item }}" title="edit"
-                                               class="btn btn-xs btn-in-o btn-round"><i class="fa fa-edit"></i> </a>
-                                            <a href="#"
-                                               onclick="deletePengaduan('{{ $item->id }}', '{{ $item->siswa->nama }}', '{{ $item->created_at }}')"
-                                               title="hapus" class="btn btn-xs btn-dg-o btn-round"><i
-                                                    class="fa fa-close" style="margin:1px !important;"></i></a>
+
+                                                @if(Auth::user()->admin)
+                                                    <a href="#" data-toggle="modal" data-target="#editPengaduan"
+                                                       data-pengaduan="{{ $item }}" title="edit"
+                                                       class="btn btn-xs btn-in-o btn-round"><i class="fa fa-edit"></i>
+                                                    </a>
+                                                @endif
+                                                <a href="#"
+                                                   onclick="deletePengaduan('{{ $item->id }}', '{{ $item->siswa->nama }}', '{{ $item->created_at }}')"
+                                                   title="hapus" class="btn btn-xs btn-dg-o btn-round"><i
+                                                        class="fa fa-close" style="margin:1px !important;"></i></a>
                                         </center>
                                     </td>
                                 </tr>
@@ -70,7 +93,7 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
-                    Footer
+                    BP2IP - Barombong
                 </div>
                 <!-- /.box-footer-->
             </div>
@@ -109,6 +132,7 @@
                         <a id="foto" target="_blank">Klik Disini</a>
                     </div>
 
+
                 </div>
                 <div class="modal-footer" id="mFooter">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tutup</button>
@@ -129,16 +153,9 @@
                 "columnDefs": [{
                     "targets": 5,
                     "orderable": false
-                }]
+                }],
+
             })
-            // $('#example2').DataTable({
-            //   'paging'      : true,
-            //   'lengthChange': false,
-            //   'searching'   : false,
-            //   'ordering'    : true,
-            //   'info'        : true,
-            //   'autoWidth'   : false
-            // })
         });
     </script>
     <script type="text/javascript">
@@ -171,14 +188,31 @@
             if (status == 1) {
 
                 $('#save').remove();
+                $('#hasilPengaduan').remove();
                 $('#mFooter').append(
                     '<button type="button" id="save" onclick="onProcess(\'' + dataPengaduan['id'] + '\')" class="btn btn-primary">Proses Sekarang</button>'
                 )
             } else if (status == 2) {
                 $('#save').remove();
+                $('#hasilPengaduan').remove();
+                $('.modal-body').append(
+                    '  <div class="form-group" id="hasilPengaduan">\n' +
+                    '<label for="hasil">Hasil : </label>\n' +
+                    '<textarea name="hasil" id="hasil" class="form-control" rows="5"></textarea>\n' +
+                    '</div>'
+                );
                 $('#mFooter').append(
-                    '<button type="button" id="save" onclick="result()" class="btn btn-primary">Selesai</button>'
+                    '<button type="button" id="save" onclick="result(\'' + dataPengaduan['id'] + '\')" class="btn btn-primary">Selesai</button>'
                 )
+            } else {
+                $('#save').remove();
+                $('#hasilPengaduan').remove();
+                $('.modal-body').append(
+                    '  <div class="form-group" id="hasilPengaduan">\n' +
+                    '<label for="hasil">Hasil : </label>\n' +
+                    '<textarea name="hasil" id="hasil" class="form-control" rows="5" readonly>' + dataPengaduan['hasil'] + ' </textarea>\n' +
+                    '</div>'
+                );
             }
 
 
@@ -199,8 +233,21 @@
             });
         }
 
-        function result() {
-
+        function result(id) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('complaints.done') }}',
+                data: {
+                    pengaduan_id: id,
+                    hasil: $('#hasil').val()
+                },
+                success: function (data) {
+                    window.location.href = "{{ route('complaints.index') }}";
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
         }
 
         function deletePengaduan(pengaduanId, namaPelapor, tanggalLapor) {

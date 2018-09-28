@@ -14,10 +14,12 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('users', 'UserController');
     Route::resource('news', 'BeritaController');
-    Route::resource('complaints', 'PengaduanController');
+    Route::resource('complaints', 'PengaduanController')->except(['edit','update']);;
     Route::resource('siswas', 'SiswaController')->only(['index']);
+    Route::resource('layanan/kategori', 'LayananController')->only(['index','store','update','destroy']);
 
-    Route::post('complaintproses', 'PengaduanController@onProcess')->name('complaints.proses');
+    Route::post('complaint-proses', 'PengaduanController@onProcess')->name('complaints.proses');
+    Route::post('complaint-done', 'PengaduanController@onDone')->name('complaints.done');
 
 });
 
