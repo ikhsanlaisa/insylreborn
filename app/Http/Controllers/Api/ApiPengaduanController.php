@@ -60,12 +60,12 @@ class ApiPengaduanController extends Controller
         if ($pengaduan->save()) {
             return response()->json([
                 false,
-                'berhasil',
+                'berhasil menyimpan data',
                 $pengaduan]);
         } else {
             return response()->json([
                 true,
-                'gagal membuat booking',
+                'gagal menyimpan data',
                 $pengaduan]);
         }
     }
