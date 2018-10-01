@@ -4,6 +4,8 @@ namespace App\Http;
 
 use App\Http\Middleware\IsSuperAdmin;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Tymon\JWTAuth\Middleware\GetUserFromToken;
+use Tymon\JWTAuth\Middleware\RefreshToken;
 
 class Kernel extends HttpKernel
 {
@@ -61,7 +63,9 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'superadmin' => IsSuperAdmin::class
+        'superadmin' => IsSuperAdmin::class,
+        'jwt.auth' => GetUserFromToken::class,
+        'jwt.refresh' => RefreshToken::class,
     ];
 
     /**
