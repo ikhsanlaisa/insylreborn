@@ -17,7 +17,7 @@ class CreateTableSiswa extends Migration
             $table->increments('id');
             $table->unsignedInteger('id_kelas');
             $table->unsignedInteger('id_user');
-            $table->string('nit');
+            $table->string('nit')->unique();
             $table->string('nama');
             $table->enum('gender', ['L','P'])->nullable();
             $table->string('kontak')->nullable();
