@@ -47,4 +47,11 @@ class User extends Authenticatable
         return $this->admin && $this['admin']['tipe']->tipe == 'Super Admin';
     }
 
+    public function getAvatarAttribute()
+    {
+        $hash = md5(strtolower(trim($this->email))) . '.jpeg' . '?s=106&d=mm&r=g';
+        return "https://secure.gravatar.com/avatar/$hash";
+    }
+
+
 }

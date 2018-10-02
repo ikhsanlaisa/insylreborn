@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->enum('status', ['aktif', 'lulus']);
             $table->rememberToken();
+            $table->longText('jwt_token')->nullable();
             $table->timestamps();
 
         });

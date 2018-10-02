@@ -54,6 +54,7 @@ class AdminController extends Controller
 
         $user = User::create([
             'username' => $validated['username'],
+            'email' => $validated['email'],
             'password' => bcrypt($validated['password'])
         ]);
 

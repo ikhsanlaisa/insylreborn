@@ -15,11 +15,6 @@ use Auth;
 class PengaduanController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('superadmin')->except(['store', 'create', 'destroy', 'index']);
-    }
-
     /**
      * Display a listing of the resource.
      *

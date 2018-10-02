@@ -50,6 +50,11 @@
                                            value="{{ $admin->username }}" required>
                                 </div>
                                 <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" class="form-control"
+                                           value="{{ $admin->email }}" disabled>
+                                </div>
+                                <div class="form-group">
                                     <a href="#"><i class="fa fa-link"></i> Send Reset Password</a>
                                     @if(Auth::user()->id === $admin->id)
                                         <a href="#" class="btn btn-danger pull-right"><i class="fa fa-link"></i> Ganti Password</a>
@@ -91,11 +96,11 @@
                                                 class="fa fa-send"></i>
                                             Publish
                                         </button>
-                                        <button type="button" onclick="window.history.back()" name="draft"
+                                        <a href="{{ route('admin.index') }}" type="button"
                                                 class="btn btn-block btn-danger custom-btn"><i
                                                 class="fa fa-reply"></i>
                                             Kembali
-                                        </button>
+                                        </a>
                                     </div>
                                 </center>
                             </div>

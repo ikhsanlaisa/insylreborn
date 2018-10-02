@@ -23,6 +23,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('angkatan', 'AngkatanController');
     Route::resource('kelas', 'KelasController');
 
+    Route::group(['prefix' => 'user/profile'], function () {
+        Route::get('/{username}', 'ProfileController@index')->name('profile');
+        Route::get('/{username}/edit', 'ProfileController@edit')->name('edit-profile');
+        Route::get('/{username}/change_password', 'ProfileController@editPassword')->name('edit-password');
+        Route::put('/edit/{profile}','ProfileController@updateProfile')->name('update.profile');
+        Route::put('/change_password/{user}','ProfileController@updatePassword')->name('update.password');
+    });
+
     Route::post('complaint-proses', 'PengaduanController@onProcess')->name('complaints.proses');
     Route::post('complaint-done', 'PengaduanController@onDone')->name('complaints.done');
 

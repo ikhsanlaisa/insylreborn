@@ -39,40 +39,39 @@
                         @endif
                         <input type="hidden" name="id_admin" value="{{ Auth::user()->admin->id }}">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="judul" placeholder="MASUKKAN JUDUL DISINI"
+                            <input type="text" class="form-control" name="judul" placeholder="Masukan Judul Disini"
                                    value="{{ old('judul') }}" required>
                         </div>
                         <div class="form-group">
+                            <label>Image</label>
                             <input type="file" accept="image/*" class="form-control" id="foto" name="foto"
                                    placeholder="Masukkan Foto" required>
                         </div>
-                        <div class="box-body pad">
-                    <textarea id="isi" name="isi" rows="10" cols="80">
+                        <textarea id="isi" name="isi" rows="10" cols="80">
                         {{ old('isi') }}
                     </textarea>
-                            <style>
-                                .custom-btn {
-                                    width: 100px;
-                                    display: inline-block;
-                                    margin-right: 15px;
+                        <style>
+                            .custom-btn {
+                                width: 100px;
+                                display: inline-block;
+                                margin-right: 15px;
 
-                                    margin-top: 25px !important;
-                                }
-                            </style>
+                                margin-top: 25px !important;
+                            }
+                        </style>
 
-                            <center>
-                                <div>
-                                    <button style="margin-top:5px;" id="submit" type="submit" name="publish"
-                                            class="btn btn-block btn-success custom-btn"><i class="fa fa-send"></i>
-                                        Publish
-                                    </button>
-                                    <button type="button" onclick="window.history.back()" name="draft"
-                                            class="btn btn-block btn-danger custom-btn"><i class="fa fa-reply"></i>
-                                        Kembali
-                                    </button>
-                                </div>
-                            </center>
-                        </div>
+                        <center>
+                            <div>
+                                <button style="margin-top:5px;" id="submit" type="submit" name="publish"
+                                        class="btn btn-block btn-success custom-btn"><i class="fa fa-send"></i>
+                                    Publish
+                                </button>
+                                <a type="button" href="{{ route('news.index') }}"
+                                   class="btn btn-block btn-danger custom-btn"><i class="fa fa-reply"></i>
+                                    Kembali
+                                </a>
+                            </div>
+                        </center>
                     </form>
                 </div>
                 <!-- /.box-body -->
@@ -95,8 +94,6 @@
             // Replace the <textarea id="editor1"> with a CKEditor
             // instance, using default configuration.
             CKEDITOR.replace('isi');
-            //bootstrap WYSIHTML5 - text editor
-            $(".textarea").wysihtml5();
         });
     </script>
 @endpush

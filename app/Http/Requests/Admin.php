@@ -26,6 +26,7 @@ class Admin extends FormRequest
     {
         return [
             'username' => 'required|regex:/^[a-z]+$/|unique:users,username',
+            'email' => 'required|unique:users,email|email',
             'password' => 'required|min:5',
             'id_tipe' => 'required|exists:tipe_admin,id',
             'id_layanan' => 'exists:layanan_pengaduan,id',
