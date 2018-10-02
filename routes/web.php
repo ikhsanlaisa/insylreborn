@@ -12,13 +12,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['auth']], function () {
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
-    Route::resource('users', 'UserController');
+    Route::resource('user/siswa', 'UserController');
     Route::resource('news', 'BeritaController');
     Route::resource('user/admin', 'AdminController');
     Route::resource('complaints', 'PengaduanController')->except(['edit','update']);;
     Route::resource('siswas', 'SiswaController')->only(['index']);
     Route::resource('layanan/kategori', 'LayananController')->only(['index','store','update','destroy']);
-    Route::resource('tipeadmin', 'TipeAdminController')->only(['index','store','update','destroy']);
     Route::resource('diklat', 'DiklatController')->only(['index','store','update','destroy']);
     Route::resource('subdiklat', 'SubDiklatController');
     Route::resource('angkatan', 'AngkatanController');

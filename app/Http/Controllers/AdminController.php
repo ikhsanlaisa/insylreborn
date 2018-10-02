@@ -7,9 +7,16 @@ use App\Models\LayananPengaduan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin as RAdmin;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('superadmin');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +25,7 @@ class AdminController extends Controller
     public function index()
     {
         $admin = User::whereHas('admin')->get();
-        return view('backoffice.administration.listadmin', compact('admin'));
+        return view('backoffice.administration.admin.index', compact('admin'));
     }
 
     /**
@@ -29,7 +36,7 @@ class AdminController extends Controller
     public function create()
     {
         $layanan = LayananPengaduan::all();
-        return view('backoffice.administration.add-admin', compact('layanan'));
+        return view('backoffice.administration.admin.add', compact('layanan'));
     }
 
     /**
@@ -52,6 +59,9 @@ class AdminController extends Controller
 
         Admin::create(['id_user' => $user['id']] + $validated);
 
+
+        Session::flash('success', 'Sukses Membuat Akun Admin');
+
         return redirect(route('admin.index'));
     }
 
@@ -72,9 +82,11 @@ class AdminController extends Controller
      * @param  \App\Models\Admin $admin
      * @return \Illuminate\Http\Response
      */
-    public function edit(Admin $admin)
+    public function edit(User $admin)
     {
-        //
+        $layanan = LayananPengaduan::all();
+
+        return view('backoffice.administration.admin.edit', compact(['admin', 'layanan']));
     }
 
     /**
@@ -84,9 +96,30 @@ class AdminController extends Controller
      * @param  \App\Models\Admin $admin
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request, User $admin)
     {
-        //
+        $user = $admin;
+
+        $validated = $this->validate($request, [
+            'username' => 'required|regex:/^[a-z]+$/|unique:users,username,' . $user['id'],
+            'id_tipe' => 'required|exists:tipe_admin,id',
+            'id_layanan' => 'exists:layanan_pengaduan,id',
+            'nip' => 'required|string',
+            'nama' => 'required|string',
+        ]);
+
+        $validated['id_layanan'] ?? $validated['id_layanan'] = null;
+
+        if ($validated['username'] != null) {
+            $user->update([
+                'username' => $validated['username'],
+            ]);
+        }
+
+        $user->admin->update(['id_user' => $user['id']] + $validated);
+
+        Session::flash('success', 'Sukses Memperbaharui Akun Admin');
+        return redirect(route('admin.index'));
     }
 
     /**
@@ -95,8 +128,10 @@ class AdminController extends Controller
      * @param  \App\Models\Admin $admin
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Admin $admin)
+    public function destroy(User $admin)
     {
-        //
+        $admin->delete();
+
+        return response('success', 204);
     }
 }

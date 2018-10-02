@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\ValidatePassword;
 
-class Admin extends FormRequest
+class UpdatePassword extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,13 +25,9 @@ class Admin extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required|regex:/^[a-z]+$/|unique:users,username',
-            'password' => 'required|min:5',
-            'id_tipe' => 'required|exists:tipe_admin,id',
-            'id_layanan' => 'exists:layanan_pengaduan,id',
-            'nip' => 'required|string',
-            'nama' => 'required|string',
+            'current_password' => ['required', 'min:5', new ValidatePassword(auth()->user())],
+            'new_password' => 'required|min:5',
+            'confirmation_password' => 'required_with:new_password|same:new_password|min:5'
         ];
-
     }
 }

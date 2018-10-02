@@ -22,12 +22,12 @@
                         <div class="inner">
                             <h3>{{ $dashboard['user'] }}</h3>
 
-                            <p>Data Akun</p>
+                            <p>Data Akun Siswa</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-person"></i>
                         </div>
-                        <a href="{{ route('users.index') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('siswa.index') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->

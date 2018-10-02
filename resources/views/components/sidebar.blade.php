@@ -43,52 +43,42 @@
                     <li><a href="#"><i class="fa fa-circle-o"></i>Hasil Survey</a></li>
                 </ul>
             </li>
-            @if(Auth::user()->isSuperAdmin())
-                <li class="{{ set_active(['news.index', 'news.create', 'news.edit']) }}"><a
-                        href="{{ route('news.index') }}"><i class="fa fa-newspaper-o"></i> <span>Berita</span></a></li>
-            @endif
             <li class="{{ set_active(['complaints.index', 'complaints.create', 'complaints.edit']) }}">
                 <a href="{{ route('complaints.index') }}"><i class="fa fa-exclamation-circle"></i>
                     <span>Pengaduan</span></a></li>
-            <li class="header">SUPER ADMIN</li>
-            <li class="treeview {{ set_active(['diklat.index','subdiklat.index','angkatan.index','kelas.index']) }}">
-                <a href="#">
-                    <i class="fa fa-building"></i> <span>Data Master Akademik</span>
-                    <span class="pull-right-container">
+            @if(Auth::user()->isSuperAdmin())
+                <li class="{{ set_active(['news.index', 'news.create', 'news.edit']) }}"><a
+                        href="{{ route('news.index') }}"><i class="fa fa-newspaper-o"></i> <span>Berita</span></a></li>
+                <li class="header">SUPER ADMIN</li>
+                <li class="treeview {{ set_active(['diklat.index','subdiklat.index',
+            'angkatan.index','kelas.index','admin.index','admin.edit','admin.create','siswa.index']) }}">
+                    <a href="#">
+                        <i class="fa fa-list"></i> <span>Master Data</span>
+                        <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="{{ set_active('diklat.index') }}"><a href="{{ route('diklat.index') }}"><i
-                                class="fa fa-circle-o"></i>Data Diklat</a></li>
-                    <li class="{{ set_active('subdiklat.index') }}"><a href="{{ route('subdiklat.index') }}"><i
-                                class="fa fa-circle-o"></i>Data Sub Diklat</a></li>
-                    <li class="{{ set_active('angkatan.index') }}"><a href="{{ route('angkatan.index') }}"><i
-                                class="fa fa-circle-o"></i>Data Angkatan</a></li>
-                    <li class="{{ set_active('kelas.index') }}"><a href="{{ route('kelas.index') }}"><i
-                                class="fa fa-circle-o"></i>Data Kelas</a></li>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="{{ set_active('siswa.index') }}"><a href="{{ route('siswa.index') }}"><i
+                                    class="fa fa-circle-o"></i>Data Akun Siswa</a></li>
+                        <li class="{{ set_active(['admin.index','admin.edit','admin.create']) }}"><a
+                                href="{{ route('admin.index') }}"><i
+                                    class="fa fa-circle-o"></i>Data Akun Admin</a></li>
+                        <li class="{{ set_active('diklat.index') }}"><a href="{{ route('diklat.index') }}"><i
+                                    class="fa fa-circle-o"></i>Data Diklat</a></li>
+                        <li class="{{ set_active('subdiklat.index') }}"><a href="{{ route('subdiklat.index') }}"><i
+                                    class="fa fa-circle-o"></i>Data Sub Diklat</a></li>
+                        <li class="{{ set_active('angkatan.index') }}"><a href="{{ route('angkatan.index') }}"><i
+                                    class="fa fa-circle-o"></i>Data Angkatan</a></li>
+                        <li class="{{ set_active('kelas.index') }}"><a href="{{ route('kelas.index') }}"><i
+                                    class="fa fa-circle-o"></i>Data Kelas</a></li>
 
-                </ul>
-            </li>
-            <li class="{{ set_active('users.index') }}"><a href="{{ route('users.index') }}"><i class="fa fa-users"></i>
-                    <span>Data Akun</span></a></li>
-            <li><a href="{{ route('kategori.index') }}"><i class="fa fa-building-o"></i> Kategori Layanan</a></li>
-            <li class="treeview {{ set_active(['tipeadmin.index']) }}">
-                <a href="#">
-                    <i class="fa fa-users"></i> <span>Master Admin</span>
-                    <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ route('admin.index') }}"><i class="fa fa-circle-o"></i>List Admin</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Tambah Admin</a></li>
-                    <li class="{{ set_active(['tipeadmin.index']) }}"><a href="{{ route('tipeadmin.index') }}"><i
-                                class="fa fa-circle-o"></i>Tipe Admin</a></li>
-                </ul>
-            </li>
+                    </ul>
+                </li>
+                <li><a href="{{ route('kategori.index') }}"><i class="fa fa-building-o"></i> Kategori Layanan</a></li>
+        @endif
 
-            <!-- <li class="treeview">
+        <!-- <li class="treeview">
               <a href="#">
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 <span class="pull-right-container">

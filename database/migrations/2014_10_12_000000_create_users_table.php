@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('username')->unique();
+            $table->string('email')->unique();
             $table->string('password');
             $table->enum('status', ['aktif', 'lulus']);
             $table->rememberToken();
@@ -28,11 +29,13 @@ class CreateUsersTable extends Migration
             [
                 'username' => 'admin',
                 'password' => bcrypt('admin'),
+                'email' => 'admin@bp2ip.com',
                 'status' => 'aktif',
                 'created_at' => \Carbon\Carbon::now()
             ],
             [
                 'username' => 'alifjafar',
+                'email' => 'alif@bp2ip.com',
                 'password' => bcrypt('alifjafar'),
                 'status' => 'aktif',
                 'created_at' => \Carbon\Carbon::now()

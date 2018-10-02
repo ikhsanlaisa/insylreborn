@@ -51,6 +51,8 @@
                                     <center><span class="fa fa-image"></span></center>
                                 </th>
                                 <th>Judul Berita</th>
+                                <th>Tanggal & Waktu</th>
+                                <th>Author</th>
                                 <!-- <th width="5%">L/P</th> -->
                                 <!-- <th>Username</th> -->
                                 <th width="8%" title="Action button">
@@ -71,7 +73,8 @@
                                     </td>
                                     <td>  {{ $item->judul }}
                                     </td>
-                                    <!-- <td>nurwahidahcyankpapamamaclalu</td> -->
+                                    <td>{{ date('G:i - j M Y ', strtotime( $item->created_at )) }}</td>
+                                    <td>{{ $item->author->nama }}</td>
                                     <td>
                                         <center>
                                             <a href="{{ route('news.edit', $item->id) }}"
