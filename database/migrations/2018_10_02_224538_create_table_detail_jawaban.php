@@ -23,7 +23,7 @@ class CreateTableDetailJawaban extends Migration
 
             $table->foreign('id_jawaban_survey')->references('id')->on('jawaban_survey')->onDelete('cascade');
             $table->foreign('id_pertanyaan')->references('id')->on('pertanyaan_survey')->onDelete('cascade');
-            $table->foreign('id_opsi_jawaban')->references('id')->on('opsi_jawaban')->onDelete('cascade');
+            $table->foreign('id_opsi_jawaban')->references('id')->on('opsi_jawaban');
 
         });
     }

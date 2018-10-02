@@ -14,12 +14,11 @@ class CreateTableOpsiJawaban extends Migration
     public function up()
     {
         Schema::create('opsi_jawaban', function (Blueprint $table) {
-            $table->integer('id');
+            $table->unsignedInteger('id');
             $table->string('nama');
             $table->unsignedInteger('id_tipe_jawaban');
 
-            $table->primary(['id', 'id_tipe_jawaban']);
-
+            $table->primary(['id','id_tipe_jawaban']);
             $table->foreign('id_tipe_jawaban')->references('id')->on('tipe_jawaban');
         });
 
