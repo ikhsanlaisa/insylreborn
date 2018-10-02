@@ -8,7 +8,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Tambah User Admin Baru
+                Edit Password
                 <small>BP2IP Barombong</small>
             </h1>
         </section>
@@ -26,8 +26,10 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <form id="form" enctype="multipart/form-data" method="post" action="{{ route('admin.store') }}">
+                    <form id="form" enctype="multipart/form-data" method="post"
+                          action="{{ route('admin.update', $admin->id) }}">
                         @csrf
+                        @method('PUT')
                         @if($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
@@ -40,37 +42,25 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                <input type="hidden" name="status" value="aktif">
-                                <label>-- Identitas User --</label>
                                 <div class="form-group">
-                                    <label for="username">Username</label>
-                                    <input type="text" name="username" id="username" class="form-control"
-                                           value="{{ old('username') }}" required>
+                                    <label for="current_password">Current Password</label>
+                                    <input type="password" name="current_password" id="current_password"
+                                           class="form-control" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" name="password" id="password" class="form-control"
-                                           value="{{ old('password') }}" required>
+                                    <label for="new_password">New Password</label>
+                                    <input type="password" name="new_password" id="new_password" class="form-control"
+                                           required>
                                 </div>
-                                <label>-- Identitas Admin --</label>
-                                <div class="form-group">
-                                    <label for="nip">NIP</label>
-                                    <input type="text" name="nip" id="nip" class="form-control" required
-                                           value="{{ old('nip') }}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="nama">Nama</label>
-                                    <input type="text" name="nama" id="nama" class="form-control" required
-                                           value="{{ old('nama') }}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="tipeadminlist">Tipe Admin</label>
-                                    <select name="id_tipe" id="tipeadminlist" class="form-control select2">
 
-                                    </select>
+
+                                <div class="form-group">
+                                    <label for="confirmation_password">Current Password</label>
+                                    <input type="password" name="confirmation_password" id="confirmation_password"
+                                           class="form-control" required>
                                 </div>
-                                <span id="inLayanan"></span>
+
 
                                 <style>
                                     .custom-btn {
@@ -113,51 +103,3 @@
     </div>
     <!-- /.content-wrapper -->
 @endsection
-
-@push('js')
-    <script>
-        $(function () {
-            $('.select2').select2();
-        });
-
-        $.ajax({
-            type: 'GET',
-            url: '{{ route('tipeadmin.list') }}',
-            success: function (data) {
-                $.each(data.data, function (index, value) {
-                    console.log(value);
-                    $('#tipeadminlist').append(
-                        '<option value="' + value['id'] + '">' + value['tipe'] + '</option>'
-                    )
-
-                });
-            },
-            error: function (data) {
-                console.log('Error:', data);
-            }
-        });
-
-        $('#tipeadminlist').change(function () {
-
-            $('#pengLayanan').remove();
-
-            if(this.value != 1){
-                $('#inLayanan').append(
-
-                    "<div class=\"form-group\" id=\"pengLayanan\">\n" +
-                    "<label for=\"layananlist\">Pengaduan Layanan</label>\n" +
-                    "<select name=\"id_layanan\" id=\"layananlist\" class=\"form-control select2\">\n" +
-                    "<option value=\"\">Pilih Layanan</option>\n" +
-                    "@foreach($layanan as $item)\n" +
-                    "<option value=\"{{ $item['id'] }}\">{{ $item['jenis'] }}</option>\n" +
-                    "@endforeach\n" +
-                    "</select>\n" +
-                    "</div>"
-                )
-            }
-
-        });
-
-    </script>
-@endpush
-

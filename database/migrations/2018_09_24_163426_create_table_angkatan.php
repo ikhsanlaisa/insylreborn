@@ -17,6 +17,8 @@ class CreateTableAngkatan extends Migration
             $table->increments('id');
             $table->unsignedInteger('id_subdiklat');
             $table->string('kode');
+            $table->date('periode_awal');
+            $table->date('periode_akhir');
             $table->timestamps();
 
             $table->foreign('id_subdiklat')->references('id')->on('subdiklat')->onDelete('cascade')->onUpdate('cascade');
@@ -24,7 +26,9 @@ class CreateTableAngkatan extends Migration
 
         \App\Models\Angkatan::insert([
             'id_subdiklat' => 1,
-            'kode' => 'NAA1'
+            'kode' => 'NAA1',
+            'periode_awal' => \Carbon\Carbon::createFromDate(2018,9,2,'+07:00'),
+            'periode_akhir' => \Carbon\Carbon::createFromDate(2020,9,2,'+07:00'),
         ]);
     }
 

@@ -15,7 +15,7 @@ class CreateTableStatusPengaduan extends Migration
     {
         Schema::create('status_pengaduan', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('status');
+            $table->enum('status', ['tersubmit','on progress','selesai']);
             $table->timestamps();
         });
 
@@ -24,7 +24,7 @@ class CreateTableStatusPengaduan extends Migration
                 'status' => 'tersubmit'
             ],
             [
-                'status' => 'onprogress'
+                'status' => 'on progress'
             ],
             [
                 'status' => 'selesai'

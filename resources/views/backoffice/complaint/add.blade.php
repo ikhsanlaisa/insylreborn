@@ -94,10 +94,10 @@
                                             class="btn btn-block btn-success custom-btn"><i class="fa fa-send"></i>
                                         Submit
                                     </button>
-                                    <button type="button" onclick="window.history.back()" name="draft"
-                                            class="btn btn-block btn-danger custom-btn"><i class="fa fa-reply"></i>
+                                    <a type="button" href="{{ route('complaints.index') }}"
+                                       class="btn btn-block btn-danger custom-btn"><i class="fa fa-reply"></i>
                                         Kembali
-                                    </button>
+                                    </a>
                                 </div>
                             </form>
                         </div>
@@ -109,11 +109,10 @@
                 BP2IP Barombong
             </div>
             <!-- /.box-footer-->
-    </div>
-    <!-- /.box -->
+            <!-- /.box -->
 
-    </section>
-    <!-- /.content -->
+        </section>
+        <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 @endsection

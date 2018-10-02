@@ -68,10 +68,10 @@
                                                 class="btn btn-block btn-success custom-btn"><i class="fa fa-send"></i>
                                             Publish
                                         </button>
-                                        <button type="button" onclick="window.history.back()" name="draft"
+                                        <a type="button" href="{{ route('news.index') }}"
                                                 class="btn btn-block btn-danger custom-btn"><i class="fa fa-reply"></i>
                                             Kembali
-                                        </button>
+                                        </a>
                                     </div>
                                 </center>
                             </form>

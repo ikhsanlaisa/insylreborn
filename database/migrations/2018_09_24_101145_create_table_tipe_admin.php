@@ -20,7 +20,12 @@ class CreateTableTipeAdmin extends Migration
         });
 
         \App\Models\TipeAdmin::insert([
-            'tipe' => 'Super Admin'
+            [
+                'tipe' => 'Super Admin'
+            ],
+            [
+                'tipe' => 'Admin Pengaduan'
+            ]
         ]);
     }
 

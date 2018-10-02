@@ -11,4 +11,9 @@ class Berita extends Model
     protected $fillable = [
         'id_admin', 'judul', 'isi', 'foto'
     ];
+
+    public function author()
+    {
+        return $this->belongsTo(Admin::class,'id_admin','id');
+    }
 }

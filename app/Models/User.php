@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'status', 'password', 'remember_token',
+        'username', 'status', 'password','email', 'jwt_token'
     ];
 
     /**
@@ -25,7 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
+        'password', 'remember_token',
     ];
 
     public function admin()
@@ -46,5 +46,12 @@ class User extends Authenticatable
     public function isSuperAdmin(){
         return $this->admin && $this['admin']['tipe']->tipe == 'Super Admin';
     }
+
+    public function getAvatarAttribute()
+    {
+        $hash = md5(strtolower(trim($this->email))) . '.jpeg' . '?s=106&d=mm&r=g';
+        return "https://secure.gravatar.com/avatar/$hash";
+    }
+
 
 }

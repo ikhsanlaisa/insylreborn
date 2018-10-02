@@ -26,4 +26,9 @@ class Admin extends Model
     {
         return $this->belongsTo(LayananPengaduan::class,'id_layanan','id');
     }
+
+    public function berita()
+    {
+        return $this->hasMany(Berita::class,'id_admin','id');
+    }
 }

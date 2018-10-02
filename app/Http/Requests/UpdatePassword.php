@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\ValidatePassword;
 
-class Login extends FormRequest
+class UpdatePassword extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +25,9 @@ class Login extends FormRequest
     public function rules()
     {
         return [
-            'username'=>'required|exists:users',
-            'password'=>'required'
+            'current_password' => ['required', 'min:5', new ValidatePassword(auth()->user())],
+            'new_password' => 'required|min:5',
+            'confirmation_password' => 'required_with:new_password|same:new_password|min:5'
         ];
     }
-
 }

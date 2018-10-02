@@ -9,7 +9,7 @@ class Angkatan extends Model
     protected $table = 'angkatan';
 
     protected $fillable = [
-        'id_subdiklat', 'kode', 'nama'
+        'id_subdiklat', 'kode', 'nama', 'periode_awal','periode_akhir'
     ];
 
     public function subdiklat()
