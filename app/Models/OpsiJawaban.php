@@ -11,4 +11,9 @@ class OpsiJawaban extends Model
     protected $fillable = [
         'nama', 'id_tipe_jawaban'
     ];
+
+    public function detailJawaban()
+    {
+        return $this->hasMany(DetailJawaban::class,'id_jawaban_survey','id');
+    }
 }

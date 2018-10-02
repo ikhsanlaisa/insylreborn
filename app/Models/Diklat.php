@@ -16,4 +16,9 @@ class Diklat extends Model
     {
         return $this->hasMany(SubDiklat::class,'id_diklat','id');
     }
+
+    public function configIndividu()
+    {
+        return $this->hasMany(ConfigSurveyIndividu::class,'id_diklat','id');
+    }
 }

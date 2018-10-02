@@ -11,4 +11,9 @@ class TipeJawaban extends Model
     protected $fillable = [
         'nama'
     ];
+
+    public function pertanyaan()
+    {
+        return $this->hasMany(PertanyaanSurvey::class,'id_tipe_jawaban','id');
+    }
 }

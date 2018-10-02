@@ -21,4 +21,19 @@ class Kelas extends Model
     {
         return $this->hasMany(Siswa::class,'id_kelas','id');
     }
+
+    public function instruktur()
+    {
+        return $this->belongsToMany(Instruktur::class,'kelas_instruktur','id_kelas','id_instruktur')->withPivot('id');
+    }
+
+    public function configInstruktur()
+    {
+        return $this->hasMany(ConfigSurveyInstruktur::class,'id_kelas','id');
+    }
+
+    public function configIndividu()
+    {
+        return $this->hasMany(ConfigSurveyIndividu::class,'id_kelas','id');
+    }
 }
