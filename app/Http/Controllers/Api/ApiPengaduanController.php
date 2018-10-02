@@ -8,9 +8,15 @@ use App\Models\Siswa;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ApiPengaduanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('jwt.auth');
+    }
+
     public function allpengaduan(){
         $pengaduan = Pengaduan::all();
         $respon = [
@@ -22,7 +28,7 @@ class ApiPengaduanController extends Controller
     }
 
     public function pengaduanbyuser(){
-        $pengaduan = Pengaduan::where(Auth::user()->id)->first();
+        $pengaduan = Pengaduan::where('id_siswa', Auth::user()->siswa->id)->get();
         $respon = [
             'error' => false,
             'message' => "success",
@@ -42,22 +48,19 @@ class ApiPengaduanController extends Controller
     }
 
     public function storepengaduan(Request $request){
-        $siswa = Siswa::where(Auth::user()->id);
-        $filepath = 'images';
-        $pengaduan = new Pengaduan();
-        $pengaduan->id_siswa = $siswa->id;
-        $pengaduan->id_jenis = $request->input('id_jenis');
+        $validated = $request->validated();
+        $validated['id_siswa'] = Auth::user()->siswa->id;
+        $validated['id_jenis'] = $request->input('id_jenis');
         if ($request->input('isi')) {
-            $pengaduan->isi = $request->input('isi');
+            $validated['isi'] = $request->input('isi');
         }
         if ($request->file('foto')) {
-            $foto = $request->file('foto');
-            $fotos = $foto->getClientOriginalName();
-            $foto->move($filepath, $fotos);
+            $image = $this->uploadFoto($request->file('foto'));
 
-            $pengaduan->foto = $fotos;
+            $validated['foto'] = $image;
         }
-        if ($pengaduan->save()) {
+        $pengaduan = Pengaduan::create($validated);
+        if ($pengaduan) {
             return response()->json([
                 false,
                 'berhasil menyimpan data',
@@ -68,5 +71,17 @@ class ApiPengaduanController extends Controller
                 'gagal menyimpan data',
                 $pengaduan]);
         }
+    }
+
+    private function uploadFoto($img)
+    {
+        $fileName = uniqid() . $img->getClientOriginalName();
+        $path = 'uploads/complaints/';
+
+        $fullPath = $path . $fileName;
+
+        Storage::disk('public')->putFileAs($path, $img, $fileName);
+
+        return $fullPath;
     }
 }

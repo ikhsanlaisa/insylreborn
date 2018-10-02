@@ -8,6 +8,11 @@ use App\Http\Controllers\Controller;
 
 class ApiBeritaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('jwt.auth');
+    }
+
     public function news(){
         $news = Berita::all();
         $respon = [
