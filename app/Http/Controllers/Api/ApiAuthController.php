@@ -47,7 +47,7 @@ class ApiAuthController extends Controller
         $user = User::where('username',$request->username)->with('admin')->first();
         $auth = Auth::user()->id;
         $users = User::find($auth);
-        $users->remember_token = $token;
+        $users->jwt_token = $token;
         $users->save();
 
         $respon = [
