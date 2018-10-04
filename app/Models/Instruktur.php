@@ -9,7 +9,7 @@ class Instruktur extends Model
     protected $table = 'instruktur';
 
     protected $fillable = [
-        'nip','nama','alamat','kontak'
+        'nip','nama','alamat','kontak','gender'
     ];
 
     public function configInstruktur()

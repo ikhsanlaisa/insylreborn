@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Diklat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Http\Resources\DiklatResource;
 
 class DiklatController extends Controller
 {
@@ -18,6 +19,13 @@ class DiklatController extends Controller
         $diklat = Diklat::all();
 
         return view('backoffice.administration.diklat.index', compact('diklat'));
+    }
+
+    public function listdiklat()
+    {
+        $diklat = Diklat::all();
+
+        return DiklatResource::collection($diklat);
     }
 
     /**

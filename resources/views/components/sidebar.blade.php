@@ -30,28 +30,28 @@
             <li class="header">MAIN NAVIGATION</li>
             <li class="{{ set_active('home') }}"><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
             </li>
-            <li class="treeview ">
-                <a href="#">
-                    <i class="fa fa-search"></i> <span>Survey</span>
-                    <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Data Survey</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Survey Submission</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Hasil Survey</a></li>
-                </ul>
-            </li>
             <li class="{{ set_active(['complaints.index', 'complaints.create', 'complaints.edit']) }}">
                 <a href="{{ route('complaints.index') }}"><i class="fa fa-exclamation-circle"></i>
                     <span>Pengaduan</span></a></li>
             @if(Auth::user()->isSuperAdmin())
+                <li class="header">SUPER ADMIN</li>
                 <li class="{{ set_active(['news.index', 'news.create', 'news.edit']) }}"><a
                         href="{{ route('news.index') }}"><i class="fa fa-newspaper-o"></i> <span>Berita</span></a></li>
-                <li class="header">SUPER ADMIN</li>
+                <li class="treeview ">
+                    <a href="#">
+                        <i class="fa fa-search"></i> <span>Survey</span>
+                        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="#"><i class="fa fa-circle-o"></i>Data Survey</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i>Survey Submission</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i>Hasil Survey</a></li>
+                    </ul>
+                </li>
                 <li class="treeview {{ set_active(['diklat.index','subdiklat.index',
-            'angkatan.index','kelas.index','admin.index','admin.edit','admin.create','siswa.index']) }}">
+            'angkatan.index','kelas.index','admin.index','admin.edit','admin.create','siswa.index','instruktur.index']) }}">
                     <a href="#">
                         <i class="fa fa-list"></i> <span>Master Data</span>
                         <span class="pull-right-container">
@@ -72,57 +72,14 @@
                                     class="fa fa-circle-o"></i>Data Angkatan</a></li>
                         <li class="{{ set_active('kelas.index') }}"><a href="{{ route('kelas.index') }}"><i
                                     class="fa fa-circle-o"></i>Data Kelas</a></li>
+                        <li class="{{ set_active('instruktur.index') }}"><a href="{{ route('instruktur.index') }}"><i
+                                    class="fa fa-circle-o"></i>Data Instruktur</a></li>
+
 
                     </ul>
                 </li>
                 <li><a href="{{ route('kategori.index') }}"><i class="fa fa-building-o"></i> Kategori Layanan</a></li>
         @endif
-
-        <!-- <li class="treeview">
-              <a href="#">
-                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-              </ul>
-            </li> -->
-            <!-- <li class="treeview">
-              <a href="#">
-                <i class="fa fa-share"></i> <span>Multilevel</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o"></i> Level One
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-                    <li class="treeview">
-                      <a href="#"><i class="fa fa-circle-o"></i> Level Two
-                        <span class="pull-right-container">
-                          <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                      </a>
-                      <ul class="treeview-menu">
-                        <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-              </ul>
-            </li> -->
         </ul>
     </section>
     <!-- /.sidebar -->

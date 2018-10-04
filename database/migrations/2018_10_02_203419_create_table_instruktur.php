@@ -17,10 +17,19 @@ class CreateTableInstruktur extends Migration
             $table->increments('id');
             $table->string('nip')->unique();
             $table->string('nama');
+            $table->enum('gender', ['L','P'])->nullable();
             $table->string('alamat');
             $table->string('kontak');
             $table->timestamps();
         });
+
+        \App\Models\Instruktur::insert([
+            'nip' => '16.57.00001',
+            'nama' => 'A. Nurwahidah',
+            'gender' => 'P',
+            'alamat' => 'Bandung',
+            'kontak' => '112413133'
+        ]);
     }
 
     /**
