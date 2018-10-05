@@ -19,6 +19,13 @@ class LayananController extends Controller
         return view('backoffice.administration.service', compact('layanan'));
     }
 
+    public function listlayanan()
+    {
+        $all = LayananPengaduan::all();
+
+        return response()->json($all);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

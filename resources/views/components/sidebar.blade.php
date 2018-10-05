@@ -78,7 +78,7 @@
 
                     </ul>
                 </li>
-                <li><a href="{{ route('kategori.index') }}"><i class="fa fa-building-o"></i> Kategori Layanan</a></li>
+                <li class="{{ set_active('kategori.index') }}"><a href="{{ route('kategori.index') }}"><i class="fa fa-building-o"></i> Kategori Layanan</a></li>
         @endif
         </ul>
     </section>

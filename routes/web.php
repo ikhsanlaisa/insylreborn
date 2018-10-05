@@ -45,6 +45,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('listdiklat', 'DiklatController@listdiklat')->name('diklat.list')->middleware('superadmin');
     Route::get('listsubdiklat', 'SubDiklatController@listsubdiklat')->name('subdiklat.list')->middleware('superadmin');
     Route::get('listangkatan', 'AngkatanController@listangkatan')->name('angkatan.list')->middleware('superadmin');
+    Route::get('listkategori', 'LayananController@listlayanan')->name('kategori.list')->middleware('superadmin');
 
     Route::post('survey', 'SurveyController@store')->name('survey.store')->middleware('superadmin');
 
