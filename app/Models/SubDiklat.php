@@ -21,4 +21,9 @@ class SubDiklat extends Model
     {
         return $this->hasMany(Angkatan::class,'id_subdiklat','id');
     }
+
+    public function configIndividu()
+    {
+        return $this->hasMany(ConfigSurveyIndividu::class,'id_subdiklat','id');
+    }
 }

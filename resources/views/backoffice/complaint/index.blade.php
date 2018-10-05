@@ -24,6 +24,28 @@
                     </div>
                 </div>
                 <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12 text-bold">Filter By :</div>
+                        @if(Auth::user()->isSuperAdmin())
+                            <div class="col-md-3">
+                                <select id="filterPengaduan" class="form-control">
+                                    <option selected disabled>Pilih Jenis Pengaduan</option>
+                                    <option value="">Semua Jenis Pengaduan</option>
+                                </select>
+                            </div>
+                        @endif
+                        <div class="col-md-3">
+
+                            <select id="filterStatus" class="form-control">
+                                <option selected disabled>Pilih Status</option>
+                                <option value="">Semua Status</option>
+                                <option value="Tersubmit">Tersubmit</option>
+                                <option value="On Progress">On Progress</option>
+                                <option value="Selesai">Selesai</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
                     <div class="table-responsive">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
@@ -71,7 +93,7 @@
                                     </td>
                                     <td>
                                         <center>
-                                            <a href="#" class="btn btn-xs btn-in-o btn-round"><i class="fa fa-eye"></i>
+                                            {{--<a href="#" class="btn btn-xs btn-in-o btn-round"><i class="fa fa-eye"></i>--}}
 
                                                 @if(Auth::user()->admin)
                                                     <a href="#" data-toggle="modal" data-target="#editPengaduan"
@@ -149,13 +171,36 @@
 @push('js')
     <script>
         $(function () {
-            $('#example1').DataTable({
+            $('#filterStatus').change(function () {
+                let status = $('#filterStatus :selected').val();
+                table.column(6).search(status).draw();
+            });
+            @if(Auth::user()->isSuperAdmin())
+            $('#filterPengaduan').change(function () {
+                let kategori = $('#filterPengaduan :selected').val();
+                table.column(4).search(kategori).draw();
+            });
+
+            $.ajax({
+                type: 'GET',
+                url: '{{ route('kategori.list') }}',
+                success: function (data) {
+                    $.each(data, function (index, value) {
+                        $('#filterPengaduan').append(
+                            '<option value="' + value['jenis'] + '">' + value['jenis'] + '</option>'
+                        )
+                    })
+                }
+            })
+                @endif
+
+            let table = $('#example1').DataTable({
                 "columnDefs": [{
-                    "targets": 5,
+                    "targets": 7,
                     "orderable": false
                 }],
 
-            })
+            });
         });
     </script>
     <script type="text/javascript">

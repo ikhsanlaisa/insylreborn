@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SubDiklat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class SubDiklatController extends Controller
 {
@@ -14,7 +15,16 @@ class SubDiklatController extends Controller
      */
     public function index()
     {
-        //
+        $subdiklat = SubDiklat::all();
+
+        return view('backoffice.administration.subdiklat.index', compact('subdiklat'));
+    }
+
+    public function listsubdiklat()
+    {
+        $all = SubDiklat::all();
+
+        return response()->json($all);
     }
 
     /**
@@ -37,7 +47,7 @@ class SubDiklatController extends Controller
     {
         $validated = $this->validate($request, [
             'id_diklat' => 'required|exists:diklat,id',
-            'kode' => 'required|unique:sub_diklat,kode',
+            'kode' => 'required|unique:subdiklat,kode',
             'nama' => 'required|string'
         ]);
 
@@ -46,28 +56,6 @@ class SubDiklatController extends Controller
         Session::flash('success', 'Diklat berhasil di tambahkan');
 
         return response('success', 200);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\SubDiklat  $subdiklat
-     * @return \Illuminate\Http\Response
-     */
-    public function show(SubDiklat $subdiklat)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\SubDiklat  $subdiklat
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(SubDiklat $subdiklat)
-    {
-        //
     }
 
     /**
@@ -81,13 +69,14 @@ class SubDiklatController extends Controller
     {
         $validated = $this->validate($request, [
             'id_diklat' => 'required|exists:diklat,id',
-            'kode' => 'required|unique:sub_diklat,kode,' . $subdiklat->id,
+            'kode' => 'required|unique:subdiklat,kode,' . $subdiklat->id,
             'nama' => 'required|string'
         ]);
 
         $subdiklat->update($validated);
 
         Session::flash('success', 'Sub Diklat berhasil di perbaharui');
+
 
         return response('success', 200);
     }

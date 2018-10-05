@@ -21,4 +21,10 @@ class Angkatan extends Model
     {
         return $this->hasMany(Kelas::class,'id_angkatan','id');
     }
+
+    public function configIndividu()
+    {
+        return $this->hasMany(ConfigSurveyIndividu::class,'id_angkatan','id');
+    }
+
 }

@@ -18,7 +18,7 @@ class CreateTableAdmin extends Migration
             $table->unsignedInteger('id_user');
             $table->unsignedInteger('id_tipe');
             $table->unsignedInteger('id_layanan')->nullable();
-            $table->string('nip');
+            $table->string('nip')->unique();
             $table->string('nama');
             $table->timestamps();
 

@@ -133,7 +133,7 @@
 
             $.ajax({
                 type: 'GET',
-                url: '/siswas',
+                url: '{{ route('siswa.list') }}',
                 success: function (data) {
                     $.each(data.data, function (index, value) {
                         console.log(value);

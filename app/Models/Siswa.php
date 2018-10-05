@@ -27,4 +27,14 @@ class Siswa extends Model
     {
         return $this->belongsTo(Kelas::class,'id_kelas','id');
     }
+
+    public function jawabanSurvey()
+    {
+        return $this->hasMany(JawabanSurvey::class,'id_siswa','id');
+    }
+
+    public function configIndividu()
+    {
+        return $this->hasMany(ConfigSurveyIndividu::class,'id_siswa','id');
+    }
 }
