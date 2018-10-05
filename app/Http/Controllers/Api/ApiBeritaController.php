@@ -14,7 +14,7 @@ class ApiBeritaController extends Controller
     }
 
     public function news(){
-        $news = Berita::with('author')->paginate(10);
+        $news = Berita::with('author')->orderBy('id', 'desc')->paginate(10);
         $respon = [
             'error' => false,
             'message' => "success",
