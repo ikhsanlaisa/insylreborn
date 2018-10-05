@@ -37,14 +37,15 @@ class ApiAuthController extends Controller
         try {
             // attempt to verify the credentials and create a token for the user
             if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(['success' => false, 'error' => 'Invalid Credentials. Please make sure you entered the right information and you have verified your email address.'], 401);
+                return response()->json(['success' => false, 'error' => 'Invalid Credentials.'], 401);
             }
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
             return response()->json(['success' => false, 'error' => 'could_not_create_token'], 500);
         }
 
-        $user = User::where('username',$request->username)->with('admin')->first();
+        $user = User::where('username',$request->username)->with('siswa')->first();
+//        var_dump($user);
         $auth = Auth::user()->id;
         $users = User::find($auth);
         $users->jwt_token = $token;
