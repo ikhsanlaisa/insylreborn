@@ -54,7 +54,7 @@ class ApiAuthController extends Controller
         $respon = [
             'error' => false,
             'message' => "success",
-            'data' => compact('user')
+            'data' => compact('token','user')
         ];
 
         return response()->json($respon);
