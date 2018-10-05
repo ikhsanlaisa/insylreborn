@@ -15,11 +15,12 @@ class CreateTableConfigSurveyIndividu extends Migration
     {
         Schema::create('config_survey_individu', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('id_diklat')->nullable();
+            $table->unsignedInteger('id_diklat');
             $table->unsignedInteger('id_subdiklat')->nullable();
             $table->unsignedInteger('id_angkatan')->nullable();
             $table->unsignedInteger('id_kelas')->nullable();
             $table->unsignedInteger('id_siswa')->nullable();
+            $table->unsignedInteger('id_survey');
             $table->timestamps();
 
 
@@ -28,6 +29,7 @@ class CreateTableConfigSurveyIndividu extends Migration
             $table->foreign('id_angkatan')->references('id')->on('angkatan')->onDelete('cascade');
             $table->foreign('id_kelas')->references('id')->on('kelas')->onDelete('cascade');
             $table->foreign('id_siswa')->references('id')->on('siswa')->onDelete('cascade');
+            $table->foreign('id_survey')->references('id')->on('survey')->onDelete('cascade');
         });
     }
 
