@@ -1,6 +1,6 @@
 <?php
 namespace App\Rules;
-use App\Model\User;
+use App\Models\User;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 class ValidatePassword implements Rule

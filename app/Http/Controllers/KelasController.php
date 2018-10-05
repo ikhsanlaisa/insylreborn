@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\KelasResource;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
+
 
 class KelasController extends Controller
 {
@@ -16,6 +18,13 @@ class KelasController extends Controller
     {
         $kelas = Kelas::all();
         return view('backoffice.administration.kelas.index', compact('kelas'));
+    }
+
+    public function listkelas()
+    {
+        $all = Kelas::all();
+
+        return KelasResource::collection($all);
     }
 
     /**

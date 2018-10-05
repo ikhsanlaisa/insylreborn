@@ -51,7 +51,7 @@
                     </ul>
                 </li>
                 <li class="treeview {{ set_active(['diklat.index','subdiklat.index',
-            'angkatan.index','kelas.index','admin.index','admin.edit','admin.create','siswa.index','instruktur.index']) }}">
+            'angkatan.index','kelas.index','admin.index','admin.edit','admin.create','siswa.index','siswa.create','siswa.edit','instruktur.index']) }}">
                     <a href="#">
                         <i class="fa fa-list"></i> <span>Master Data</span>
                         <span class="pull-right-container">
@@ -59,7 +59,7 @@
           </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="{{ set_active('siswa.index') }}"><a href="{{ route('siswa.index') }}"><i
+                        <li class="{{ set_active(['siswa.index','siswa.edit','siswa.create']) }}"><a href="{{ route('siswa.index') }}"><i
                                     class="fa fa-circle-o"></i>Data Akun Siswa</a></li>
                         <li class="{{ set_active(['admin.index','admin.edit','admin.create']) }}"><a
                                 href="{{ route('admin.index') }}"><i
