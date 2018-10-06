@@ -24,10 +24,11 @@ class ApiPengaduanController extends Controller
     public function allpengaduan(){
 //        $pengaduan = Timeline::with('pengaduan')->with('status')->orderBy('waktu','desc')->paginate(10);
         $timeline = DB::SELECT("
-            SELECT s.*, t.waktu 
+            SELECT s.*, t.waktu, p.id, p.id_siswa, p.id_jenis, p.isi, p.foto, p.created_at, p.updated_at
             from status_pengaduan s 
             left join timeline t 
             on s.id = t.id_status
+            join s.id_pengaduan = p.id
         ");
         $respon = [
             'error' => false,
