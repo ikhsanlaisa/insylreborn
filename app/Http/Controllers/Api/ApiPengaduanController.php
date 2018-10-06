@@ -38,8 +38,10 @@ class ApiPengaduanController extends Controller
     }
 
     public function pengaduanbyuser(){
-        $pengaduan = Pengaduan::with('siswa')->where('id_siswa', Auth::user()->siswa->id)->first();
-        $timeline = Timeline::with('pengaduan')->with('status')->where('id_pengaduan', $pengaduan->id)->paginate(10);
+        $siswa = Auth::user()->siswa->id;
+//        $pengaduan = Pengaduan::with('siswa')->where('id_siswa', $siswa)->get();
+        $pengaduans = Pengaduan::with('siswa')->where('id_siswa', $siswa)->first();
+        $timeline = Timeline::with('pengaduan')->with('status')->where('id_pengaduan', $pengaduans->id)->paginate(10);
 //        $timelines = DB::SELECT("
 //            select s.*, t.waktu
 //            from status_pengaduan s
@@ -51,7 +53,7 @@ class ApiPengaduanController extends Controller
         $respon = [
             'error' => false,
             'message' => "success",
-            'data' => compact('pengaduan','timeline')
+            'data' => compact('timeline')
         ];
         return response()->json($respon);
     }
