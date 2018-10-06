@@ -22,7 +22,7 @@ class ApiPengaduanController extends Controller
     }
 
     public function allpengaduan(){
-        $pengaduan = Timeline::with('pengaduan')->orderBy('waktu','desc')->paginate(10);
+        $pengaduan = Pengaduan::with('siswa')->orderBy('id','desc')->paginate(10);
 //        $timeline = DB::SELECT("
 //            Select s.*, t.waktu
 //            from status_pengaduan s
@@ -39,9 +39,9 @@ class ApiPengaduanController extends Controller
 
     public function pengaduanbyuser(){
         $siswa = Auth::user()->siswa->id;
-//        $pengaduan = Pengaduan::with('siswa')->where('id_siswa', $siswa)->get();
-        $pengaduans = Pengaduan::with('siswa')->where('id_siswa', $siswa)->first();
-        $timeline = Timeline::with('pengaduan')->where('id_pengaduan', $pengaduans->id)->paginate(10);
+        $pengaduan = Pengaduan::with('siswa')->where('id_siswa', $siswa)->orderByDesc('id')->get();
+//        $pengaduans = Pengaduan::with('siswa')->where('id_siswa', $siswa)->first();
+//        $timeline = Timeline::with('pengaduan')->where('id_pengaduan', $pengaduans->id);
 //        $timelines = DB::SELECT("
 //            select s.*, t.waktu
 //            from status_pengaduan s
@@ -53,7 +53,7 @@ class ApiPengaduanController extends Controller
         $respon = [
             'error' => false,
             'message' => "success",
-            'data' => compact('timeline')
+            'data' => compact('pengaduan')
         ];
         return response()->json($respon);
     }
