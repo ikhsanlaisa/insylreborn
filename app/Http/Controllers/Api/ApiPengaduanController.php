@@ -21,7 +21,7 @@ class ApiPengaduanController extends Controller
     }
 
     public function allpengaduan(){
-        $pengaduan = Timeline::with('pengaduan')->with('status')->orderBy('waktu','desc')->paginate(10)->get();
+        $pengaduan = Timeline::with('pengaduan')->with('status')->orderBy('waktu','desc')->paginate(10);
         $respon = [
             'error' => false,
             'message' => "success",
@@ -32,7 +32,7 @@ class ApiPengaduanController extends Controller
 
     public function pengaduanbyuser(){
         $pengaduan = Pengaduan::where('id_siswa', Auth::user()->siswa->id)->first();
-        $timeline = Timeline::with('pengaduan')->with('status')->where('id_pengaduan', $pengaduan->id)->paginate(10)->get();
+        $timeline = Timeline::with('pengaduan')->with('status')->where('id_pengaduan', $pengaduan->id)->paginate(10);
         $respon = [
             'error' => false,
             'message' => "success",
