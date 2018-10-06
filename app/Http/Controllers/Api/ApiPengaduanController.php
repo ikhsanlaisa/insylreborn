@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\LayananPengaduan;
 use App\Models\Pengaduan;
 use App\Models\Siswa;
+use App\Models\StatusPengaduan;
 use App\Models\Timeline;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,7 +20,8 @@ class ApiPengaduanController extends Controller
     }
 
     public function allpengaduan(){
-        $pengaduan = Timeline::with(['pengaduan', 'status'=>allOf()])->orderBy('waktu','desc')->get();
+        $status = StatusPengaduan::all();
+        $pengaduan = Timeline::with(['pengaduan', 'status'=>$status])->orderBy('waktu','desc')->get();
         $respon = [
             'error' => false,
             'message' => "success",
