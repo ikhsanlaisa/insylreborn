@@ -29,16 +29,16 @@ class ApiPengaduanController extends Controller
             left join timeline t 
             on s.id = t.id_status 
         ");
-        $result = [
-            'pengaduan'=>$pengaduan,
-            'timeline'=>$timeline
-        ];
-//        $respon = [
-//            'error' => false,
-//            'message' => "success",
-//            'data' => compact('result')
+//        $result = [
+//            'pengaduan'=>$pengaduan,
+//            'timeline'=>$timeline
 //        ];
-        return response()->json($result);
+        $respon = [
+            'error' => false,
+            'message' => "success",
+            'data' => compact('pengaduan', 'timeline')
+        ];
+        return response()->json(response($respon));
     }
 
     public function pengaduanbyuser(){
@@ -55,7 +55,7 @@ class ApiPengaduanController extends Controller
         $respon = [
             'error' => false,
             'message' => "success",
-            'data' => compact('pengaduan'. 'timelines')
+            'data' => compact('pengaduan','timelines')
         ];
         return response()->json($respon);
     }
