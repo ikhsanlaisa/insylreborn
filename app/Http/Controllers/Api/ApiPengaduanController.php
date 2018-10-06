@@ -43,11 +43,19 @@ class ApiPengaduanController extends Controller
 
     public function pengaduanbyuser(){
         $pengaduan = Pengaduan::where('id_siswa', Auth::user()->siswa->id)->first();
-        $timeline = Timeline::with('pengaduan')->with('status')->where('id_pengaduan', $pengaduan->id)->paginate(10);
+//        $timeline = Timeline::with('pengaduan')->with('status')->where('id_pengaduan', $pengaduan->id)->paginate(10);
+        $timelines = DB::SELECT("
+            select s.*, t.waktu 
+            from status_pengaduan s 
+            left join timeline t 
+            on s.id = t.id_status 
+            and t.id_pengaduan = ('$pengaduan');
+        ");
+
         $respon = [
             'error' => false,
             'message' => "success",
-            'data' => compact('timeline')
+            'data' => compact('pengaduan','timelines')
         ];
         return response()->json($respon);
     }
