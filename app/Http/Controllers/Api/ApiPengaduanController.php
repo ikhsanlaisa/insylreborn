@@ -28,7 +28,8 @@ class ApiPengaduanController extends Controller
             from status_pengaduan s 
             left join timeline t 
             on s.id = t.id_status
-            join s.id_pengaduan = p.id
+            join pengaduan
+            on s.id_pengaduan = p.id
         ");
         $respon = [
             'error' => false,
