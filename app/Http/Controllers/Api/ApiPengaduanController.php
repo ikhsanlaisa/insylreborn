@@ -22,7 +22,7 @@ class ApiPengaduanController extends Controller
     }
 
     public function allpengaduan(){
-        $pengaduan = Timeline::with('pengaduan')->with('status')->orderBy('waktu','desc')->paginate(10);
+        $pengaduan = Timeline::with('pengaduan')->orderBy('waktu','desc')->paginate(10);
 //        $timeline = DB::SELECT("
 //            Select s.*, t.waktu
 //            from status_pengaduan s
@@ -41,7 +41,7 @@ class ApiPengaduanController extends Controller
         $siswa = Auth::user()->siswa->id;
 //        $pengaduan = Pengaduan::with('siswa')->where('id_siswa', $siswa)->get();
         $pengaduans = Pengaduan::with('siswa')->where('id_siswa', $siswa)->first();
-        $timeline = Timeline::with('pengaduan')->with('status')->where('id_pengaduan', $pengaduans->id)->paginate(10);
+        $timeline = Timeline::with('pengaduan')->where('id_pengaduan', $pengaduans->id)->paginate(10);
 //        $timelines = DB::SELECT("
 //            select s.*, t.waktu
 //            from status_pengaduan s
@@ -94,13 +94,11 @@ class ApiPengaduanController extends Controller
         if ($pengaduan && $timeline) {
             return response()->json([
                 false,
-                'berhasil menyimpan data',
-                $pengaduan, $timeline]);
+                'berhasil menyimpan data']);
         } else {
             return response()->json([
                 true,
-                'gagal menyimpan data',
-                $pengaduan, $timeline]);
+                'gagal menyimpan data']);
         }
 
 
