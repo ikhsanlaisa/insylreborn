@@ -22,40 +22,36 @@ class ApiPengaduanController extends Controller
     }
 
     public function allpengaduan(){
-        $pengaduan = Timeline::with('pengaduan')->orderBy('waktu','desc')->paginate(10);
-        $timeline = DB::SELECT("
-            Select s.*, t.waktu 
-            from status_pengaduan s 
-            left join timeline t 
-            on s.id = t.id_status 
-        ");
-//        $result = [
-//            'pengaduan'=>$pengaduan,
-//            'timeline'=>$timeline
-//        ];
+        $pengaduan = Timeline::with('pengaduan')->with('status')->orderBy('waktu','desc')->paginate(10);
+//        $timeline = DB::SELECT("
+//            Select s.*, t.waktu
+//            from status_pengaduan s
+//            left join timeline t
+//            on s.id = t.id_status
+//        ");
         $respon = [
             'error' => false,
             'message' => "success",
-            'data' => compact('pengaduan', 'timeline')
+            'data' => compact('pengaduan');
         ];
         return response()->json(response($respon));
     }
 
     public function pengaduanbyuser(){
-        $pengaduan = Pengaduan::where('id_siswa', Auth::user()->siswa->id)->first();
-//        $timeline = Timeline::with('pengaduan')->with('status')->where('id_pengaduan', $pengaduan->id)->paginate(10);
-        $timelines = DB::SELECT("
-            select s.*, t.waktu 
-            from status_pengaduan s 
-            left join timeline t 
-            on s.id = t.id_status 
-            and t.id_pengaduan = ('$pengaduan');
-        ");
+        $pengaduan = Pengaduan::where('id_siswa', Auth::user()->siswa->id)->get();
+        $timeline = Timeline::with('pengaduan')->with('status')->where('id_pengaduan', $pengaduan->id)->paginate(10);
+//        $timelines = DB::SELECT("
+//            select s.*, t.waktu
+//            from status_pengaduan s
+//            left join timeline t
+//            on s.id = t.id_status
+//            and t.id_pengaduan = ('$pengaduan');
+//        ");
 
         $respon = [
             'error' => false,
             'message' => "success",
-            'data' => compact(['pengaduan','timelines'])
+            'data' => compact('pengaduan','timeline')
         ];
         return response()->json($respon);
     }
