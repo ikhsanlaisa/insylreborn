@@ -31,7 +31,7 @@ class ApiPengaduanController extends Controller
     }
 
     public function pengaduanbyuser(){
-        $pengaduan = Pengaduan::where('id_siswa', Auth::user()->siswa->id)->get();
+        $pengaduan = Pengaduan::where('id_siswa', Auth::user()->siswa->id)->first();
         $timeline = Timeline::with('pengaduan')->with('status')->where('id_pengaduan', $pengaduan->id)->first();
         $respon = [
             'error' => false,
