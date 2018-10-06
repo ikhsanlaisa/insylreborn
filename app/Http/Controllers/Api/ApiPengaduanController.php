@@ -19,7 +19,7 @@ class ApiPengaduanController extends Controller
     }
 
     public function allpengaduan(){
-        $pengaduan = Timeline::with('pengaduan', 'status')->where('status', [1, 2, 3])->orderBy('waktu','desc')->get();
+        $pengaduan = Timeline::with('pengaduan', 'status')->where('id_status', [1, 2, 3])->orderBy('waktu','desc')->get();
         $respon = [
             'error' => false,
             'message' => "success",
