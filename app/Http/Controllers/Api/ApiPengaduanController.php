@@ -93,12 +93,14 @@ class ApiPengaduanController extends Controller
 
         if ($pengaduan && $timeline) {
             return response()->json([
-                false,
-                'berhasil menyimpan data']);
+                'error' => false,
+                'message'=> 'berhasil menyimpan data'
+            ]);
         } else {
             return response()->json([
-                true,
-                'gagal menyimpan data']);
+                'error'=>true,
+                'message'=>'gagal menyimpan data'
+            ]);
         }
 
 
