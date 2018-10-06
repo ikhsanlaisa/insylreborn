@@ -33,12 +33,12 @@ class ApiPengaduanController extends Controller
             'pengaduan'=>$pengaduan,
             'timeline'=>$timeline
         ];
-        $respon = [
-            'error' => false,
-            'message' => "success",
-            'data' => compact('result')
-        ];
-        return response()->json($respon);
+//        $respon = [
+//            'error' => false,
+//            'message' => "success",
+//            'data' => compact('result')
+//        ];
+        return response()->json($result);
     }
 
     public function pengaduanbyuser(){
