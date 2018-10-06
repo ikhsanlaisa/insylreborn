@@ -19,7 +19,7 @@ class ApiPengaduanController extends Controller
     }
 
     public function allpengaduan(){
-        $pengaduan = Timeline::with('pengaduan', 'status');
+        $pengaduan = Pengaduan::with('pengaduan', 'status')->get();
         $respon = [
             'error' => false,
             'message' => "success",
