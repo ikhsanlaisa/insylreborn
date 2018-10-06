@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\LayananPengaduan;
 use App\Models\Pengaduan;
 use App\Models\Siswa;
+use App\Models\Timeline;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,7 @@ class ApiPengaduanController extends Controller
     }
 
     public function allpengaduan(){
-        $pengaduan = Pengaduan::all();
+        $pengaduan = Timeline::with('pengaduan', 'status');
         $respon = [
             'error' => false,
             'message' => "success",
