@@ -7,6 +7,7 @@ use App\Models\Pengaduan;
 use App\Models\Siswa;
 use App\Models\StatusPengaduan;
 use App\Models\Timeline;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,7 @@ class ApiPengaduanController extends Controller
     }
 
     public function pengaduanbyuser(){
-        $pengaduan = Pengaduan::where('id_siswa', Auth::user()->siswa->id)->get();
+        $pengaduan = Pengaduan::with('pengaduan')->with('status')->where('id_siswa', Auth::user()->siswa->id)->get();
         $respon = [
             'error' => false,
             'message' => "success",
@@ -51,6 +52,7 @@ class ApiPengaduanController extends Controller
 
     public function storepengaduan(Request $request){
         $validated = $request->validated();
+        $validated['waktu'] = Carbon::now()->setTimezone('+07:00');
         $validated['id_siswa'] = Auth::user()->siswa->id;
         $validated['id_jenis'] = $request->input('id_jenis');
         if ($request->input('isi')) {
@@ -62,17 +64,28 @@ class ApiPengaduanController extends Controller
             $validated['foto'] = $image;
         }
         $pengaduan = Pengaduan::create($validated);
-        if ($pengaduan) {
+
+        $timeline = new Timeline;
+        $timeline->fill([
+            'id_pengaduan' => $pengaduan['id'],
+            'id_status' => 1,
+            'waktu' => $validated['waktu']
+        ])->save();
+
+
+        if ($pengaduan && $timeline) {
             return response()->json([
                 false,
                 'berhasil menyimpan data',
-                $pengaduan]);
+                $pengaduan, $timeline]);
         } else {
             return response()->json([
                 true,
                 'gagal menyimpan data',
-                $pengaduan]);
+                $pengaduan, $timeline]);
         }
+
+
     }
 
     private function uploadFoto($img)

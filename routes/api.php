@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['namespace' => 'Api'], function () {
     Route::post('/login', 'ApiAuthController@login');
+    Route::get('/profil', 'ApiUserController@profil');
     Route::get('/news', 'ApiBeritaController@news');
     Route::get('/allpengaduan', 'ApiPengaduanController@allpengaduan');
     Route::get('/pengaduanbyuser', 'ApiPengaduanController@pengaduanbyuser');
