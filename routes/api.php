@@ -23,6 +23,6 @@ Route::group(['namespace' => 'Api'], function () {
     Route::get('/news', 'ApiBeritaController@news');
     Route::get('/allpengaduan', 'ApiPengaduanController@allpengaduan');
     Route::get('/pengaduanbyuser', 'ApiPengaduanController@pengaduanbyuser');
-    Route::get('/addpengaduan', 'ApiPengaduanController@addpengaduan');
-    Route::post('/storepengaduan', 'ApiPengaduanController@storepengaduan');
+    Route::get('/getlayanan', 'ApiPengaduanController@addpengaduan');
+    Route::post('/addpengaduan', 'ApiPengaduanController@storepengaduan');
 });
