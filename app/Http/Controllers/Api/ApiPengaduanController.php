@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\LayananPengaduan;
 use App\Models\Pengaduan;
-use App\Models\Siswa;
-use App\Models\StatusPengaduan;
+
+
 use App\Models\Timeline;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use App\Http\Requests\Pengaduan as RPengaduan;
 use Illuminate\Support\Facades\Storage;
 
 class ApiPengaduanController extends Controller
@@ -68,7 +68,7 @@ class ApiPengaduanController extends Controller
         return response()->json($respon);
     }
 
-    public function storepengaduan(Request $request){
+    public function storepengaduan(RPengaduan $request){
         $validated = $request->validated();
         $validated['waktu'] = Carbon::now()->setTimezone('+07:00');
         $validated['id_siswa'] = Auth::user()->siswa->id;
