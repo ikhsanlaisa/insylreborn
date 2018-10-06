@@ -21,11 +21,17 @@ class ApiPengaduanController extends Controller
     }
 
     public function allpengaduan(){
-        $pengaduan = Timeline::with('pengaduan')->with('status')->orderBy('waktu','desc')->paginate(10);
+//        $pengaduan = Timeline::with('pengaduan')->with('status')->orderBy('waktu','desc')->paginate(10);
+        $timeline = DB::SELECT("
+            SELECT s.*, t.waktu 
+            from status_pengaduan s 
+            left join timeline t 
+            on s.id = t.id_status
+        ");
         $respon = [
             'error' => false,
             'message' => "success",
-            'data' => compact('pengaduan')
+            'data' => compact('timeline')
         ];
         return response()->json($respon);
     }
