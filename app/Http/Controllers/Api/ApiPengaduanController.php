@@ -55,7 +55,7 @@ class ApiPengaduanController extends Controller
         $respon = [
             'error' => false,
             'message' => "success",
-            'data' => compact('pengaduan','timelines')
+            'data' => compact(['pengaduan','timelines'])
         ];
         return response()->json($respon);
     }
