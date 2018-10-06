@@ -32,7 +32,7 @@ class ApiPengaduanController extends Controller
         $respon = [
             'error' => false,
             'message' => "success",
-            'data' => compact('pengaduan');
+            'data' => compact('pengaduan')
         ];
         return response()->json(response($respon));
     }
