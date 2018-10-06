@@ -31,11 +31,12 @@ class ApiPengaduanController extends Controller
     }
 
     public function pengaduanbyuser(){
-        $pengaduan = Pengaduan::with('pengaduan')->with('status')->where('id_siswa', Auth::user()->siswa->id)->get();
+        $pengaduan = Pengaduan::where('id_siswa', Auth::user()->siswa->id)->get();
+        $timeline = Timeline::with('pengaduan')->with('status')->where('id_pengaduan', $pengaduan->id)->first();
         $respon = [
             'error' => false,
             'message' => "success",
-            'data' => compact('pengaduan')
+            'data' => compact('timeline')
         ];
         return response()->json($respon);
     }
