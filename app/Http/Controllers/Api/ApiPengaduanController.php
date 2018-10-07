@@ -43,7 +43,7 @@ class ApiPengaduanController extends Controller
 //        $pengaduan = Pengaduan::with('siswa', 'layanan')->where('id_siswa', $siswa)->orderByDesc('id')->get();
 //        $pengaduans = Pengaduan::with('siswa')->where('id_siswa', $siswa)->first();
 //        $timeline = Timeline::with('pengaduan')->where('id_pengaduan', $pengaduans->id);
-        $pengaduan = Pengaduan::with('siswa')->where('id_siswa', $siswa)->get();
+        $pengaduan = Pengaduan::with('siswa', 'layanan')->where('id_siswa', $siswa)->get();
         $data = array();
         foreach($pengaduan as $item){
             $newData = $item;
