@@ -47,7 +47,7 @@ class ApiPengaduanController extends Controller
 
     public function pengaduanbyuser(){
         $siswa = Auth::user()->siswa->id;
-        $data = Pengaduan::with('siswa', 'layanan')->where('id_siswa', $siswa)->get();
+        $data = Pengaduan::with('siswa', 'layanan')->where('id_siswa', $siswa)->orderByDesc('id')->get();
         $pengaduan = array();
         foreach($data as $item){
             $newData = $item;
