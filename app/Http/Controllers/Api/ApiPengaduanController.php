@@ -24,12 +24,19 @@ class ApiPengaduanController extends Controller
 
     public function allpengaduan(){
         $pengaduan = Pengaduan::with('siswa', 'layanan')->orderBy('id','desc')->paginate(10);
-//        $timeline = DB::SELECT("
-//            Select s.*, t.waktu
-//            from status_pengaduan s
-//            left join timeline t
-//            on s.id = t.id_status
-//        ");
+        $data = array();
+        foreach($pengaduan as $item){
+            $newData = $item;
+            $timelines = DB::SELECT("
+            select s.*, t.waktu
+            from status_pengaduan s
+            left join timeline t
+            on s.id = t.id_status
+            and t.id_pengaduan = ('$item->id')
+        ");
+            $newData['status'] = $timelines;
+            array_push($data,$newData);
+        }
         $respon = [
             'error' => false,
             'message' => "success",
