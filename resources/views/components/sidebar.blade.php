@@ -37,7 +37,7 @@
                 <li class="header">SUPER ADMIN</li>
                 <li class="{{ set_active(['news.index', 'news.create', 'news.edit']) }}"><a
                         href="{{ route('news.index') }}"><i class="fa fa-newspaper-o"></i> <span>Berita</span></a></li>
-                <li class="treeview ">
+                <li class="treeview {{ set_active(['survey.index','survey.submission','survey.result','survey.create'])}}">
                     <a href="#">
                         <i class="fa fa-search"></i> <span>Survey</span>
                         <span class="pull-right-container">
@@ -45,9 +45,9 @@
           </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ route('survey.index') }}"><i class="fa fa-circle-o"></i>Data Survey</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i>Survey Submission</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i>Hasil Survey</a></li>
+                        <li class="{{ set_active('survey.index') }}"><a href="{{ route('survey.index') }}"><i class="fa fa-circle-o"></i>Data Survey</a></li>
+                        <li class="{{ set_active('survey.submission') }}"><a href="{{ route('survey.submission') }}"><i class="fa fa-circle-o"></i>Survey Submission</a></li>
+                        <li class="{{ set_active('survey.result') }}"><a href="{{ route('survey.result') }}"><i class="fa fa-circle-o"></i>Hasil Survey</a></li>
                     </ul>
                 </li>
                 <li class="treeview {{ set_active(['diklat.index','subdiklat.index',

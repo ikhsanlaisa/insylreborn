@@ -11,6 +11,7 @@ use App\Models\Survey;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class SurveyController extends Controller
 {
@@ -84,7 +85,11 @@ class SurveyController extends Controller
         $survey = Survey::create($validated);
 
         if ($request->jenis == 1) {
-            ConfigSurveyIndividu::create(['id_survey' => $survey['id']] + $validated);
+            if($request->id_siswa != ''){
+
+            }else {
+                ConfigSurveyIndividu::create(['id_survey' => $survey['id']] + $validated);
+            }
         } else {
             foreach ($validated['id_instruktur'] as $instruktur) {
                 $mapel = KelasInstruktur::where('id_instruktur', $instruktur)
@@ -114,7 +119,19 @@ class SurveyController extends Controller
             ]);
         }
 
+        Session::flash('success','Berhasil Menambahkan Survey');
+
         return redirect(route('survey.index'));
 
+    }
+
+    public function submission()
+    {
+        return view('backoffice.survey.submission');
+    }
+
+    public function result()
+    {
+        return view('backoffice.survey.result');
     }
 }

@@ -39,6 +39,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/list', 'SurveyController@index')->name('survey.index');
         Route::post('/list', 'SurveyController@store')->name('survey.store')->middleware('superadmin');
         Route::get('/add', 'SurveyController@create')->name('survey.create');
+        Route::get('/submission', 'SurveyController@submission')->name('survey.submission');
+        Route::get('/result', 'SurveyController@result')->name('survey.result');
     });
 
 
@@ -59,6 +61,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('siswa/{id}', 'SiswaController@getSiswa')->name('siswa.get');
         Route::get('instruktur/{id}', 'InstrukturController@getKelasInstruktur')->name('instruktur.get');
     });
+
+    Route::get('debug', 'HomeController@debug');
 
 
 });

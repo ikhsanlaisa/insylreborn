@@ -545,7 +545,7 @@
             } else {
                 $('select[name="id_siswa\[\]"]').empty();
                 $('select[name="id_siswa\[\]"]').append(
-                    '<option selected>Semua Siswa </option>'
+                    '<option selected value="">Semua Siswa </option>'
                 );
             }
         });

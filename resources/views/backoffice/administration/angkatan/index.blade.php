@@ -105,7 +105,7 @@
                                            placeholder="Masukkan Periode Awal" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Periode Awal</label>
+                                    <label>Periode Akhir</label>
                                     <input type="text" class="form-control datepicker" id="pAkhir"
                                            placeholder="Masukkan Periode Akhir" required>
                                 </div>
