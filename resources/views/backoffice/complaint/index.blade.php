@@ -74,11 +74,11 @@
                                     <td>{{ $item->isi }}</td>
                                     <td>
                                         @switch($item->timeline->last()->status['status'])
-                                            @case('tersubmit')
+                                            @case('TERSUBMIT')
                                             <span
                                                 class="label label-warning">{{ ucwords($item->timeline->last()->status['status']) }}</span>
                                             @break
-                                            @case('on progress')
+                                            @case('ON PROGRESS')
                                             <span
                                                 class="label label-info">{{ ucwords($item->timeline->last()->status['status']) }}</span>
                                             @break
