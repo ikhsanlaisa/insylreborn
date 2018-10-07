@@ -190,7 +190,7 @@
                                             <td>
                                                 <select class="form-control input-sm" name="id_kelas"
                                                         id="kelas_instruktur">
-                                                    <option value="" selected disabled>-Pilih Kelas-</option>
+                                                    <option value="" selected>-Semua Kelas-</option>
                                                 </select>
                                             </td>
                                             <td>
@@ -568,6 +568,9 @@
         }
         function getKelas() {
             $('#kelas_instruktur').empty();
+            $('#kelas_instruktur').append(
+                '<option value="" selected>Semua Kelas</option>'
+            );
             $.ajax({
                 type: 'GET',
                 url: '{{ route('kelas.list') }}',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ConfigSurveyIndividu;
 use App\Models\ConfigSurveyInstruktur;
 use App\Models\JawabanSurvey;
+use App\Models\KelasInstruktur;
 use App\Models\PertanyaanSurvey;
 use App\Models\Survey;
 use Carbon\Carbon;
@@ -28,7 +29,7 @@ class SurveyController extends Controller
 //                    ->get();
 //            }
 //        }
-        $survey = Survey::with(['configInstruktur', 'pertanyaan','configIndividu'])->get();
+        $survey = Survey::with(['configInstruktur', 'pertanyaan', 'configIndividu'])->get();
 
 //        dd($survey);
 
@@ -43,7 +44,7 @@ class SurveyController extends Controller
     public function store(Request $request)
     {
 
-        if($request->jenis == 1) {
+        if ($request->jenis == 1) {
             $validated = $this->validate($request, [
                 'nama' => 'required|string',
                 'tgl_mulai' => 'required|date',
@@ -62,7 +63,7 @@ class SurveyController extends Controller
 
             ]);
 
-        }else {
+        } else {
             $validated = $this->validate($request, [
                 'nama' => 'required|string',
                 'tgl_mulai' => 'required|date',
@@ -71,6 +72,9 @@ class SurveyController extends Controller
                 'config_survey' => 'required',
                 'id_kelas' => 'required|exists:kelas,id',
                 'id_instruktur' => 'exists:instruktur,id',
+                'id_tipe_jawaban' => 'exists:tipe_jawaban,id',
+                'opsi' => 'required',
+                'isian' => 'required'
             ]);
         }
 
@@ -81,9 +85,17 @@ class SurveyController extends Controller
 
         if ($request->jenis == 1) {
             ConfigSurveyIndividu::create(['id_survey' => $survey['id']] + $validated);
-        }else {
-//            foreach ($validated['id_siswa'])
-            ConfigSurveyInstruktur::create(['id_survey' => $survey['id']] + $validated);
+        } else {
+            foreach ($validated['id_instruktur'] as $instruktur) {
+                $mapel = KelasInstruktur::where('id_instruktur', $instruktur)
+                    ->where('id_kelas', $validated['id_kelas'])->first();
+                ConfigSurveyInstruktur::create([
+                    'id_survey' => $survey['id'],
+                    'id_kelas' => $validated['id_kelas'],
+                    'id_instruktur' => $instruktur,
+                    'mapel' => $mapel['mapel']
+                ]);
+            }
         }
 
         foreach ($validated['opsi'] as $opsi) {
