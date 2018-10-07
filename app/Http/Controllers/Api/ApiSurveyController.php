@@ -26,7 +26,7 @@ class ApiSurveyController extends Controller
         on k.id_angkatan = a.id join subdiklat sd 
         on a.id_subdiklat = sd.id join diklat d 
         on sd.id_diklat = d.id where s.id = ('$siswa');
-        ")->first();
+        ");
         $survey = DB::select("
             select s.* from survey s join config_survey_individu ci
             where ci.id_siswa = ('$siswa')
