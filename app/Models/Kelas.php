@@ -24,7 +24,7 @@ class Kelas extends Model
 
     public function instruktur()
     {
-        return $this->belongsToMany(Instruktur::class,'kelas_instruktur','id_kelas','id_instruktur')->withPivot('id');
+        return $this->belongsToMany(Instruktur::class,'kelas_instruktur','id_kelas','id_instruktur')->withPivot('mapel');
     }
 
     public function configInstruktur()

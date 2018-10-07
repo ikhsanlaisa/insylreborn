@@ -46,6 +46,15 @@ class InstrukturController extends Controller
         return response('success',200);
     }
 
+    public function getKelasInstruktur($id)
+    {
+        $instruktur = Instruktur::whereHas('kelas', function ($q) use($id) {
+            $q->where('id_kelas', $id);
+        })->with('kelas')->get();
+
+        return $instruktur;
+    }
+
     /**
      * Update the specified resource in storage.
      *

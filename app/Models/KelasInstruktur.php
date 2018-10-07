@@ -10,6 +10,7 @@ class KelasInstruktur extends Model
 
     protected $fillable = [
         'id_kelas',
-        'id_instruktur'
+        'id_instruktur',
+        'mapel'
     ];
 }

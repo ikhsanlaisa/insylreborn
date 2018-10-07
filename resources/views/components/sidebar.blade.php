@@ -45,7 +45,7 @@
           </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="#"><i class="fa fa-circle-o"></i>Data Survey</a></li>
+                        <li><a href="{{ route('survey.index') }}"><i class="fa fa-circle-o"></i>Data Survey</a></li>
                         <li><a href="#"><i class="fa fa-circle-o"></i>Survey Submission</a></li>
                         <li><a href="#"><i class="fa fa-circle-o"></i>Hasil Survey</a></li>
                     </ul>

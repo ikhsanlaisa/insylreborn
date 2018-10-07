@@ -15,15 +15,15 @@ Route::group(['middleware' => ['auth']], function () {
 //    Route::resource('user/siswa', 'UserController');
     Route::resource('news', 'BeritaController');
     Route::resource('user/admin', 'AdminController');
-    Route::resource('complaints', 'PengaduanController')->except(['edit','update']);;
-    Route::resource('layanan/kategori', 'LayananController')->only(['index','store','update','destroy']);
-    Route::resource('diklat', 'DiklatController')->only(['index','store','update','destroy']);
-    Route::resource('subdiklat', 'SubDiklatController')->except(['create','edit','show']);
+    Route::resource('complaints', 'PengaduanController')->except(['edit', 'update']);;
+    Route::resource('layanan/kategori', 'LayananController')->only(['index', 'store', 'update', 'destroy']);
+    Route::resource('diklat', 'DiklatController')->only(['index', 'store', 'update', 'destroy']);
+    Route::resource('subdiklat', 'SubDiklatController')->except(['create', 'edit', 'show']);
     Route::resource('angkatan', 'AngkatanController');
     Route::resource('kelas', 'KelasController');
-    Route::resource('instruktur','InstrukturController')->except(['create','edit','show']);
+    Route::resource('instruktur', 'InstrukturController')->except(['create', 'edit', 'show']);
 
-    Route::group(['prefix' => 'user'], function (){
+    Route::group(['prefix' => 'user'], function () {
         Route::resource('siswa', 'SiswaController');
         Route::get('listsiswa', 'SiswaController@listsiswa')->name('siswa.list');
     });
@@ -31,8 +31,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'user/profile'], function () {
         Route::get('/{username}', 'ProfileController@index')->name('profile');
         Route::get('/{username}/change_password', 'ProfileController@editPassword')->name('edit-password');
-        Route::put('/edit/{user}','ProfileController@updateProfile')->name('update.profile');
-        Route::put('/change_password/{user}','ProfileController@updatePassword')->name('update.password');
+        Route::put('/edit/{user}', 'ProfileController@updateProfile')->name('update.profile');
+        Route::put('/change_password/{user}', 'ProfileController@updatePassword')->name('update.password');
     });
 
     Route::group(['prefix' => 'survey'], function () {
@@ -51,6 +51,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('listangkatan', 'AngkatanController@listangkatan')->name('angkatan.list')->middleware('superadmin');
     Route::get('listkategori', 'LayananController@listlayanan')->name('kategori.list')->middleware('superadmin');
     Route::get('listkelas', 'KelasController@listkelas')->name('kelas.list')->middleware('superadmin');
+
+    Route::group(['prefix' => 'dependent', 'middleware' => ['auth']], function () {
+        Route::get('subdiklat/{id}', 'SubDiklatController@getSubdiklat')->name('subdiklat.get');
+        Route::get('angkatan/{id}', 'AngkatanController@getAngkatan')->name('angkatan.get');
+        Route::get('kelas/{id}', 'KelasController@getKelas')->name('kelas.get');
+        Route::get('siswa/{id}', 'SiswaController@getSiswa')->name('siswa.get');
+        Route::get('instruktur/{id}', 'InstrukturController@getKelasInstruktur')->name('instruktur.get');
+    });
 
 
 });

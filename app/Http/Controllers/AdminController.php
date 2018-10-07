@@ -66,6 +66,7 @@ class AdminController extends Controller
         return redirect(route('admin.index'));
     }
 
+
     /**
      * Display the specified resource.
      *

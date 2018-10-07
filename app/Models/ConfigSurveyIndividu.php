@@ -9,7 +9,7 @@ class ConfigSurveyIndividu extends Model
     protected $table = 'config_survey_individu';
 
     protected $fillable = [
-        'id_diklat','id_subdiklat','id_angkatan','id_kelas','id_siswa'
+        'id_diklat','id_subdiklat','id_angkatan','id_kelas','id_siswa','id_survey',
     ];
 
     public function diklat()
@@ -35,6 +35,11 @@ class ConfigSurveyIndividu extends Model
     public function siswa()
     {
         return $this->belongsTo(Siswa::class,'id_siswa','id');
+    }
+
+    public function survey()
+    {
+        return $this->belongsTo(Survey::class,'id_survey','id');
     }
 
 }

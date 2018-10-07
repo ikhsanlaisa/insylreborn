@@ -16,6 +16,7 @@ class CreateTableKelasInstruktur extends Migration
         Schema::create('kelas_instruktur', function (Blueprint $table) {
             $table->unsignedInteger('id_kelas');
             $table->unsignedInteger('id_instruktur');
+            $table->string('mapel');
             $table->timestamps();
 
             $table->primary(['id_kelas','id_instruktur']);

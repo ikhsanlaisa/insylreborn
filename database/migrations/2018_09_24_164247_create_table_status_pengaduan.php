@@ -21,13 +21,13 @@ class CreateTableStatusPengaduan extends Migration
 
         \App\Models\StatusPengaduan::insert([
             [
-                'status' => 'tersubmit'
+                'status' => 'TERSUBMIT'
             ],
             [
-                'status' => 'on progress'
+                'status' => 'ON PROGRESS'
             ],
             [
-                'status' => 'selesai'
+                'status' => 'SELESAI'
             ]
         ]);
     }
