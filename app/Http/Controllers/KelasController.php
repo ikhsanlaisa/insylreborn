@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\KelasResource;
+use App\Models\Angkatan;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 
 class KelasController extends Controller
@@ -17,7 +19,8 @@ class KelasController extends Controller
     public function index()
     {
         $kelas = Kelas::all();
-        return view('backoffice.administration.kelas.index', compact('kelas'));
+        $angkatan = Angkatan::all();
+        return view('backoffice.administration.kelas.index', compact('kelas', 'angkatan'));
     }
 
     public function listkelas()
@@ -33,7 +36,6 @@ class KelasController extends Controller
 
         return response()->json($kelas);
     }
-
 
 
     /**
@@ -54,7 +56,17 @@ class KelasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $this->validate($request, [
+           'id_angkatan' => 'required|exists:angkatan,id',
+           'kode' => 'required|string|unique:kelas,kode',
+           'nama' => 'required|string'
+        ]);
+
+        Kelas::create($validated);
+
+        Session::flash('success', 'Berhasil menambahkan kelas');
+
+        return redirect(route('kelas.index'));
     }
 
     /**

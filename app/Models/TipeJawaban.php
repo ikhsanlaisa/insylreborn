@@ -16,4 +16,9 @@ class TipeJawaban extends Model
     {
         return $this->hasMany(PertanyaanSurvey::class,'id_tipe_jawaban','id');
     }
+
+    public function opsijawaban()
+    {
+        return $this->hasMany(OpsiJawaban::class,'id_tipe_jawaban','id');
+    }
 }

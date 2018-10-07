@@ -87,5 +87,10 @@
             })
         });
     </script>
+    @if(Session::has('success'))
+        <script>
+            swal("Berhasil", '{{ Session::get('success') }}', "success")
+        </script>
+    @endif
 
 @endpush

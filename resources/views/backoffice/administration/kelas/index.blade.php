@@ -25,6 +25,15 @@
                     </div>
                 </div>
                 <div class="box-body">
+                    @if($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="table-responsive">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
@@ -32,7 +41,7 @@
                                 <th width="6%">No</th>
                                 <th width="8%">Kode</th>
                                 <th>Nama Kelas</th>
-                                <th>Diklat</th>
+                                <th>Diklat/Subdiklat/Angkatan</th>
                                 <th width="10%" title="Action button">
                                     <center><span class="fa fa-bars"></span></center>
                                 </th>
@@ -159,32 +168,36 @@
                         <span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Tambah Kelas Baru</h4>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <form>
+                <form action="{{ route('kelas.store') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>Kode Kelas</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Kode Diklat" required>
+                                    <input type="text" class="form-control" placeholder="Masukkan Kode Angkatan" name="kode" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Nama Kelas</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Nama Diklat Diklat"
+                                    <input type="text" class="form-control" placeholder="Masukkan Nama Angkatan" name="nama"
                                            required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Pilih Diklat</label>
-                                    <select class="form-control input-sm select2" style="width: 100%;" required>
-                                        <option value="0">[Kode Diklat] - Nama Subdiklat - Angkatan</option>
+                                    <label>Pilih Angkatan</label>
+                                    <select class="form-control input-sm select2" style="width: 100%;" required name="id_angkatan">
+                                        @foreach($angkatan as $item)
+                                            <option value="{{ $item['id'] }}">[ {{ $item->subdiklat->diklat->kode }} ] - {{ $item->subdiklat->nama }} - {{ $item->kode }}</option>
+                                            @endforeach
+                                        {{--<option value="0">[Kode Diklat] - Nama Subdiklat - Angkatan</option>--}}
                                     </select>
                                 </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
                 </form>
             </div>
             <!-- /.modal-content -->
@@ -204,7 +217,6 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form>
                                 <div class="form-group">
                                     <label>Kode Kelas</label>
                                     <input type="text" class="form-control" value="KLSDKP01"
@@ -257,4 +269,10 @@
             allowClear: true
         })
     </script>
+
+    @if(Session::has('success'))
+        <script>
+            swal("Berhasil", '{{ Session::get('success') }}', "success")
+        </script>
+    @endif
 @endpush

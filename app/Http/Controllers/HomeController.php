@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Berita;
 use App\Models\Pengaduan;
+use App\Models\Survey;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -32,5 +33,12 @@ class HomeController extends Controller
         $dashboard['pengaduan'] = Pengaduan::count();
 
         return view('home', compact('dashboard'));
+    }
+
+    public function debug()
+    {
+        $survey = Survey::with(['configInstruktur', 'pertanyaan', 'configIndividu'])->get();
+
+        return $survey;
     }
 }
