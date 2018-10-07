@@ -38,8 +38,8 @@ class ApiSurveyController extends Controller
             or ci.id_angkatan = ('$pasis->id_angkatan')
             or ci.id_subdiklat = ('$pasis->id_subdiklat')
             or ci.id_diklat = ('$pasis->id_diklat'))
-            and CURDATE()>= s.tgl_mulai 
-            and CURDATE()<= s.tgl_selesai;
+            and (SELECT DATE_ADD(now() , INTERVAL  '07:00' HOUR_MINUTE))>= s.tgl_mulai 
+            and (SELECT DATE_ADD(now() , INTERVAL  '07:00' HOUR_MINUTE))<= s.tgl_selesai;
         ");
         $survey = array();
         foreach($datasurvey as $item) {
