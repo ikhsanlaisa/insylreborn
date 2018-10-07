@@ -27,6 +27,13 @@ class SubDiklatController extends Controller
         return response()->json($all);
     }
 
+    public function getSubdiklat($id)
+    {
+        $subdiklat = SubDiklat::where('id_diklat', $id)->get();
+
+        return response()->json($subdiklat);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

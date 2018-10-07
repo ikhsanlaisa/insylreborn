@@ -22,6 +22,16 @@
         <section class="content">
             <form id="surveyForm" method="POST" action="{{ route('survey.store') }}">
                 @csrf
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <div class="row">
                     <div class="col-lg-6">
                         <input type="text" name="nama" class="form-control" placeholder="MASUKKAN NAMA SURVEY"
@@ -67,7 +77,7 @@
                         <a href="#" type="button" title="Tambah responden" class="btn btn-sm btn-primary"><i
                                 class="fa fa-plus"></i> Tambah</a>
                         <a href="#" type="button" title="Minimize" class="btn btn-sm bg-orange" data-widget="collapse"
-                           ><i class="fa fa-minus"></i> Minimize</a>
+                        ><i class="fa fa-minus"></i> Minimize</a>
                       </span>
                             </div>
                         </div>
@@ -100,25 +110,25 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <select class="form-control input-sm" name="subdiklat" id="subdiklat">
+                                                <select class="form-control input-sm" name="id_subdiklat"
+                                                        id="subdiklat">
                                                     <option value="0" selected disabled>-Pilih Subdiklat-</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <select class="form-control input-sm" name="angkatan" id="angkatan">
+                                                <select class="form-control input-sm" name="id_angkatan" id="angkatan">
                                                     <option value="0" selected disabled>-Pilih Angkatan-</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <select class="form-control input-sm" name="kelas">
+                                                <select class="form-control input-sm" name="id_kelas">
                                                     <option value="0" selected disabled>-Pilih Kelas-</option>
-                                                    <option value="1">SEMUA</option>
-                                                    <option value="2">AKP-01</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <select class="form-control input-sm select2" name="pasis">
-                                                    <option>12324124 - ABCDEH EHEDJ</option>
+                                                <select class="form-control input-sm" name="id_siswa[]" multiple
+                                                        data-live-search="true">
+                                                    <option value="">-- Pilih Siswa --</option>
                                                 </select>
                                             </td>
                                             <td>
@@ -140,6 +150,7 @@
                 <!-- /.box -->
 
                 <div class="box box-warning hidden" id="instruktur">
+                    <span id="placeInstruktur"></span>
                     <div class="box-header with-border ">
                         <div class="row">
                             <div class="col-md-6">
@@ -148,10 +159,10 @@
                             </div>
                             <div class="col-md-6">
                         <span class="btn-group pull-right">
-                        <a href="#" type="button" title="Tambah responden" class="btn btn-sm btn-primary" ><i
+                        <a href="#" type="button" title="Tambah responden" class="btn btn-sm btn-primary"><i
                                 class="fa fa-plus"></i> Tambah</a>
                         <a href="#" type="button" title="Minimize" class="btn btn-sm bg-orange" data-widget="collapse"
-                           ><i class="fa fa-minus"></i> Minimize</a>
+                        ><i class="fa fa-minus"></i> Minimize</a>
                       </span>
                             </div>
                         </div>
@@ -177,23 +188,19 @@
                                         <tr>
                                             <td>1</td>
                                             <td>
-                                                <select class="form-control input-sm" name="kelas">
-                                                    <option value="0" selected disabled>-Pilih Kelas-</option>
-                                                    <option value="1">SEMUA</option>
-                                                    <option value="2">AKP-01</option>
+                                                <select class="form-control input-sm" name="id_kelas"
+                                                        id="kelas_instruktur">
+                                                    <option value="" selected disabled>-Pilih Kelas-</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <select multiple class="form-control input-sm" disabled>
-                                                    <option>NIP - Nama 1 (Matematika Dasar)</option>
-                                                    <option>NIP - Nama 2 (Fisika Dasar)</option>
-                                                    <option>NIP - Nama 3 (Kimia Dasar)</option>
-                                                    <option>NIP - Nama 4 (Kalkulus Dasar)</option>
+                                                <select multiple class="form-control input-sm" disabled
+                                                        id="instrukturKelas">
+                                                    <option>Kosong</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <select class="form-control input-sm select2" name="pasis">
-                                                    <option>12324124 - ABCDEH EHEDJ</option>
+                                                <select class="form-control input-sm" name="id_siswa[]" multiple disabled>
                                                 </select>
                                             </td>
                                             <td>
@@ -236,13 +243,13 @@
                                         <span class="input-group-btn">
                         <!-- <span class="btn-group pull-right"> -->
                         <button onclick="setTipeJawaban()" type="button" title="Set Opsional"
-                                class="btn btn-sm btn-success" ><i
+                                class="btn btn-sm btn-success"><i
                                 class="fa fa-save"></i> Set</button>
                         <button onclick="tambahOpsi()" type="button" title="Tambah responden"
-                                class="btn btn-sm btn-primary" ><i
+                                class="btn btn-sm btn-primary"><i
                                 class="fa fa-plus"></i> Tambah</button>
                         <a href="#" type="button" title="Minimize" class="btn btn-sm bg-orange" data-widget="collapse"
-                           ><i class="fa fa-minus"></i> Minimize</a>
+                        ><i class="fa fa-minus"></i> Minimize</a>
                       </span>
                                     </div>
                                 </div>
@@ -289,9 +296,9 @@
                                 <div class="box-tools pull-right">
                         <span class="btn-group pull-right">
                         <button onclick="tambahIsian()" type="button" title="Tambah responden"
-                                class="btn btn-sm btn-primary" ><i class="fa fa-plus"></i> Tambah</button>
+                                class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah</button>
                         <a href="#" type="button" title="Minimize" class="btn btn-sm bg-orange" data-widget="collapse"
-                           ><i class="fa fa-minus"></i> Minimize</a>
+                        ><i class="fa fa-minus"></i> Minimize</a>
                       </span>
                                 </div>
                             </div>
@@ -328,10 +335,10 @@
                 </div>
                 <!-- /.box -->
                 <center>
-                    <button type="submit" class="btn btn-success btn-md" ><i class="fa fa-send"></i>
+                    <button type="submit" class="btn btn-success btn-md"><i class="fa fa-send"></i>
                         TERBITKAN
                     </button>
-                    <button type="button" class="btn btn-danger btn-md demo3" ><i class="fa fa-reply"></i>
+                    <button type="button" class="btn btn-danger btn-md demo3"><i class="fa fa-reply"></i>
                         KEMBALI
                     </button>
                 </center>
@@ -383,8 +390,6 @@
                 $('#instruktur').addClass('hidden');
 
                 getDiklat();
-                getSubDiklat();
-                getAngkatan();
 
                 let jenisSurvey = $('[name="jenis"] :selected').val();
 
@@ -392,13 +397,162 @@
 
             }
             else if (survey == '2') {
+                getKelas();
+
+                let jenisSurvey = $('[name="jenis"] :selected').val();
+
+                $('[name="config_survey"]').val(jenisSurvey);
+
                 $('#instruktur').removeClass('hidden');
                 $('#individu').addClass('hidden');
+            }
+        });
+
+        //get Subdiklat
+        $('select[name="id_diklat"]').change(function () {
+            let diklatId = $(this).val();
+
+            if (diklatId) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/dependent/subdiklat/' + diklatId,
+                    success: function (data) {
+                        $('#subdiklat').empty();
+                        $('#subdiklat').append(
+                            '<option selected>Semua Subdiklat </option>'
+                        );
+                        $.each(data, function (index, value) {
+                            $('#subdiklat').append(
+                                '<option value="' + value['id'] + '">' + value['nama'] + '</option>'
+                            )
+                        })
+                    }
+                })
+            } else {
+                $('#subdiklat').empty();
+                $('#subdiklat').append(
+                    '<option selected>Semua Subdiklat </option>'
+                );
+            }
+        });
+
+        //get Angkatan
+        $('select[name="id_subdiklat"]').change(function () {
+            let subdiklatId = $(this).val();
+
+            if (subdiklatId) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/dependent/angkatan/' + subdiklatId,
+                    success: function (data) {
+                        $('#angkatan').empty();
+                        $('#angkatan').append(
+                            '<option selected>Semua Angkatan </option>'
+                        );
+                        $.each(data, function (index, value) {
+                            $('#angkatan').append(
+                                '<option value="' + value['id'] + '">' + value['kode'] + '</option>'
+                            )
+                        })
+                    }
+                })
+            } else {
+                $('#angkatan').empty();
+                $('#angkatan').append(
+                    '<option selected >Semua Angkatan </option>'
+                );
+            }
+        });
+
+        //get Kelas
+        $('select[name="id_angkatan"]').change(function () {
+            let angkatanId = $(this).val();
+
+            if (angkatanId) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/dependent/kelas/' + angkatanId,
+                    success: function (data) {
+                        $('select[name="id_kelas"]').empty();
+                        $('select[name="id_kelas"]').append(
+                            '<option selected >Semua Kelas </option>'
+                        );
+                        $.each(data, function (index, value) {
+                            $('select[name="id_kelas"]').append(
+                                '<option value="' + value['id'] + '">' + value['nama'] + '</option>'
+                            )
+                        })
+                    }
+                })
+            } else {
+                $('select[name="id_kelas"]').empty();
+                $('select[name="id_kelas"]').append(
+                    '<option selected>Semua Kelas </option>'
+                );
+            }
+        });
+
+        $('#kelas_instruktur').change(function () {
+            let kelasId = $(this).val();
+            $('input[name="id_instruktur\[\]"]').remove();
+            if (kelasId) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/dependent/instruktur/' + kelasId,
+                    success: function (data) {
+                        console.log(data);
+                        $('#instrukturKelas').empty();
+                        $.each(data, function (index, value) {
+                            $('#instrukturKelas').append(
+                                '<option value="' + value['id'] + '">' + value['nip'] + ' - '
+                                + value['nama'] + ' (' + value['kelas']['0']['pivot']['mapel'] + ')' + '</option>'
+                            );
+                            $('#placeInstruktur').append(
+                                '<input type="hidden" name="id_instruktur[]" value="'+ value['id'] +' ">'
+                            );
+                        })
+                    }
+                });
+
+            } else {
+                $('#instrukturKelas').empty();
+                $('#instrukturKelas').append(
+                    '<option selected>Kosong </option>'
+                );
+            }
+        });
+
+        //get Siswa
+        $('select[name="id_kelas"]').change(function () {
+            let kelasId = $(this).val();
+
+            if (kelasId) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/dependent/siswa/' + kelasId,
+                    success: function (data) {
+                        $('select[name="id_siswa\[\]"]').empty();
+                        $('select[name="id_siswa\[\]"]').append(
+                            '<option selected >Semua Siswa </option>'
+                        );
+                        $.each(data, function (index, value) {
+                            $('select[name="id_siswa[]"]').append(
+                                '<option value="' + value['id'] + '"> [' + value['nit'] + '] ' + value['nama'] + '</option>'
+                            )
+                        })
+                    }
+                })
+            } else {
+                $('select[name="id_siswa\[\]"]').empty();
+                $('select[name="id_siswa\[\]"]').append(
+                    '<option selected>Semua Siswa </option>'
+                );
             }
         });
     </script>
 
     <script>
+
         function getDiklat() {
             $.ajax({
                 type: 'GET',
@@ -411,33 +565,16 @@
                     })
                 }
             })
-
         }
-
-        function getSubDiklat() {
+        function getKelas() {
+            $('#kelas_instruktur').empty();
             $.ajax({
                 type: 'GET',
-                url: '{{ route('subdiklat.list') }}',
+                url: '{{ route('kelas.list') }}',
                 success: function (data) {
-                    $.each(data, function (index, value) {
-                        $('#subdiklat').append(
-                            '<option value="' + value['id'] + '">' + value['nama'] + '</option>'
-                        )
-                    })
-                }
-            })
-
-        }
-
-        function getAngkatan() {
-            $.ajax({
-                type: 'GET',
-                url: '{{ route('angkatan.list') }}',
-                success: function (data) {
-                    $.each(data, function (index, value) {
-                        console.log(data);
-                        $('#angkatan').append(
-                            '<option value="' + value['id'] + '">' + value['kode'] + '</option>'
+                    $.each(data.data, function (index, value) {
+                        $('#kelas_instruktur').append(
+                            '<option value="' + value['id'] + '">' + value['subdiklat']['nama'] + '/' + value['angkatan']['kode'] + '/' + value['nama'] + '</option>'
                         )
                     })
                 }

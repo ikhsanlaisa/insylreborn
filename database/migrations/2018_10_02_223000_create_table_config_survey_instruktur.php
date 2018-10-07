@@ -18,6 +18,7 @@ class CreateTableConfigSurveyInstruktur extends Migration
             $table->unsignedInteger('id_survey')->nullable();
             $table->unsignedInteger('id_kelas')->nullable();
             $table->unsignedInteger('id_instruktur')->nullable();
+            $table->string('mapel');
             $table->timestamps();
 
 

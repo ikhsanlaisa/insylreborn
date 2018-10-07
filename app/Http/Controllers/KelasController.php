@@ -27,6 +27,15 @@ class KelasController extends Controller
         return KelasResource::collection($all);
     }
 
+    public function getKelas($id)
+    {
+        $kelas = Kelas::where('id_angkatan', $id)->get();
+
+        return response()->json($kelas);
+    }
+
+
+
     /**
      * Show the form for creating a new resource.
      *

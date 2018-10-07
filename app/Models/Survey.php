@@ -26,4 +26,9 @@ class Survey extends Model
     {
         return $this->hasMany(ConfigSurveyInstruktur::class,'id_survey','id');
     }
+
+    public function configIndividu()
+    {
+        return $this->hasMany(ConfigSurveyIndividu::class,'id_survey', 'id');
+    }
 }

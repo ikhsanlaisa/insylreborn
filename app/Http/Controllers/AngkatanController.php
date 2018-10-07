@@ -25,6 +25,13 @@ class AngkatanController extends Controller
         return response()->json($all);
     }
 
+    public function getAngkatan($id)
+    {
+        $angkatan = Angkatan::where('id_subdiklat', $id)->get();
+
+        return response()->json($angkatan);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

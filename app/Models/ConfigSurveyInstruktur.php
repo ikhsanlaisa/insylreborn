@@ -9,7 +9,7 @@ class ConfigSurveyInstruktur extends Model
     protected $table = 'config_survey_instruktur';
 
     protected $fillable = [
-        'id_survey','id_kelas','id_instruktur'
+        'id_survey','id_kelas','id_instruktur','mapel'
     ];
 
     public function survey()

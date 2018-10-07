@@ -34,6 +34,13 @@ class SiswaController extends Controller
         return abort(404);
     }
 
+    public function getSiswa($id)
+    {
+        $siswa = Siswa::where('id_kelas', $id)->get();
+
+        return response()->json($siswa);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
