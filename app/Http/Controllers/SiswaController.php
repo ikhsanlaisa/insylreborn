@@ -77,7 +77,7 @@ class SiswaController extends Controller
         Siswa::create(['id_user' => $user['id']] + $validated);
 
 
-        Session::flash('success', 'Sukses Membuat Akun Admin');
+        Session::flash('success', 'Sukses Membuat Akun Siswa');
 
         return redirect(route('siswa.index'));
     }

@@ -419,7 +419,7 @@
                     success: function (data) {
                         $('#subdiklat').empty();
                         $('#subdiklat').append(
-                            '<option selected>Semua Subdiklat </option>'
+                            '<option selected value="">Semua Subdiklat </option>'
                         );
                         $.each(data, function (index, value) {
                             $('#subdiklat').append(
@@ -447,7 +447,7 @@
                     success: function (data) {
                         $('#angkatan').empty();
                         $('#angkatan').append(
-                            '<option selected>Semua Angkatan </option>'
+                            '<option selected value="">Semua Angkatan </option>'
                         );
                         $.each(data, function (index, value) {
                             $('#angkatan').append(
@@ -459,7 +459,7 @@
             } else {
                 $('#angkatan').empty();
                 $('#angkatan').append(
-                    '<option selected >Semua Angkatan </option>'
+                    '<option selected value="">Semua Angkatan </option>'
                 );
             }
         });
@@ -475,7 +475,7 @@
                     success: function (data) {
                         $('select[name="id_kelas"]').empty();
                         $('select[name="id_kelas"]').append(
-                            '<option selected >Semua Kelas </option>'
+                            '<option selected value="">Semua Kelas </option>'
                         );
                         $.each(data, function (index, value) {
                             $('select[name="id_kelas"]').append(
@@ -487,7 +487,7 @@
             } else {
                 $('select[name="id_kelas"]').empty();
                 $('select[name="id_kelas"]').append(
-                    '<option selected>Semua Kelas </option>'
+                    '<option selected value="">Semua Kelas </option>'
                 );
             }
         });
