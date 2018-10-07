@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\PertanyaanSurvey;
 use App\Models\Survey;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -27,7 +28,8 @@ class ApiSurveyController extends Controller
         on a.id_subdiklat = sd.id join diklat d 
         on sd.id_diklat = d.id where s.id = ('$siswa');
         "))->first();
-        $survey = DB::select("
+
+        $datasurvey = DB::select("
             select s.* from survey s join config_survey_individu ci
             where ci.id_siswa = ('$pasis->id_siswa')
             or ci.id_kelas = ('$pasis->id_kelas')
@@ -35,6 +37,12 @@ class ApiSurveyController extends Controller
             or ci.id_subdiklat = ('$pasis->id_subdiklat')
             or ci.id_diklat = ('$pasis->id_diklat');
         ");
+        $survey = array();
+        foreach($datasurvey as $item) {
+            $newData = $item;
+            $newData['pertanyaan'] = PertanyaanSurvey::where('id_survey', $item->id)->get();
+            array_push($survey,$newData);
+        }
         $respon = [
             'error' => false,
             'message' => "success",
