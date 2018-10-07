@@ -9,7 +9,6 @@
                 <small>BP2IP Barombong</small>
             </h1>
         </section>
-@dd($survey)
         <!-- Main content -->
         <section class="content">
             <!-- Default box -->
