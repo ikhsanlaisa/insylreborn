@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\OpsiJawaban;
 use App\Models\PertanyaanSurvey;
 use App\Models\Survey;
 use Illuminate\Http\Request;
@@ -43,7 +44,16 @@ class ApiSurveyController extends Controller
         $survey = array();
         foreach($datasurvey as $item) {
             $newData = $item;
-            $newData->pertanyaan = PertanyaanSurvey::with('tipeJawaban')->where('id_survey', $item->id)->get();
+            $newData->pertanyaan = PertanyaanSurvey::where('id_survey', $item->id)->get();
+            $pertanyaan = array();
+            foreach ($newData->pertanyaan as $itemPertanyaan){
+                $newOpsi = $itemPertanyaan;
+                $newOpsi->opsi = OpsiJawaban::where('id_tipe_jawaban', $itemPertanyaan->id_tipe_jawaban)->get();
+                array_push($pertanyaan,$newOpsi);
+            }
+            $newData->pertanyaan->opsi = $pertanyaan;
+
+
             array_push($survey,$newData);
         }
         $respon = [
