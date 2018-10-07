@@ -41,20 +41,28 @@ class ApiPengaduanController extends Controller
     public function pengaduanbyuser(){
         $siswa = Auth::user()->siswa->id;
 //        $pengaduan = Pengaduan::with('siswa', 'layanan')->where('id_siswa', $siswa)->orderByDesc('id')->get();
-        $pengaduans = Pengaduan::with('siswa')->where('id_siswa', $siswa)->first();
+//        $pengaduans = Pengaduan::with('siswa')->where('id_siswa', $siswa)->first();
 //        $timeline = Timeline::with('pengaduan')->where('id_pengaduan', $pengaduans->id);
-        $timelines = DB::SELECT("
+        $pengaduan = Pengaduan::with('siswa')->where('id_siswa', $siswa)->get();
+        $data = array();
+        foreach($pengaduan as $item){
+            $newData = $item;
+            $timelines = DB::SELECT("
             select s.*, t.waktu
             from status_pengaduan s
             left join timeline t
             on s.id = t.id_status
-            and t.id_pengaduan = ('$pengaduans->id');
+            and t.id_pengaduan = ('$item->id')
         ");
+            $newData['status'] = $timelines;
+            array_push($data,$newData);
+        }
+
 
         $respon = [
             'error' => false,
             'message' => "success",
-            'data' => compact(['timelines'])
+            'data' => compact('data')
         ];
         return response()->json($respon);
     }
