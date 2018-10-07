@@ -30,7 +30,7 @@ class ApiSurveyController extends Controller
         $survey = DB::select("
             select s.* from survey s join config_survey_individu ci
             where ci.id_siswa = ('$pasis->id_siswa')
-            or ci.id_kelas = (''$pasis->id_kelas'')
+            or ci.id_kelas = ('$pasis->id_kelas')
             or ci.angkatan = ('$pasis->id_angkatan')
             or ci.id_subdiklat = ('$pasis->id_subdiklat')
             or ci.id_diklat = ('$pasis->id_diklat');
