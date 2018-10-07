@@ -48,6 +48,6 @@ class ApiSurveyController extends Controller
             'message' => "success",
             'data' => compact('survey')
         ];
-        return response()->json(response($respon));
+        return response()->json($respon);
     }
 }

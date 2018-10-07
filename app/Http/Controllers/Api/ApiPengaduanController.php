@@ -42,7 +42,7 @@ class ApiPengaduanController extends Controller
             'message' => "success",
             'data' => compact('pengaduan')
         ];
-        return response()->json(response($respon));
+        return response()->json($respon);
     }
 
     public function pengaduanbyuser(){
