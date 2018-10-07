@@ -18,7 +18,7 @@ class ApiSurveyController extends Controller
     public function surveyindividu(){
         $siswa = Auth::user()->siswa->id;
 //        $survey = Survey::with(['configInstruktur', 'pertanyaan', 'configIndividu'])->get();
-        $pasis = DB::select("
+        $pasis = collect(DB::select("
         select s.id as id_siswa, k.id as id_kelas, a.id 
         as id_angkatan, sd.id as id_subdiklat, d.id 
         as id_diklat from siswa s join kelas k 
@@ -26,10 +26,10 @@ class ApiSurveyController extends Controller
         on k.id_angkatan = a.id join subdiklat sd 
         on a.id_subdiklat = sd.id join diklat d 
         on sd.id_diklat = d.id where s.id = ('$siswa');
-        ");
+        "))->first();
         $survey = DB::select("
             select s.* from survey s join config_survey_individu ci
-            where ci.id_siswa = ('$siswa')
+            where ci.id_siswa = ('$pasis->id_siswa')
             or ci.id_kelas = (''$pasis->id_kelas'')
             or ci.angkatan = ('$pasis->id_angkatan')
             or ci.id_subdiklat = ('$pasis->id_subdiklat')
