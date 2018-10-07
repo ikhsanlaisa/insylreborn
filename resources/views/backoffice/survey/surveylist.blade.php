@@ -9,14 +9,14 @@
                 <small>BP2IP Barombong</small>
             </h1>
         </section>
-
+@dd($survey)
         <!-- Main content -->
         <section class="content">
             <!-- Default box -->
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">Daftar Survey Diklat BP2IP</h3>
-                    <a href="#" type="button" class="btn btn-sm btn-primary pull-right" name="button"><i
+                    <a href="{{ route('survey.create') }}" type="button" class="btn btn-sm btn-primary pull-right" name="button"><i
                             class="fa fa-plus"></i> SURVEY</a>
                 </div>
                 <div class="box-body">

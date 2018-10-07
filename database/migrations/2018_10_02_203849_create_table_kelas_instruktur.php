@@ -23,6 +23,12 @@ class CreateTableKelasInstruktur extends Migration
             $table->foreign('id_kelas')->references('id')->on('kelas')->onDelete('cascade');
             $table->foreign('id_instruktur')->references('id')->on('instruktur')->onDelete('cascade');
         });
+
+        \App\Models\KelasInstruktur::insert([
+            'id_kelas' => 1,
+            'id_instruktur' => 1,
+            'mapel' => 'Matematika'
+        ]);
     }
 
     /**
