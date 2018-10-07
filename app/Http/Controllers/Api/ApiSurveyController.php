@@ -40,7 +40,7 @@ class ApiSurveyController extends Controller
         $survey = array();
         foreach($datasurvey as $item) {
             $newData = $item;
-            $newData['pertanyaan'] = PertanyaanSurvey::where('id_survey', $item->id)->get();
+            $newData->pertanyaan = PertanyaanSurvey::where('id_survey', $item->id)->get();
             array_push($survey,$newData);
         }
         $respon = [
