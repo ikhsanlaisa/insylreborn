@@ -24,6 +24,6 @@ Route::group(['namespace' => 'Api'], function () {
     Route::get('/allpengaduan', 'ApiPengaduanController@allpengaduan');
     Route::get('/pengaduanbyuser', 'ApiPengaduanController@pengaduanbyuser');
     Route::get('/getlayanan', 'ApiPengaduanController@addpengaduan');
-    Route::get('/getSurvey', 'ApiPengaduanController@showsurvey');
+    Route::get('/getsurvey', 'ApiSurveyController@showsurvey');
     Route::post('/addpengaduan', 'ApiPengaduanController@storepengaduan');
 });
