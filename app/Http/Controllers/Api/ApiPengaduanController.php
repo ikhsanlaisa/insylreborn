@@ -47,12 +47,9 @@ class ApiPengaduanController extends Controller
 
     public function pengaduanbyuser(){
         $siswa = Auth::user()->siswa->id;
-//        $pengaduan = Pengaduan::with('siswa', 'layanan')->where('id_siswa', $siswa)->orderByDesc('id')->get();
-//        $pengaduans = Pengaduan::with('siswa')->where('id_siswa', $siswa)->first();
-//        $timeline = Timeline::with('pengaduan')->where('id_pengaduan', $pengaduans->id);
-        $pengaduan = Pengaduan::with('siswa', 'layanan')->where('id_siswa', $siswa)->get();
-        $data = array();
-        foreach($pengaduan as $item){
+        $data = Pengaduan::with('siswa', 'layanan')->where('id_siswa', $siswa)->get();
+        $pengaduan = array();
+        foreach($data as $item){
             $newData = $item;
             $timelines = DB::SELECT("
             select s.*, t.waktu
@@ -62,14 +59,14 @@ class ApiPengaduanController extends Controller
             and t.id_pengaduan = ('$item->id')
         ");
             $newData['status'] = $timelines;
-            array_push($data,$newData);
+            array_push($pengaduan,$newData);
         }
 
 
         $respon = [
             'error' => false,
             'message' => "success",
-            'data' => compact('data')
+            'data' => compact('pengaduan')
         ];
         return response()->json($respon);
     }
@@ -118,8 +115,6 @@ class ApiPengaduanController extends Controller
                 'message'=>'gagal menyimpan data'
             ]);
         }
-
-
     }
 
     private function uploadFoto($img)
