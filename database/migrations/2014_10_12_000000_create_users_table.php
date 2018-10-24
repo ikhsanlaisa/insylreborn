@@ -16,31 +16,32 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('username')->unique();
+            $table->string('nama')->nullable();
             $table->string('email')->unique();
-            $table->string('password');
-            $table->enum('status', ['aktif', 'lulus']);
+            $table->string('password')->nullable();
+            $table->string('tgl_lahir')->nullable();
+            $table->string('no_hp')->nullable();
+            $table->string('alamat')->nullable();
+            $table->string('provider')->nullable();
+            $table->string('provider_id')->nullable();
+            $table->string('foto')->nullable();
+            $table->integer('kelas_id')->unsigned()->nullable();
+            $table->integer('roles')->unsigned();
             $table->rememberToken();
-            $table->longText('jwt_token')->nullable();
             $table->timestamps();
+
+            $table->foreign('kelas_id')->references('id')->on('kelas')->onUpdate('cascade')->onDelete('cascade');
 
         });
 
         User::insert([
             [
-                'username' => 'admin',
-                'password' => bcrypt('admin'),
-                'email' => 'admin@bp2ip.com',
-                'status' => 'aktif',
+                'nama' => 'admin',
+                'password' => bcrypt('admin1234'),
+                'email' => 'admin@gmail.com',
+                'roles' => '1',
                 'created_at' => \Carbon\Carbon::now()
             ],
-            [
-                'username' => 'alifjafar',
-                'email' => 'alif@bp2ip.com',
-                'password' => bcrypt('alifjafar'),
-                'status' => 'aktif',
-                'created_at' => \Carbon\Carbon::now()
-            ]
         ]);
     }
 

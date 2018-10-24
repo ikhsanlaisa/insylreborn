@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Siswa;
-use App\Models\User;
+use App\Models\pertandingan;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class PertandinganController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-//        $users = User::active()->whereHas('siswa')->get();
-
-        return view('backoffice.accountlist.index', compact('users'));
+        //
     }
 
     /**
@@ -44,10 +41,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\pertandingan  $pertandingan
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(pertandingan $pertandingan)
     {
         //
     }
@@ -55,10 +52,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\pertandingan  $pertandingan
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(pertandingan $pertandingan)
     {
         //
     }
@@ -67,10 +64,10 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  \App\Models\pertandingan  $pertandingan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, pertandingan $pertandingan)
     {
         //
     }
@@ -78,10 +75,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  \App\Models\pertandingan  $pertandingan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(pertandingan $pertandingan)
     {
         //
     }

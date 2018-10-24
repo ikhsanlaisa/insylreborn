@@ -6,7 +6,7 @@
             <img class="profile-user-img img-responsive img-circle" src="{{ $user->avatar }}"
                  alt="User profile picture">
 
-            <h3 class="profile-username text-center">{{ $user->admin ? $user->admin->nama : $user->siswa->nama }}</h3>
+            <h3 class="profile-username text-center">{{ $user->roles==1 ? $user->nama : $user->nama }}</h3>
         </div>
         <!-- /.box-body -->
     </div>

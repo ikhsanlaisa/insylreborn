@@ -30,11 +30,8 @@
                             <thead>
                             <tr>
                                 <th width="6%">No</th>
-                                <th width="8%">NIP</th>
                                 <th>Nama Admin</th>
-                                <th>Username</th>
-                                <th>Tipe Admin</th>
-                                <th>Tipe Layanan</th>
+                                <th>Email</th>
                                 <th width="8%" title="Action button">
                                     <center><span class="fa fa-bars"></span></center>
                                 </th>
@@ -44,17 +41,12 @@
                             @foreach($admin as $index => $item)
                                 <tr>
                                     <td>{{ ++$index }}</td>
-                                    <td>{{ $item->admin->nip }}</td>
-                                    <td>{{ ucwords($item->admin->nama) }}</td>
-                                    <td>{{ $item->username }}</td>
-                                    <td>{{ $item->admin->tipe['tipe'] }}</td>
-                                    <td>{{ $item->admin->layanan['jenis'] }}</td>
+                                    <td>{{ $item->nama }}</td>
+                                    <td>{{ $item->email }}</td>
                                     <td>
                                         <center>
-                                            <a href="{{ route('admin.edit', $item->id) }}" title="edit"
-                                               class="btn btn-xs btn-in-o btn-round"><i class="fa fa-edit"></i> </a>
                                             <a href="#"
-                                               onclick="deleteAkun('{{ $item->id }}','{{ $item->admin->nama }}')"
+                                               onclick="deleteAkun('{{ $item->id }}','{{ $item->email }}')"
                                                title="hapus" class="btn btn-xs btn-dg-o btn-round"><i
                                                     class="fa fa-close" style="margin:1px !important;"></i></a>
                                         </center>

@@ -17,8 +17,8 @@ class IsSuperAdmin
     public function handle($request, Closure $next)
     {
 
-        if (Auth::user()->admin) {
-            if (Auth::user()['admin']['tipe']->tipe === 'Super Admin') {
+        if (Auth::user()->roles == 1) {
+            if (Auth::user()->roles == 1) {
                 return $next($request);
             }
         }

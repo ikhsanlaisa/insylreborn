@@ -19,8 +19,8 @@ class KelasController extends Controller
     public function index()
     {
         $kelas = Kelas::all();
-        $angkatan = Angkatan::all();
-        return view('backoffice.administration.kelas.index', compact('kelas', 'angkatan'));
+//        $angkatan = Angkatan::all();
+        return view('backoffice.administration.kelas.index', compact('kelas'));
     }
 
     public function listkelas()

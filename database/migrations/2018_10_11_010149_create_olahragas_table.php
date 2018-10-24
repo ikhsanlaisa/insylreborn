@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableTipeAdmin extends Migration
+class CreateOlahragasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,12 @@ class CreateTableTipeAdmin extends Migration
      */
     public function up()
     {
-        Schema::create('tipe_admin', function (Blueprint $table) {
+        Schema::create('olahraga', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tipe');
+            $table->string('cabang_olahraga');
+            $table->string('pj');
             $table->timestamps();
         });
-
-        \App\Models\TipeAdmin::insert([
-            [
-                'tipe' => 'Super Admin'
-            ],
-            [
-                'tipe' => 'Admin Pengaduan'
-            ]
-        ]);
     }
 
     /**
@@ -36,6 +28,6 @@ class CreateTableTipeAdmin extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipe_admin');
+        Schema::dropIfExists('olahraga');
     }
 }

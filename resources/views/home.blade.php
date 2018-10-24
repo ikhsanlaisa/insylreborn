@@ -7,7 +7,7 @@
         <section class="content-header">
             <h1>
                 Dashboard
-                <small>BP2IP Barombong</small>
+                <small>InsylApps</small>
             </h1>
             <ol class="breadcrumb">
                 <li class="active"><i class="fa fa-dashboard"></i> Home</li>
@@ -15,14 +15,14 @@
         </section>
         <!-- Main content -->
         <section class="content">
-            @if(Auth::user()->admin)
+            @if(Auth::user()->roles == 1)
                 <div class="row">
-                    @if(Auth::user()->isSuperAdmin())
+{{--                    @if(Auth::user()->isSuperAdmin())--}}
                         <div class="col-lg-3 col-xs-6">
                             <!-- small box -->
                             <div class="small-box bg-yellow">
                                 <div class="inner">
-                                    <h3>{{ $dashboard['user'] }}</h3>
+{{--                                    <h3>{{ $dashboard['user'] }}</h3>--}}
 
                                     <p>Data Akun Siswa</p>
                                 </div>
@@ -53,7 +53,7 @@
                             <!-- small box -->
                             <div class="small-box bg-green">
                                 <div class="inner">
-                                    <h3>{{ $dashboard['berita'] }}</h3>
+{{--                                    <h3>{{ $dashboard['berita'] }}</h3>--}}
 
                                     <p>Berita</p>
                                 </div>
@@ -65,12 +65,12 @@
                             </div>
                         </div>
                         <!-- ./col -->
-                    @endif
+                    {{--@endif--}}
                     <div class="col-lg-3 col-xs-6">
                         <!-- small box -->
                         <div class="small-box bg-red">
                             <div class="inner">
-                                <h3>{{ $dashboard['pengaduan'] }}</h3>
+{{--                                <h3>{{ $dashboard['pengaduan'] }}</h3>--}}
 
                                 <p>Pengaduan</p>
                             </div>
@@ -88,7 +88,7 @@
             <!-- Default box -->
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Selamat Datang di Aplikasi BP2IP Barombong</h3>
+                    <h3 class="box-title">Selamat Datang di Aplikasi InsyllApps</h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
@@ -104,7 +104,7 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
-                    BP2IP Barombong
+                    InsyllApps
                 </div>
                 <!-- /.box-footer-->
             </div>

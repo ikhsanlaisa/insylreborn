@@ -9,6 +9,9 @@ Route::get('/login', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
+
 Route::group(['middleware' => ['auth']], function () {
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 

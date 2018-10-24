@@ -113,14 +113,14 @@
                             <img src="{{ Auth::user()->avatar }}" class="img-circle" alt="User Image">
 
                             <p>
-                                {{Auth::user()->admin ? Auth::user()->admin->nama : Auth::user()->siswa->nama  }}
+                                {{Auth::user()->roles == 1 ? Auth::user()->nama : Auth::user()->nama  }}
                                 <small>{{ Auth::user()->email }}</small>
                             </p>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="{{ route('profile', Auth::user()->username) }}" class="btn btn-default btn-flat">Profile</a>
+                                <a href="{{ route('profile', Auth::user()->email) }}" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
                                 <a href="{{ route('logout') }}" class="btn btn-default btn-flat"  onclick="event.preventDefault();

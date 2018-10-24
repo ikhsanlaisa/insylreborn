@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'status', 'password','email', 'jwt_token'
+        'nama','email', 'password', 'tgl_lahir', 'no_hp', 'alamat', 'foto', 'kelas_id', 'roles', 'provider', 'provider_id'
     ];
 
     /**
@@ -25,26 +25,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'jwt_token'
+        'password', 'remember_token'
     ];
 
-    public function admin()
-    {
-        return $this->hasOne(Admin::class, 'id_user', 'id');
-    }
 
-    public function siswa()
+    public function Kelas()
     {
-        return $this->hasOne(Siswa::class,'id_user','id');
-    }
-
-    public function scopeActive($query)
-    {
-        return $query->where('status', 'aktif');
-    }
-
-    public function isSuperAdmin(){
-        return $this->admin && $this['admin']['tipe']->tipe == 'Super Admin';
+        return $this->belongsTo(Kelas::class,'kelas_id','id');
     }
 
     public function getAvatarAttribute()

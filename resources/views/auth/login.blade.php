@@ -4,7 +4,7 @@
     <div class="container-login100 bg-body">
         <div class="wrap-login100 fadeIn animated">
             <div class="login100-form-title"
-                 style="background-image: url({{ asset('css/login/images/bg-02.jpg') }});background-position:center !important;">
+                 style="background-image: url({{ asset('css/login/images/fri.jpg') }});background-position:center !important;">
 					<span class="login100-form-title-1">
 						<style media="screen">
 							/* .crop{
@@ -30,12 +30,12 @@
                                 margin-bottom: -20% !important;
                             }
 						</style>
-						<center>
-							<figure>
-								<img src="{{ asset('css/login/images/logo-01.png') }}" class="crop" alt="logo bppip">
-							</figure>
-						</center>
-						<h4>BP2IP BAROMBONG</h4>
+						{{--<center>--}}
+							{{--<figure>--}}
+								{{--<img src="{{ asset('css/login/images/logo-01.png') }}" class="crop" alt="logo bppip">--}}
+							{{--</figure>--}}
+						{{--</center>--}}
+						{{--<h4>BP2IP BAROMBONG</h4>--}}
 					</span>
             </div>
 
@@ -56,8 +56,8 @@
             <form class="login100-form validate-form" method="post" action="{{ route('login') }}">
                 @csrf
                 <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
-                    <span class="label-input100">Username</span>
-                    <input class="input100" type="text" name="username" placeholder="Masukkan username">
+                    <span class="label-input100">Email</span>
+                    <input class="input100" type="email" name="email" placeholder="Masukkan email">
                     <span class="focus-input100"></span>
                 </div>
 
@@ -74,6 +74,13 @@
                     <button type="submit" name="masuk" class="login100-form-btn lgn-btn">
                         Login
                     </button>
+                </div>
+                <div class="form-group row">
+                    {{--<div class="col-md-6 offset-md-4">--}}
+                        <a href="{{ url('/auth/google') }}" class="btn btn-github"><i class="fa fa-github"></i> Google</a>
+                        <a href="{{ url('/auth/twitter') }}" class="btn btn-twitter"><i class="fa fa-twitter"></i> Twitter</a>
+                        <a href="{{ url('/auth/facebook') }}" class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</a>
+                    {{--</div>--}}
                 </div>
             </form>
         </div>

@@ -24,6 +24,20 @@
                                 class="fa fa-download"></i> Import</a>
                     </div>
                 </div>
+                <style media="screen">
+                    .img-news {
+                        border-radius: 10px;
+                        cursor: pointer;
+                        transition: 0.3s;
+                        object-fit: cover;
+                        width: 100px;
+                        height: 100px;
+                    }
+
+                    .img-news:hover {
+                        opacity: 0.7;
+                    }
+                </style>
                 <div class="box-body">
                     @if($errors->any())
                         <div class="alert alert-danger">
@@ -39,9 +53,8 @@
                             <thead>
                             <tr>
                                 <th width="6%">No</th>
-                                <th width="8%">Kode</th>
                                 <th>Nama Kelas</th>
-                                <th>Diklat/Subdiklat/Angkatan</th>
+                                <th>Foto</th>
                                 <th width="10%" title="Action button">
                                     <center><span class="fa fa-bars"></span></center>
                                 </th>
@@ -51,10 +64,14 @@
                             @foreach($kelas as $index => $item)
                                 <tr>
                                     <td>{{ ++$index }}</td>
-                                    <td>{{ $item->kode }}</td>
-                                    <td>{{ $item->nama }}</td>
-                                    <td>{{ $item->angkatan->subdiklat->diklat->kode }}
-                                        - {{ $item->angkatan->subdiklat->nama }} {{ $item->angkatan->kode }}</td>
+                                    <td>{{ $item->nama_kelas }}</td>
+                                    <td>
+                                        {{--<center>--}}
+                                            {{--<img id="myImg-{{ $item->id }}" src="{{ asset('storage/' . $item->foto) }}"--}}
+                                                 {{--alt="{{ $item->nama_kelas }}" class="img-fluid img-news"--}}
+                                                 {{--onclick="showImg(this, {{ $item->id }})">--}}
+                                        {{--</center>--}}
+                                    </td>
                                     <td>
                                         <center>
                                             <a href="#" data-toggle="modal" data-target="#detailInstruktur" title="user"
@@ -71,6 +88,15 @@
                         </table>
                     </div>
                 </div>
+
+                <!-- The Modal -->
+                <div id="myModal" class="modal">
+                    <span class="close">&times;</span>
+                    <img class="modal-content" id="img">
+                    <div id="caption"></div>
+                </div>
+                <!-- /.box-footer-->
+
                 <!-- /.box-body -->
                 <div class="box-footer">
                     Footer
@@ -182,15 +208,6 @@
                                     <input type="text" class="form-control" placeholder="Masukkan Nama Angkatan" name="nama"
                                            required>
                                 </div>
-                                <div class="form-group">
-                                    <label>Pilih Angkatan</label>
-                                    <select class="form-control input-sm select2" style="width: 100%;" required name="id_angkatan">
-                                        @foreach($angkatan as $item)
-                                            <option value="{{ $item['id'] }}">[ {{ $item->subdiklat->diklat->kode }} ] - {{ $item->subdiklat->nama }} - {{ $item->kode }}</option>
-                                            @endforeach
-                                        {{--<option value="0">[Kode Diklat] - Nama Subdiklat - Angkatan</option>--}}
-                                    </select>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -268,6 +285,28 @@
             placeholder: 'Cari Diklat...',
             allowClear: true
         })
+
+        function showImg(element, i) {
+            // Get the modal
+            let modal = document.getElementById('myModal');
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            let img = document.getElementById('myImg-' + i);
+            let modalImg = document.getElementById("img");
+            let captionText = document.getElementById("caption");
+            modal.style.display = "block";
+            modalImg.src = element.src;
+            captionText.innerHTML = element.alt;
+
+            // Get the <span> element that closes the modal
+            let span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+
+        }
     </script>
 
     @if(Session::has('success'))

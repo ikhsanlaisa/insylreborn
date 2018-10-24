@@ -41,7 +41,7 @@ class LoginController extends Controller
 
     public function username()
     {
-        return 'username';
+        return 'email';
     }
 
     /**
@@ -58,9 +58,9 @@ class LoginController extends Controller
     {
         $validated = $request->validated();
 
-        $check = User::where('username', $validated['username'])->first();
+        $check = User::where('email', $validated['email'])->first();
 
-        if ((!$validated) || ($check['status'] !== 'aktif')){
+        if ((!$validated) || ($check['roles'] != 1)){
             return redirect()->route('login.index')->withErrors(['msg','Input tidak sesuai']);
         }
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
@@ -91,7 +91,7 @@ class LoginController extends Controller
     {
         $field = $request->get($this->username())
             ? $this->username()
-            : 'username';
+            : 'email';
 
         return [
             $field => $request->get($this->username()),

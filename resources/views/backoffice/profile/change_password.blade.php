@@ -22,7 +22,7 @@
                 <div class="col-md-9">
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
-                            <li><a href="{{ route('profile', $user->username) }}">Profile</a></li>
+                            <li><a href="{{ route('profile', $user->email) }}">Profile</a></li>
                             <li class="active"><a href="#">Change Password</a></li>
                         </ul>
                         <div class="tab-content">

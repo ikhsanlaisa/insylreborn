@@ -21,7 +21,7 @@ class CreateTableBerita extends Migration
             $table->string('foto');
             $table->timestamps();
 
-            $table->foreign('id_admin')->references('id')->on('admin')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_admin')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

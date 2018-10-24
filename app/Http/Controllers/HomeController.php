@@ -28,11 +28,11 @@ class HomeController extends Controller
     public function index()
     {
 
-        $dashboard['berita'] = Berita::count();
-        $dashboard['user'] = User::whereHas('siswa')->count();
-        $dashboard['pengaduan'] = Pengaduan::count();
+//        $dashboard['berita'] = Berita::count();
+//        $dashboard['user'] = User::where('roles' == 1)->count();
+//        $dashboard['pengaduan'] = Pengaduan::count();
 
-        return view('home', compact('dashboard'));
+        return view('home');
     }
 
     public function debug()

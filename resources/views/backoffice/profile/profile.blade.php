@@ -23,7 +23,7 @@
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#" data-toggle="tab">Profile</a></li>
-                            <li><a href="{{ route('edit-password', $user->username) }}">Change Password</a></li>
+                            <li><a href="{{ route('edit-password', $user->email) }}">Change Password</a></li>
                         </ul>
                         <div class="tab-content">
                             <div class="active tab-pane" id="settings">
@@ -46,80 +46,72 @@
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" name="nama" id="nama"
                                                    placeholder="Name"
-                                                   value="{{ $user->admin ? $user->admin->nama : $user->siswa->nama }}">
+                                                   value="{{ $user->roles ==1 ? $user->nama : $user->nama }}">
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="username" class="col-sm-2 control-label">Username</label>
-
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="username" id="username"
-                                                   value="{{ $user->username }}">
-                                        </div>
-                                    </div>
                                     <div class="form-group">
                                         <label for="email" class="col-sm-2 control-label">Email</label>
 
                                         <div class="col-sm-10">
                                             <input type="email" class="form-control" id="email" placeholder="Email"
-                                                   value="{{ $user->email }}" disabled>
+                                                value="{{ $user->email }}">
                                         </div>
                                     </div>
-                                    @if($user->siswa)
-                                        <div class="form-group">
-                                            <label for="nit" class="col-sm-2 control-label">NIT</label>
+                                    {{--@if($user->siswa)--}}
+                                        {{--<div class="form-group">--}}
+                                            {{--<label for="nit" class="col-sm-2 control-label">NIT</label>--}}
 
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control"
-                                                       value="{{ $user->siswa->nit }}" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="kelas" class="col-sm-2 control-label">Kelas</label>
+                                            {{--<div class="col-sm-10">--}}
+                                                {{--<input type="text" class="form-control"--}}
+                                                       {{--value="{{ $user->siswa->nit }}" disabled>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="form-group">--}}
+                                            {{--<label for="kelas" class="col-sm-2 control-label">Kelas</label>--}}
 
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control"
-                                                       value="{{ $user->siswa->kelas->angkatan->kode }} / {{ $user->siswa->kelas->nama }}"
-                                                       disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="tanggal_lahir" class="col-sm-2 control-label">Tanggal
-                                                Lahir</label>
+                                            {{--<div class="col-sm-10">--}}
+                                                {{--<input type="text" class="form-control"--}}
+                                                       {{--value="{{ $user->siswa->kelas->angkatan->kode }} / {{ $user->siswa->kelas->nama }}"--}}
+                                                       {{--disabled>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="form-group">--}}
+                                            {{--<label for="tanggal_lahir" class="col-sm-2 control-label">Tanggal--}}
+                                                {{--Lahir</label>--}}
 
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control datepicker" id="tanggal_lahir"
-                                                       name="tanggal_lahir">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="kontak" class="col-sm-2 control-label">Kontak</label>
+                                            {{--<div class="col-sm-10">--}}
+                                                {{--<input type="text" class="form-control datepicker" id="tanggal_lahir"--}}
+                                                       {{--name="tanggal_lahir">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="form-group">--}}
+                                            {{--<label for="kontak" class="col-sm-2 control-label">Kontak</label>--}}
 
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="kontak" id="kontak"
-                                                       value="{{ $user->siswa->kontak }}">
-                                            </div>
-                                        </div>
+                                            {{--<div class="col-sm-10">--}}
+                                                {{--<input type="text" class="form-control" name="kontak" id="kontak"--}}
+                                                       {{--value="{{ $user->siswa->kontak }}">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
 
-                                        <div class="form-group">
-                                            <label for="alamat" class="col-sm-2 control-label">Alamat</label>
+                                        {{--<div class="form-group">--}}
+                                            {{--<label for="alamat" class="col-sm-2 control-label">Alamat</label>--}}
 
-                                            <div class="col-sm-10">
-                                            <textarea name="alamat" id="alamat" class="form-control"
-                                                      rows="5">{{ $user->siswa->alamat }}</textarea>
-                                            </div>
-                                        </div>
-                                    @else
-                                        <div class="form-group">
-                                            <label for="nip" class="col-sm-2 control-label">NIP</label>
+                                            {{--<div class="col-sm-10">--}}
+                                            {{--<textarea name="alamat" id="alamat" class="form-control"--}}
+                                                      {{--rows="5">{{ $user->siswa->alamat }}</textarea>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--@else--}}
+                                        {{--<div class="form-group">--}}
+                                            {{--<label for="nip" class="col-sm-2 control-label">NIP</label>--}}
 
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control"
-                                                       value="{{ $user->admin->nip }}" disabled>
-                                            </div>
-                                        </div>
-                                    @endif
+                                            {{--<div class="col-sm-10">--}}
+                                                {{--<input type="text" class="form-control"--}}
+                                                       {{--value="{{ $user->admin->nip }}" disabled>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--@endif--}}
 
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">

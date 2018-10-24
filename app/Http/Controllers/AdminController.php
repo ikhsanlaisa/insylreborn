@@ -24,7 +24,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admin = User::whereHas('admin')->get();
+        $admin = User::where('roles', 1)->get();
         return view('backoffice.administration.admin.index', compact('admin'));
     }
 
@@ -35,8 +35,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        $layanan = LayananPengaduan::all();
-        return view('backoffice.administration.admin.add', compact('layanan'));
+        return view('backoffice.administration.admin.add');
     }
 
     /**
@@ -48,18 +47,18 @@ class AdminController extends Controller
     public function store(RAdmin $request)
     {
         $validated = $request->validated();
-
-        $validated['id_layanan'] ?? $validated['id_layanan'] = null;
-
-
-        $user = User::create([
-            'username' => $validated['username'],
-            'email' => $validated['email'],
-            'password' => bcrypt($validated['password'])
-        ]);
-
-        Admin::create(['id_user' => $user['id']] + $validated);
-
+//        User::create([
+//            'nama' => $validated['nama'],
+//            'email' => $validated['email'],
+//            'password' => bcrypt($validated['password']),
+//
+//        ]);
+        $user = new User();
+        $user->nama = $validated['nama'];
+        $user->email = $validated['email'];
+        $user->password =bcrypt($validated['password']);
+        $user->roles = 1;
+        $user->save();
 
         Session::flash('success', 'Sukses Membuat Akun Admin');
 
@@ -100,28 +99,28 @@ class AdminController extends Controller
      */
     public function update(Request $request, User $admin)
     {
-        $user = $admin;
-
-        $validated = $this->validate($request, [
-            'username' => 'required|regex:/^[a-z]+$/|unique:users,username,' . $user['id'],
-            'id_tipe' => 'required|exists:tipe_admin,id',
-            'id_layanan' => 'exists:layanan_pengaduan,id',
-            'nip' => 'required|string',
-            'nama' => 'required|string',
-        ]);
-
-        $validated['id_layanan'] ?? $validated['id_layanan'] = null;
-
-        if ($validated['username'] != null) {
-            $user->update([
-                'username' => $validated['username'],
-            ]);
-        }
-
-        $user->admin->update(['id_user' => $user['id']] + $validated);
-
-        Session::flash('success', 'Sukses Memperbaharui Akun Admin');
-        return redirect(route('admin.index'));
+//        $user = $admin;
+//
+//        $validated = $this->validate($request, [
+//            'username' => 'required|regex:/^[a-z]+$/|unique:users,username,' . $user['id'],
+//            'id_tipe' => 'required|exists:tipe_admin,id',
+//            'id_layanan' => 'exists:layanan_pengaduan,id',
+//            'nip' => 'required|string',
+//            'nama' => 'required|string',
+//        ]);
+//
+//        $validated['id_layanan'] ?? $validated['id_layanan'] = null;
+//
+//        if ($validated['username'] != null) {
+//            $user->update([
+//                'username' => $validated['username'],
+//            ]);
+//        }
+//
+//        $user->admin->update(['id_user' => $user['id']] + $validated);
+//
+//        Session::flash('success', 'Sukses Memperbaharui Akun Admin');
+//        return redirect(route('admin.index'));
     }
 
     /**
