@@ -1,12 +1,13 @@
 @extends('layouts.main')
 @section('content')
+    {{--<link rel="stylesheet" href="{{ asset('css/image-style.css') }}">--}}
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper bg-body">
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Data Kelas
-                <small>Sistem Informasi</small>
+                Data Jadwal
+                <small>Pertandingan Insyl</small>
             </h1>
         </section>
 
@@ -15,7 +16,7 @@
             <!-- Default box -->
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Daftar Kelas</h3>
+                    <h3 class="box-title">Daftar Pertandingan</h3>
                     <!-- <a href="#" type="button" class="btn btn-sm btn-primary pull-right" name="button"><i class="fa fa-plus"></i> AKUN BARU</a> -->
                     <div class="btn-group pull-right">
                         <a href="#" data-toggle="modal" data-target="#addKelas" type="button" title="Tambah akun"
@@ -51,38 +52,38 @@
                             <thead>
                             <tr>
                                 <th width="6%">No</th>
-                                <th>Nama Kelas</th>
-                                <th>Foto</th>
+                                <th><center>Kelas</center></th>
+                                <th><center>Cabor</center></th>
+                                <th><center>Lokasi</center></th>
+                                <th><center>Jadwal</center></th>
                                 <th width="10%" title="Action button">
                                     <center><span class="fa fa-bars"></span></center>
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
-                            @if($kelas->count())
-                            @foreach($kelas as $index => $item)
-                                <tr>
-                                    <td>{{ ++$index }}</td>
-                                    <td>{{ $item->nama_kelas }}</td>
-                                    <td>
-                                        <center>
-                                            <img id="myImg-{{ $item->id }}" src="{{ asset('storage/' . $item->foto) }}"
-                                                 alt="{{ $item->nama_kelas }}" class="img-fluid img-news"
-                                                 onclick="showImg(this, {{ $item->id }})">
-                                        </center>
-                                    </td>
-                                    <td>
-                                        <center>
-                                            <a data-toggle="modal" data-target="#editKelas" title="edit"
-                                               onclick="showModal({{$item->id}})"
-                                               class="btn btn-xs btn-in-o btn-round"><i class="fa fa-edit"></i> </a>
-                                            <a href="#" onclick="deleteKelas('{{ $item->id }}','{{ $item->nama_kelas }}')"
-                                               title="hapus" class="btn btn-xs btn-dg-o btn-round"><i
-                                                    class="fa fa-close" style="margin:1px !important;"></i></a>
-                                        </center>
-                                    </td>
-                                </tr>
-                            @endforeach
+                            @if($jadwal->count())
+                                @foreach($jadwal as $index => $item)
+                                    <tr>
+                                        <td>{{ ++$index }}</td>
+                                        <td><center>{{$item->kelas->nama_kelas}} VS {{$item->kelas1->nama_kelas}}</center></td>
+                                        <td><center>{{$item->cb_olahraga->cabang_olahraga}}</center></td>
+                                        <td><center>{{$item->lokasi}}</center>
+                                        </td>
+                                        <td><center>{{ date('D, d M Y/h:m A', strtotime($item->date_time))}}</center></td>
+                                        <td>
+                                            <center>
+                                                <a data-toggle="modal" data-target="#editKelas" title="edit"
+                                                   onclick="showModal({{$item->id}})"
+                                                   class="btn btn-xs btn-in-o btn-round"><i class="fa fa-edit"></i> </a>
+                                                <a href="#"
+                                                   onclick="deleteJadwal('{{ $item->id }}','{{$item->kelas->nama_kelas}} VS {{$item->kelas1->nama_kelas}}')"
+                                                   title="hapus" class="btn btn-xs btn-dg-o btn-round"><i
+                                                        class="fa fa-close" style="margin:1px !important;"></i></a>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             @else
                                 <tr>
                                     <td colspan="6">No record data !</td>
@@ -120,22 +121,49 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Tambah Kelas Baru</h4>
+                    <h4 class="modal-title">Tambah Jadwal Baru</h4>
                 </div>
-                <form action="{{ route('kelas.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('jadwal.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label>Nama Kelas</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Nama Kelas"
-                                           name="nama_kelas" required>
+                                    <label for="kelaslist">Kelas 1</label>
+                                    <select name="tim1" id="tim1" class="form-control">
+                                        <option disabled selected>--Pilih Kelas--</option>
+                                        @foreach($kelas as $k)
+                                            <option value="{{ $k->id }}">{{ $k->nama_kelas }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Image</label>
-                                    <input type="file" accept="image/*" class="form-control" id="foto" name="foto"
-                                           placeholder="Masukkan Foto" required>
+                                    <label for="kelaslist">Kelas 2</label>
+                                    <select name="tim2" id="tim2" class="form-control">
+                                        <option disabled selected>--Pilih Kelas--</option>
+                                        @foreach($kelas as $k)
+                                            <option value="{{ $k->id }}">{{ $k->nama_kelas }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="caborlist">Cabor</label>
+                                    <select name="olahraga_id" id="olahraga_id" class="form-control">
+                                        <option disabled selected>--Pilih Cabor--</option>
+                                        @foreach($cabor as $c)
+                                            <option value="{{ $c->id }}">{{ $c->cabang_olahraga }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Lokasi</label>
+                                    <input type="text" class="form-control" placeholder="Masukkan Lokasi"
+                                           name="lokasi" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>No. Hp</label>
+                                    <input type="datetime-local" class="form-control" placeholder="Masukkan No Telepon"
+                                           name="date_time" required>
                                 </div>
                             </div>
                         </div>
@@ -158,7 +186,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Edit Data Kelas</h4>
+                    <h4 class="modal-title">Edit Data Pertandingan</h4>
                 </div>
                 <form id="formEdit" name="formEdit" action="" method="post" enctype="multipart/form-data">
                     @csrf
@@ -167,15 +195,41 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label>Nama Kelas</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Nama Kelas"
-                                           name="nama_kelas" id="nama_kelas">
+                                    <label for="kelaslist">Kelas 1</label>
+                                    <select name="tim1" id="tim1" class="form-control">
+                                        <option disabled selected>--Pilih Kelas--</option>
+                                        @foreach($kelas as $k)
+                                            <option value="{{ $k->id }}">{{ $k->nama_kelas }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Image</label>
-
-                                    <input type="file" accept="image/*" class="form-control" id="foto" name="foto"
-                                           placeholder="Masukkan Foto">
+                                    <label for="kelaslist">Kelas 2</label>
+                                    <select name="tim2" id="tim2" class="form-control">
+                                        <option disabled selected>--Pilih Kelas--</option>
+                                        @foreach($kelas as $k)
+                                            <option value="{{ $k->id }}">{{ $k->nama_kelas }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="caborlist">Cabor</label>
+                                    <select name="olahraga_id" id="olahraga_id" class="form-control">
+                                        <option disabled selected>--Pilih Cabor--</option>
+                                        @foreach($cabor as $c)
+                                            <option value="{{ $c->id }}">{{ $c->cabang_olahraga }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Lokasi</label>
+                                    <input type="text" class="form-control" placeholder="Masukkan Lokasi"
+                                           name="lokasi" id="lokasi" >
+                                </div>
+                                <div class="form-group">
+                                    <label>No. Hp</label>
+                                    <input type="datetime-local" class="form-control" placeholder="Masukkan No Telepon"
+                                           name="date_time" >
                                 </div>
                             </div>
                         </div>
@@ -244,19 +298,18 @@
         });
 
         function showModal(id) {
-            document.getElementById('formEdit').action = "updatedatakelas/" + id;
+            document.getElementById('formEdit').action = "updatedatajadwal/" + id;
             console.log("diklik " + id);
-            nama_kelas = document.getElementById('nama_kelas');
-            foto = document.getElementById('foto');
+            lokasi = document.getElementById('lokasi');
             $.ajax({
                 type: 'GET',
-                url: 'dependent/kelas/' + id,
+                url: 'dependent/jadwal/' + id,
                 dataType: 'json',
                 success: function (data) {
                     if (data !== null) {
                         console.log(data);
                         console.log('datanya 2 = ' + data.id);
-                        nama_kelas.value = data.nama_kelas;
+                        lokasi.value = data.lokasi;
                     } else {
                         console.log('null')
                         nama_kelas.value = "";
@@ -271,20 +324,20 @@
             });
         }
 
-        function deleteKelas(kelasId, KelasName) {
+        function deleteJadwal(jadwalId, timName) {
             swal({
                 title: "Apa anda yakin?",
-                text: "Anda Menghapus Kelas " + KelasName,
+                text: "Anda Menghapus Pertandingan " + timName,
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
 
             }).then((willDelete => {
                 if (willDelete) {
-                    let theUrl = "{{ route('kelas.destroy', ':kelasId') }}";
-                    theUrl = theUrl.replace(":kelasId", kelasId);
+                    let theUrl = "{{ route('jadwal.destroy', ':jadwalId') }}";
+                    theUrl = theUrl.replace(":jadwalId", jadwalId);
 
-                    let redirectUrl = "{{ route('kelas.index') }}";
+                    let redirectUrl = "{{ route('jadwal.index') }}";
 
                     $.ajax({
                         type: 'POST',
@@ -292,7 +345,7 @@
                         data: {_method: "delete"},
 
                         success: function (data) {
-                            swal("Deleted!", "Kelas berhasil di delete!", "success").then((data => {
+                            swal("Deleted!", "Jadwal berhasil di delete!", "success").then((data => {
                                 window.location.href = redirectUrl;
                             }));
                         },

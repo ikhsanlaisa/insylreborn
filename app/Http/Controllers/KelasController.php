@@ -7,6 +7,7 @@ use App\Models\Angkatan;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 
 class KelasController extends Controller
@@ -19,24 +20,8 @@ class KelasController extends Controller
     public function index()
     {
         $kelas = Kelas::all();
-//        $angkatan = Angkatan::all();
         return view('backoffice.administration.kelas.index', compact('kelas'));
     }
-
-    public function listkelas()
-    {
-        $all = Kelas::all();
-
-        return KelasResource::collection($all);
-    }
-
-    public function getKelas($id)
-    {
-        $kelas = Kelas::where('id_angkatan', $id)->get();
-
-        return response()->json($kelas);
-    }
-
 
     /**
      * Show the form for creating a new resource.
@@ -56,17 +41,27 @@ class KelasController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $this->validate($request, [
-           'id_angkatan' => 'required|exists:angkatan,id',
-           'kode' => 'required|string|unique:kelas,kode',
-           'nama' => 'required|string'
-        ]);
-
-        Kelas::create($validated);
+        $kelas = new Kelas();
+        $kelas->nama_kelas = $request->input('nama_kelas');
+        $image = $this->uploadFoto($request->file('foto'));
+        $kelas->foto = $image;
+        $kelas->save();
 
         Session::flash('success', 'Berhasil menambahkan kelas');
 
         return redirect(route('kelas.index'));
+    }
+
+    private function uploadFoto($img)
+    {
+        $fileName = uniqid() . $img->getClientOriginalName();
+        $path = 'uploads/kelas/';
+
+        $fullPath = $path . $fileName;
+
+        Storage::disk('public')->putFileAs($path, $img, $fileName);
+
+        return $fullPath;
     }
 
     /**
@@ -75,9 +70,11 @@ class KelasController extends Controller
      * @param  \App\Models\Kelas $kelas
      * @return \Illuminate\Http\Response
      */
-    public function show(Kelas $kelas)
+    public function show($id)
     {
-        //
+        $kelas = Kelas::find($id);
+
+        return response()->json($kelas);
     }
 
     /**
@@ -98,9 +95,25 @@ class KelasController extends Controller
      * @param  \App\Models\Kelas $kelas
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kelas $kelas)
+    public function update(Request $request, $id)
     {
-        //
+        $kelas = Kelas::find($id);
+        if ($request->input('nama_kelas')){
+            $kelas->nama_kelas = $request->input('nama_kelas');
+        }
+        if ($request->hasFile('foto')){
+            $image = $this->uploadFoto($request->file('foto'));
+            $kelas->foto = $image;
+
+            //Delete Foto Lama
+            Storage::disk('public')->delete($kelas['foto']);
+        }
+
+        $kelas->save();
+
+        Session::flash('success', 'Kamu Berhasil Memperbarui Kelas');
+
+        return redirect()->back();
     }
 
     /**
@@ -109,8 +122,14 @@ class KelasController extends Controller
      * @param  \App\Models\Kelas $kelas
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kelas $kelas)
+    public function destroy($id)
     {
-        //
+        $kelas = Kelas::findOrFail($id);
+
+        Storage::disk('public')->delete($kelas['foto']);
+
+        $kelas->delete();
+
+        return response('success', 204);
     }
 }

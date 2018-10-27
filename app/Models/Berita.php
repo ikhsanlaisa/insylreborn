@@ -14,6 +14,6 @@ class Berita extends Model
 
     public function author()
     {
-        return $this->belongsTo(Admin::class,'id_admin','id');
+        return $this->belongsTo(User::class,'id_admin','id');
     }
 }

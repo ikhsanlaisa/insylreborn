@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\jadwal;
+use App\Models\Kelas;
+use App\Models\olahraga;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class JadwalController extends Controller
 {
@@ -14,7 +17,10 @@ class JadwalController extends Controller
      */
     public function index()
     {
-        //
+        $jadwal = jadwal::all();
+        $kelas = kelas::all();
+        $cabor = olahraga::all();
+        return view('backoffice.jadwal.index')->with(['jadwal' => $jadwal,'kelas' => $kelas, 'cabor' => $cabor]);
     }
 
     /**
@@ -24,7 +30,7 @@ class JadwalController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -35,7 +41,17 @@ class JadwalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $jadwal = new jadwal();
+        $jadwal->tim1 = $request->input('tim1');
+        $jadwal->tim2 = $request->input('tim2');
+        $jadwal->lokasi = $request->input('lokasi');
+        $jadwal->date_time = $request->input('date_time');
+        $jadwal->olahraga_id = $request->input('olahraga_id');
+        $jadwal->save();
+
+        Session::flash('success', 'Berhasil menambahkan jadwal');
+
+        return redirect(route('jadwal.index'));
     }
 
     /**
@@ -44,9 +60,11 @@ class JadwalController extends Controller
      * @param  \App\Models\jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function show(jadwal $jadwal)
+    public function show($id)
     {
-        //
+        $jadwal = jadwal::find($id);
+
+        return response()->json($jadwal);
     }
 
     /**
@@ -67,9 +85,30 @@ class JadwalController extends Controller
      * @param  \App\Models\jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, jadwal $jadwal)
+    public function update(Request $request, $id)
     {
-        //
+        $jadwal = jadwal::find($id);
+        if ($request->input('tim1')){
+            $jadwal->tim1 = $request->input('tim1');
+        }
+        if ($request->input('tim2')){
+            $jadwal->tim2 = $request->input('tim2');
+        }
+        if ($request->input('lokasi')){
+            $jadwal->lokasi = $request->input('lokasi');
+        }
+        if ($request->input('date_time')){
+            $jadwal->date_time = $request->input('date_time');
+        }
+        if ($request->input('olahraga_id')){
+            $jadwal->olahraga_id = $request->input('olahraga_id');
+        }
+
+        $jadwal->save();
+
+        Session::flash('success', 'Kamu Berhasil Memperbarui Jadwal');
+
+        return redirect()->back();
     }
 
     /**
@@ -78,8 +117,12 @@ class JadwalController extends Controller
      * @param  \App\Models\jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(jadwal $jadwal)
+    public function destroy($id)
     {
-        //
+        $jadwal = jadwal::findOrFail($id);
+
+        $jadwal->delete();
+
+        return response('success', 204);
     }
 }

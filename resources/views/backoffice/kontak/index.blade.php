@@ -5,8 +5,8 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Data Kelas
-                <small>Sistem Informasi</small>
+                Data Kontak
+                <small>Panitia Insyl</small>
             </h1>
         </section>
 
@@ -15,7 +15,7 @@
             <!-- Default box -->
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Daftar Kelas</h3>
+                    <h3 class="box-title">Daftar Kontak</h3>
                     <!-- <a href="#" type="button" class="btn btn-sm btn-primary pull-right" name="button"><i class="fa fa-plus"></i> AKUN BARU</a> -->
                     <div class="btn-group pull-right">
                         <a href="#" data-toggle="modal" data-target="#addKelas" type="button" title="Tambah akun"
@@ -51,7 +51,9 @@
                             <thead>
                             <tr>
                                 <th width="6%">No</th>
-                                <th>Nama Kelas</th>
+                                <th>Nama</th>
+                                <th>Email</th>
+                                <th>No. Telp</th>
                                 <th>Foto</th>
                                 <th width="10%" title="Action button">
                                     <center><span class="fa fa-bars"></span></center>
@@ -59,30 +61,32 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @if($kelas->count())
-                            @foreach($kelas as $index => $item)
-                                <tr>
-                                    <td>{{ ++$index }}</td>
-                                    <td>{{ $item->nama_kelas }}</td>
-                                    <td>
-                                        <center>
-                                            <img id="myImg-{{ $item->id }}" src="{{ asset('storage/' . $item->foto) }}"
-                                                 alt="{{ $item->nama_kelas }}" class="img-fluid img-news"
-                                                 onclick="showImg(this, {{ $item->id }})">
-                                        </center>
-                                    </td>
-                                    <td>
-                                        <center>
-                                            <a data-toggle="modal" data-target="#editKelas" title="edit"
-                                               onclick="showModal({{$item->id}})"
-                                               class="btn btn-xs btn-in-o btn-round"><i class="fa fa-edit"></i> </a>
-                                            <a href="#" onclick="deleteKelas('{{ $item->id }}','{{ $item->nama_kelas }}')"
-                                               title="hapus" class="btn btn-xs btn-dg-o btn-round"><i
-                                                    class="fa fa-close" style="margin:1px !important;"></i></a>
-                                        </center>
-                                    </td>
-                                </tr>
-                            @endforeach
+                            @if($kontak->count())
+                                @foreach($kontak as $index => $item)
+                                    <tr>
+                                        <td>{{ ++$index }}</td>
+                                        <td>{{ $item->nama }}</td>
+                                        <td>{{ $item->email }}</td>
+                                        <td>{{ $item->no_telp }}</td>
+                                        <td>
+                                            <center>
+                                                <img id="myImg-{{ $item->id }}" src="{{ asset('storage/' . $item->foto) }}"
+                                                     alt="{{ $item->nama_kelas }}" class="img-fluid img-news"
+                                                     onclick="showImg(this, {{ $item->id }})">
+                                            </center>
+                                        </td>
+                                        <td>
+                                            <center>
+                                                <a data-toggle="modal" data-target="#editKelas" title="edit"
+                                                   onclick="showModal({{$item->id}})"
+                                                   class="btn btn-xs btn-in-o btn-round"><i class="fa fa-edit"></i> </a>
+                                                <a href="#" onclick="deleteKontak('{{ $item->id }}','{{ $item->nama }}')"
+                                                   title="hapus" class="btn btn-xs btn-dg-o btn-round"><i
+                                                        class="fa fa-close" style="margin:1px !important;"></i></a>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             @else
                                 <tr>
                                     <td colspan="6">No record data !</td>
@@ -120,17 +124,27 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Tambah Kelas Baru</h4>
+                    <h4 class="modal-title">Tambah Kontak Baru</h4>
                 </div>
-                <form action="{{ route('kelas.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('kontak.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label>Nama Kelas</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Nama Kelas"
-                                           name="nama_kelas" required>
+                                    <label>Nama</label>
+                                    <input type="text" class="form-control" placeholder="Masukkan Nama"
+                                           name="nama" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control" placeholder="Masukkan Email"
+                                           name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>No. Hp</label>
+                                    <input type="number" class="form-control" placeholder="Masukkan No Telepon"
+                                           name="no_telp" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Image</label>
@@ -158,7 +172,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Edit Data Kelas</h4>
+                    <h4 class="modal-title">Edit Data Kontak</h4>
                 </div>
                 <form id="formEdit" name="formEdit" action="" method="post" enctype="multipart/form-data">
                     @csrf
@@ -167,9 +181,19 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label>Nama Kelas</label>
-                                    <input type="text" class="form-control" placeholder="Masukkan Nama Kelas"
-                                           name="nama_kelas" id="nama_kelas">
+                                    <label>Nama</label>
+                                    <input type="text" class="form-control" placeholder="Masukkan Nama"
+                                           name="nama" id="nama" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control" placeholder="Masukkan Email"
+                                           name="email" id="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>No. Hp</label>
+                                    <input type="number" class="form-control" placeholder="Masukkan No Telepon"
+                                           name="no_telp" id="no_telp" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Image</label>
@@ -244,19 +268,23 @@
         });
 
         function showModal(id) {
-            document.getElementById('formEdit').action = "updatedatakelas/" + id;
+            document.getElementById('formEdit').action = "updatedatakontak/" + id;
             console.log("diklik " + id);
-            nama_kelas = document.getElementById('nama_kelas');
+            nama = document.getElementById('nama');
+            email = document.getElementById('email');
+            no_telp = document.getElementById('no_telp');
             foto = document.getElementById('foto');
             $.ajax({
                 type: 'GET',
-                url: 'dependent/kelas/' + id,
+                url: 'dependent/kontak/' + id,
                 dataType: 'json',
                 success: function (data) {
                     if (data !== null) {
                         console.log(data);
                         console.log('datanya 2 = ' + data.id);
-                        nama_kelas.value = data.nama_kelas;
+                        nama.value = data.nama;
+                        email.value = data.email;
+                        no_telp.value = data.no_telp;
                     } else {
                         console.log('null')
                         nama_kelas.value = "";
@@ -271,20 +299,20 @@
             });
         }
 
-        function deleteKelas(kelasId, KelasName) {
+        function deleteKontak(kontakId, KontakName) {
             swal({
                 title: "Apa anda yakin?",
-                text: "Anda Menghapus Kelas " + KelasName,
+                text: "Anda Menghapus Kontak " + KontakName,
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
 
             }).then((willDelete => {
                 if (willDelete) {
-                    let theUrl = "{{ route('kelas.destroy', ':kelasId') }}";
-                    theUrl = theUrl.replace(":kelasId", kelasId);
+                    let theUrl = "{{ route('kontak.destroy', ':kontakId') }}";
+                    theUrl = theUrl.replace(":kontakId", kontakId);
 
-                    let redirectUrl = "{{ route('kelas.index') }}";
+                    let redirectUrl = "{{ route('kontak.index') }}";
 
                     $.ajax({
                         type: 'POST',

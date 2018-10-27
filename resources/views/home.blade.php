@@ -22,7 +22,7 @@
                             <!-- small box -->
                             <div class="small-box bg-yellow">
                                 <div class="inner">
-{{--                                    <h3>{{ $dashboard['user'] }}</h3>--}}
+                                    <h3>{{ $dashboard['user'] }}</h3>
 
                                     <p>Data Akun Siswa</p>
                                 </div>
@@ -38,12 +38,11 @@
                             <!-- small box -->
                             <div class="small-box bg-aqua">
                                 <div class="inner">
-                                    <h3>150</h3>
-
-                                    <p>Survey</p>
+                                    <h3>{{ $dashboard['olahraga'] }}</h3>
+                                    <p>Cabor</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="ion ion-search"></i>
+                                    <i class="ion ion-flag"></i>
                                 </div>
                                 <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                             </div>
@@ -53,7 +52,7 @@
                             <!-- small box -->
                             <div class="small-box bg-green">
                                 <div class="inner">
-{{--                                    <h3>{{ $dashboard['berita'] }}</h3>--}}
+                                    <h3>{{ $dashboard['berita'] }}</h3>
 
                                     <p>Berita</p>
                                 </div>
@@ -77,7 +76,7 @@
                             <div class="icon">
                                 <i class="ion ion-alert"></i>
                             </div>
-                            <a href="{{ route('complaints.index') }}" class="small-box-footer">More info <i
+                            <a href="" class="small-box-footer">More info <i
                                     class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>

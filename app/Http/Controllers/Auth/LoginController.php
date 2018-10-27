@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Login;
 use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -60,8 +62,8 @@ class LoginController extends Controller
 
         $check = User::where('email', $validated['email'])->first();
 
-        if ((!$validated) || ($check['roles'] != 1)){
-            return redirect()->route('login.index')->withErrors(['msg','Input tidak sesuai']);
+        if ((!$validated) || ($check['roles'] != 1)) {
+            return redirect()->route('login.index')->withErrors(['msg', 'Input tidak sesuai']);
         }
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
@@ -70,7 +72,10 @@ class LoginController extends Controller
             $this->fireLockoutEvent($request);
             return $this->sendLockoutResponse($request);
         }
-        if ($this->attemptLogin($request)) {
+
+        if ($check['providers'] != null) {
+            return $this->errors($request);
+        } elseif ($this->attemptLogin($request)) {
             return $this->sendLoginResponse($request);
         }
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -81,10 +86,11 @@ class LoginController extends Controller
     }
 
 
+
     /**
      * Get the needed authorization credentials from the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     protected function credentials(Login $request)

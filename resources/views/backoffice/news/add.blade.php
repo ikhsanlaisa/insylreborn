@@ -9,7 +9,7 @@
         <section class="content-header">
             <h1>
                 Postingan Berita Baru
-                <small>BP2IP Barombong</small>
+                <small>Insyl Competition</small>
             </h1>
         </section>
 
@@ -18,7 +18,7 @@
             <!-- Default box -->
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Post Berita BP2IP</h3>
+                    <h3 class="box-title">Post Insyl Competition</h3>
                     <!-- <a href="#" type="button" class="btn btn-sm btn-primary pull-right" name="button"><i class="fa fa-plus"></i> AKUN BARU</a> -->
                     <div class="btn-group pull-right">
                         <!-- <a href="#" type="button" title="Tambah akun" class="btn btn-sm btn-primary" name="button"><i class="fa fa-plus"></i> Tambah</a> -->
@@ -37,7 +37,7 @@
                                 </ul>
                             </div>
                         @endif
-                        <input type="hidden" name="id_admin" value="{{ Auth::user()->admin->id }}">
+                        <input type="hidden" name="id_admin" value="{{ Auth::user()->id }}">
                         <div class="form-group">
                             <input type="text" class="form-control" name="judul" placeholder="Masukan Judul Disini"
                                    value="{{ old('judul') }}" required>
