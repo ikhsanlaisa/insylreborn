@@ -50,9 +50,9 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th width="6%">No</th>
-                                <th>Nama Kelas</th>
-                                <th>Foto</th>
+                                <th width="6%"><center>No</center></th>
+                                <th><center>Nama Kelas</center></th>
+                                <th><center>Foto</center></th>
                                 <th width="10%" title="Action button">
                                     <center><span class="fa fa-bars"></span></center>
                                 </th>
@@ -62,8 +62,8 @@
                             @if($kelas->count())
                             @foreach($kelas as $index => $item)
                                 <tr>
-                                    <td>{{ ++$index }}</td>
-                                    <td>{{ $item->nama_kelas }}</td>
+                                    <td><center>{{ ++$index }}</center></td>
+                                    <td><center>{{ $item->nama_kelas }}</center></td>
                                     <td>
                                         <center>
                                             <img id="myImg-{{ $item->id }}" src="{{ asset('storage/' . $item->foto) }}"

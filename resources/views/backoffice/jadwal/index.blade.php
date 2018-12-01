@@ -51,7 +51,7 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th width="6%">No</th>
+                                <th width="6%"><center>No</center></th>
                                 <th><center>Kelas</center></th>
                                 <th><center>Cabor</center></th>
                                 <th><center>Lokasi</center></th>
@@ -65,7 +65,7 @@
                             @if($jadwal->count())
                                 @foreach($jadwal as $index => $item)
                                     <tr>
-                                        <td>{{ ++$index }}</td>
+                                        <td><center>{{ ++$index }}</center></td>
                                         <td><center>{{$item->kelas->nama_kelas}} VS {{$item->kelas1->nama_kelas}}</center></td>
                                         <td><center>{{$item->cb_olahraga->cabang_olahraga}}</center></td>
                                         <td><center>{{$item->lokasi}}</center>

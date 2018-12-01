@@ -18,10 +18,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['namespace' => 'Api'], function () {
+    Route::post('/register', 'ApiAuthController@register');
     Route::post('/login', 'ApiAuthController@login');
-    Route::get('/profil', 'ApiUserController@profil');
+    Route::get('/user', 'ApiUserController@profil');
     Route::get('/news', 'ApiBeritaController@news');
-    Route::get('/allpengaduan', 'ApiPengaduanController@allpengaduan');
+    Route::get('/kelas', 'ApiKelasController@kelas');
     Route::get('/pengaduanbyuser', 'ApiPengaduanController@pengaduanbyuser');
     Route::get('/getlayanan', 'ApiPengaduanController@addpengaduan');
     Route::get('/getsurvey', 'ApiSurveyController@surveyindividu');

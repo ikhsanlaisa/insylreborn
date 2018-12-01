@@ -46,13 +46,13 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th width="6%">No</th>
+                                <th width="6%"><center>No</center></th>
                                 <th width="15%">
                                     <center><span class="fa fa-image"></span></center>
                                 </th>
-                                <th>Judul Berita</th>
-                                <th>Tanggal & Waktu</th>
-                                <th>Author</th>
+                                <th><center>Judul Berita</center></th>
+                                <th><center>Tanggal & Waktu</center></th>
+                                <th><center>Author</center></th>
                                 <!-- <th width="5%">L/P</th> -->
                                 <!-- <th>Username</th> -->
                                 <th width="8%" title="Action button">
@@ -63,7 +63,7 @@
                             <tbody>
                             @foreach($news as $index => $item)
                                 <tr>
-                                    <td>{{ ++$index }}</td>
+                                    <td><center>{{ ++$index }}</center></td>
                                     <td>
                                         <center>
                                             <img id="myImg-{{ $item->id }}" src="{{ asset('storage/' . $item->foto) }}"
@@ -71,10 +71,9 @@
                                                  onclick="showImg(this, {{ $item->id }})">
                                         </center>
                                     </td>
-                                    <td>  {{ $item->judul }}
-                                    </td>
-                                    <td>{{ date('G:i - j M Y ', strtotime( $item->created_at )) }}</td>
-                                    <td>{{ $item->author->nama }}</td>
+                                    <td><center>{{ $item->judul }}</center></td>
+                                    <td><center>{{ date('G:i - j M Y ', strtotime( $item->created_at )) }}</center></td>
+                                    <td><center>{{ $item->author->nama }}</center></td>
                                     <td>
                                         <center>
                                             <a href="{{ route('news.edit', $item->id) }}"

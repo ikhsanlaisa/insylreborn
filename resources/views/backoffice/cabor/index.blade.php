@@ -50,9 +50,9 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th width="6%">No</th>
-                                <th>Cabang Olahraga</th>
-                                <th>Penanggung Jawab</th>
+                                <th width="6%"><center>No</center></th>
+                                <th><center>Cabang Olahraga</center></th>
+                                <th><center>Penanggung Jawab</center></th>
                                 <th width="10%" title="Action button">
                                     <center><span class="fa fa-bars"></span></center>
                                 </th>
@@ -62,9 +62,9 @@
                             @if($cabor->count())
                                 @foreach($cabor as $index => $item)
                                     <tr>
-                                        <td>{{ ++$index }}</td>
-                                        <td>{{ $item->cabang_olahraga }}</td>
-                                        <td>{{ $item->pj }}</td>
+                                        <td><center>{{ ++$index }}</center></td>
+                                        <td><center>{{ $item->cabang_olahraga }}</center></td>
+                                        <td><center>{{ $item->pj }}</center></td>
                                         <td>
                                             <center>
                                                 <a data-toggle="modal" data-target="#editKelas" title="edit"

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Berita;
+use App\Models\Kelas;
 use App\Models\olahraga;
 use App\Models\Pengaduan;
 use App\Models\Survey;
@@ -31,9 +32,8 @@ class HomeController extends Controller
 
         $dashboard['berita'] = Berita::count();
         $dashboard['olahraga'] = olahraga::count();
-        $dashboard['user'] = User::where('roles', 1)->count();
-//        $dashboard['pengaduan'] = Pengaduan::count();
-
+        $dashboard['user'] = User::where('roles', 2)->count();
+        $dashboard['kelas'] = Kelas::count();
         return view('home', compact('dashboard'));
     }
 

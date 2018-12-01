@@ -50,11 +50,11 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th width="6%">No</th>
-                                <th>Nama</th>
-                                <th>Email</th>
-                                <th>No. Telp</th>
-                                <th>Foto</th>
+                                <th width="6%"><center>No</center></th>
+                                <th><center>Nama</center></th>
+                                <th><center>Email</center></th>
+                                <th><center>No. Telp</center></th>
+                                <th><center>Foto</center></th>
                                 <th width="10%" title="Action button">
                                     <center><span class="fa fa-bars"></span></center>
                                 </th>
@@ -64,10 +64,10 @@
                             @if($kontak->count())
                                 @foreach($kontak as $index => $item)
                                     <tr>
-                                        <td>{{ ++$index }}</td>
-                                        <td>{{ $item->nama }}</td>
-                                        <td>{{ $item->email }}</td>
-                                        <td>{{ $item->no_telp }}</td>
+                                        <td><center>{{ ++$index }}</center></td>
+                                        <td><center>{{ $item->nama }}</center></td>
+                                        <td><center>{{ $item->email }}</center></td>
+                                        <td><center>{{ $item->no_telp }}</center></td>
                                         <td>
                                             <center>
                                                 <img id="myImg-{{ $item->id }}" src="{{ asset('storage/' . $item->foto) }}"

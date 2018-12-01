@@ -24,37 +24,24 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th width="6%">No</th>
-                                <th>Nama</th>
-                                <th width="15%">No. Telepon</th>
-                                <th width="10%">Kelas</th>
-                                <th width="25%">Alamat</th>
-                                <th>email</th>
-                                {{--<th width="8%" title="Action button">--}}
-                                    {{--<center><span class="fa fa-bars"></span></center>--}}
-                                {{--</th>--}}
+                                <th width="6%"><center>No</center></th>
+                                <th><center>Nama</center></th>
+                                <th width="15%"><center>No. Telepon</center></th>
+                                <th width="10%"><center>Kelas</center></th>
+                                <th width="25%"><center>Alamat</center></th>
+                                <th><center>email</center></th>
                             </tr>
                             </thead>
                             <tbody>
                             @if($users->count())
                                 @foreach($users as $index => $item)
                                     <tr>
-                                        <td>{{ ++$index }}</td>
-                                        <td>{{ $item->nama }}</td>
-                                        <td>{{ $item->np_hp }}</td>
-                                        <td>{{ $item->Kelas->nama_kelas }}</td>
-                                        <td>{{ $item->alamat }}</td>
-                                        <td>{{ $item->email }}</td>
-                                        {{--<td>--}}
-                                            {{--<center>--}}
-                                                {{--<a href="{{ route('siswa.edit', $item->id) }}" title="edit"--}}
-                                                   {{--class="btn btn-xs btn-in-o btn-round"><i class="fa fa-edit"></i> </a>--}}
-                                                {{--<a href="#"--}}
-                                                   {{--onclick="deleteAkun('{{ $item->id }}','{{ $item->siswa->nama }}')"--}}
-                                                   {{--title="hapus" class="btn btn-xs btn-dg-o btn-round"><i--}}
-                                                        {{--class="fa fa-close" style="margin:1px !important;"></i></a>--}}
-                                            {{--</center>--}}
-                                        {{--</td>--}}
+                                        <td><center>{{ ++$index }}</center></td>
+                                        <td><center>{{ $item->nama }}</center></td>
+                                        <td><center>{{ $item->np_hp }}</center></td>
+                                        <td><center>{{ $item->Kelas->nama_kelas }}</center></td>
+                                        <td><center>{{ $item->alamat }}</center></td>
+                                        <td><center>{{ $item->email }}</center></td>
                                     </tr>
                                 @endforeach
                             @else

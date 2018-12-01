@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('foto')->nullable();
             $table->integer('kelas_id')->unsigned()->nullable();
             $table->integer('roles')->unsigned();
+            $table->longText('jwt_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
 

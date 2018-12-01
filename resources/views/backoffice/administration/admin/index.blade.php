@@ -29,9 +29,9 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th width="6%">No</th>
-                                <th>Nama Admin</th>
-                                <th>Email</th>
+                                <th width="6%"><center>No</center></th>
+                                <th><center>Nama Admin</center></th>
+                                <th><center>Email</center></th>
                                 <th width="8%" title="Action button">
                                     <center><span class="fa fa-bars"></span></center>
                                 </th>
@@ -40,9 +40,9 @@
                             <tbody>
                             @foreach($admin as $index => $item)
                                 <tr>
-                                    <td>{{ ++$index }}</td>
-                                    <td>{{ $item->nama }}</td>
-                                    <td>{{ $item->email }}</td>
+                                    <td><center>{{ ++$index }}</center></td>
+                                    <td><center>{{ $item->nama }}</center></td>
+                                    <td><center>{{ $item->email }}</center></td>
                                     <td>
                                         <center>
                                             <a href="#"
